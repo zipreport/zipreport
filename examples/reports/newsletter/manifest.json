@@ -1,0 +1,9 @@
+{
+  "author": "jpinheiro",
+  "title": "Example newsletter",
+  "description": "Simple newsletter to be used by MIMEProcessor()",
+  "version": "1.0",
+  "params": [
+    "name"
+  ]
+}

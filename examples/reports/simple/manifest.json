@@ -1,0 +1,11 @@
+{
+  "author": "jpinheiro",
+  "title": "Simple Report",
+  "description": "Simple Jinja Report without dynamic generated content",
+  "version": "1.0",
+  "params": [
+    "title",
+    "color_list",
+    "description"
+  ]
+}

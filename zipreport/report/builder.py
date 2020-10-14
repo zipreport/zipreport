@@ -31,6 +31,9 @@ class BuildResult:
 
 
 class ReportFileBuilder:
+    """
+    Report building object
+    """
 
     @staticmethod
     def build_file(path: str, output_file: str, console=sys.stdout, overwrite: bool = False) -> BuildResult:
@@ -69,7 +72,6 @@ class ReportFileBuilder:
 
         # build ZipFs
         zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console)
-        print(zfs_status.get_errors())
         if not zfs_status.success():
             return zfs_status
 
@@ -134,6 +136,11 @@ class ReportFileBuilder:
 
     @staticmethod
     def valid_zpt(fs: FsInterface) -> Tuple[BuildResult, Union[dict, None]]:
+        """
+        Validates if a FsInterface is a valid report
+        :param fs: FsInterface
+        :return: (BuildResult, manifest_contents)
+        """
         status = BuildResult()
         # check manifest
         try:

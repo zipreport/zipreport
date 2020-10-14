@@ -12,6 +12,10 @@ class DiskFs(FsInterface):
     """
 
     def __init__(self, path):
+        """
+        Constructor
+        :param path: filesystem path to use as root
+        """
         if isinstance(path, Path):
             self._basepath = str(path)
         else:

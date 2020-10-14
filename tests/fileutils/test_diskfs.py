@@ -5,7 +5,7 @@ from shutil import rmtree
 
 import pytest
 
-from .utils import SAMPLE1_PATH
+from tests.utils import SAMPLE1_PATH
 from .basefs import BaseFsTest
 from zipreport.fileutils import DiskFs, FsError
 

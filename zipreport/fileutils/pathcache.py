@@ -2,7 +2,9 @@ from pathlib import Path
 
 
 class PathCache:
-
+    """
+    ZipFs content cache
+    """
     def __init__(self, trailing='/'):
         self._sep = trailing
         self._cache = {}

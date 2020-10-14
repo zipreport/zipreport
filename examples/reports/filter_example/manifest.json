@@ -1,0 +1,10 @@
+{
+  "author": "jpinheiro",
+  "title": "Jinja Filter example",
+  "description": "Dynamic jinja filter examples",
+  "version": "1.0",
+  "params": [
+    "png_graphic",
+    "png_graphic_data"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Simple report with Jinja templating",
+  "color_list": [
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+    "pink",
+    "green"
+  ],
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut ornare metus. Proin vestibulum venenatis justo sed faucibus. Quisque consectetur, enim et tempus lobortis, urna velit ultricies nibh, nec tristique leo nulla sed justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vitae nibh sapien. Vivamus vulputate lectus ac venenatis convallis. Maecenas malesuada bibendum purus, sit amet pharetra felis consequat varius. Maecenas sagittis nunc nec tincidunt accumsan. Nullam quis sem tortor. Sed at vestibulum sem, ac maximus justo. Morbi elementum placerat dolor, et finibus purus varius et. Proin tincidunt vitae justo sed feugiat. Mauris id mauris malesuada, lobortis mi eu, scelerisque risus. Suspendisse eu urna et nibh suscipit vehicula at non nisl. Proin non metus vitae ante eleifend lobortis vel ac ipsum. Praesent turpis libero, posuere in egestas eget, consequat tincidunt mi."
+}

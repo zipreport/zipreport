@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from shutil import rmtree
 
-from tests.fileutils.utils import SAMPLE1_PATH
+from tests.utils import SAMPLE1_PATH
 from zipreport.report.builder import ReportFileBuilder
 from zipreport.report.const import ZIPREPORT_FILE_EXTENSION
 

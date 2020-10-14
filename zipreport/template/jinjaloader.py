@@ -4,7 +4,7 @@ from jinja2 import BaseLoader, TemplateNotFound
 from zipreport.report import ReportFile
 
 
-class ReportLoader(BaseLoader):
+class JinjaReportLoader(BaseLoader):
 
     def __init__(self, zpt: ReportFile):
         self.zpt = zpt

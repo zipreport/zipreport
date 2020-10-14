@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zipreport jinja filters example</title>
+</head>
+<body>
+<h1>PNG Example</h1>
+{{ png_graphic|png(png_graphic_data, "label for png", 128, 128, "css class" ) }}
+
+<h1>JPG Example</h1>
+{{ jpg_graphic|jpg(jpg_graphic_data, "label for jpg", 128, 128, "css class" ) }}
+
+<h1>GIF Example</h1>
+{{ gif_graphic|gif(gif_graphic_data, "label for gif", 128, 128, "css class" ) }}
+
+<h1>SVG Example</h1>
+{{ svg_graphic|svg(svg_graphic_data, "label for svg", 128, 128, "css class" ) }}
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from tests.fileutils.utils import SAMPLE1_PATH
+from tests.utils import SAMPLE1_PATH
 from zipreport.fileutils import ZipFs
 from zipreport.fileutils.backend.zip import InMemoryZip
 

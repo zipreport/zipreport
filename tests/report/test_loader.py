@@ -3,9 +3,7 @@ import tempfile
 from pathlib import Path
 from shutil import rmtree
 
-from tests.report.utils import SAMPLE1_PATH
-from zipreport.fileutils import ZipFs
-from zipreport.fileutils.backend.zip import InMemoryZip
+from tests.utils import SAMPLE1_PATH
 from zipreport.report.builder import ReportFileBuilder
 from zipreport.report.const import MANIFEST_AUTHOR
 from zipreport.report.loader import ReportFileLoader

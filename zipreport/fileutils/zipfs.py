@@ -10,17 +10,25 @@ from .pathcache import PathCache
 class ZipFs(FsInterface):
     """
     Implement FsInterface operations on zipfiles
-
     Note: the list_*() operations and is_dir() can be quite slow, due to implementation restrictions
     """
 
     def __init__(self, zip: InMemoryZip):
+        """
+        Constructor
+        :param zip: Zip Backend
+        """
         self._sep = '/'
         self._zip = zip
         self._cache = PathCache(self._sep)
         self._build_cache()
 
     def get(self, name: str) -> [io.BytesIO, None]:
+        """
+        Read a file
+        :param name: file path
+        :return:
+        """
         zipfile = self._zip.zip()
         try:
             info = zipfile.getinfo(self._clean_path(name))
@@ -30,8 +38,18 @@ class ZipFs(FsInterface):
             raise FsError("Error reading file '{}'. Maybe it doesn't exist?".format(name))
 
     def add(self, name: str, content):
+        """
+        Add a file
+        :param name: filename to create
+        :param content: file contents
+        :return:
+        """
         zfile = self._zip.zip()
         name = self._clean_path(name)
+        # convert BytesIO to bytes
+        if isinstance(content, io.BytesIO):
+            content.seek(0)
+            content = content.read()
         try:
             zfile.getinfo(name)
             raise FsError("File'{}' already exists".format(name))

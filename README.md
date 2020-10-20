@@ -18,7 +18,11 @@ permissive license.
 - Jinja2 >= 2.11
 - Compatible backend for pdf generation (zipreport-server, zipreport-cli or WeasyPrint);
 
-### How to use
+### Installation
+
+```shell script
+$ pip install zipreport-lib
+```
 
 ##### Quick example
 
@@ -52,40 +56,12 @@ if result.success:
 		rpt.write(result.report.read())
 ```  
 
+### Documentation
 
+Still a work in progress
 
-
-
-### JinjaRender
-(TBD)
-JinjaRender(ReportFile, options)
-
-JinjaRender option keys:
-  JinjaRender.OPT_STRICT_PARAMS: bool Check if passed data matches the spec in manifest.json (default True)
-  JinfaRender.OPT_EXTENSIONS: list Optional extensions for Jinja
-
-### Available Filters
-
-jpg|png|gif|svg
-
-    Positional args:
-        {{ callable | png(data_source, alt_text, width, height, css_class }}
-    
-    Named args:
-        {{ callable | png(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
-    
-    Mixed args:
-       TBD
-
-json
-
-
-## Processors
-TBD
-
-### MIMEProcessor
-
-MIMEProcessor generates a multipart EmailMessage() from a report. Images are embedded into the message payload by using
-cid.
-
+- [FAQ](docs/faq.md)
+- [Available Jinja filters](docs/filters.md)
+- [Available render processors](docs/processors.md)
+- [ZPT file structure](docs/zpt.md)
   

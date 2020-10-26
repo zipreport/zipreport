@@ -1,0 +1,15 @@
+{
+  "author": "pagedjs",
+  "title": "PagedJS example",
+  "description": "PagedJS example with both server-generated and js-generated graphics. Includes automatic index, figure labeling and page numbers.",
+  "version": "1.0",
+  "useJSEvent": "true",
+  "params": [
+    "date",
+    "author",
+    "gen_graphics_1",
+    "graphics_1",
+    "gen_graphics_2",
+    "graphics_2"
+  ]
+}

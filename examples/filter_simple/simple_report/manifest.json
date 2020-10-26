@@ -1,0 +1,10 @@
+{
+  "author": "zipreport",
+  "title": "Jinja Filter example",
+  "description": "Dynamic jinja filter example",
+  "version": "1.0",
+  "params": [
+    "colored_rectangle_fn",
+    "rectangle_color"
+  ]
+}

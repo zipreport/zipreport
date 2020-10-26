@@ -1,76 +1,111 @@
 Content-Type: multipart/alternative;
- boundary="===============5293278475442604880=="
+ boundary="===============1066116003685791286=="
 
---===============5293278475442604880==
+--===============1066116003685791286==
 MIME-Version: 1.0
 Content-Type: multipart/related;
- boundary="===============5749359165779499711=="
+ boundary="===============1764770906852487757=="
 
---===============5749359165779499711==
+--===============1764770906852487757==
 Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3=
+.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8" />
 <title>Sample Newsletter report</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D1.0"=
+/>
 </head>
-<body style="margin: 0; padding: 0;">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%"> 
+<body style=3D"margin: 0; padding: 0;">
+    <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%">=20
         <tr>
-            <td style="padding: 10px 0 30px 0;">
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+            <td style=3D"padding: 10px 0 30px 0;">
+                <table align=3D"center" border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0" width=3D"600" style=3D"border: 1px solid #cccccc; border-collapse=
+: collapse;">
                     <tr>
-                        <td align="center" bgcolor="#70bbd9" style="font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
-                            <img src="cid:159776557369.1862262.1960976319904849857@LAP-0041" alt="ZipReport Newsletter" width="600" height="230" style="display: block;" />
+                        <td align=3D"center" bgcolor=3D"#70bbd9" style=3D"fon=
+t-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+                            <img src=3D"cid:160601604238.119504.1331095117407=
+6282585@t450-laptop" alt=3D"ZipReport Newsletter" width=3D"600" height=3D"230=
+" style=3D"display: block;" />
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <td bgcolor=3D"#ffffff" style=3D"padding: 40px 30px 4=
+0px 30px;">
+                            <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%">
                                 <tr>
-                                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
+                                    <td style=3D"color: #153643; font-family:=
+ Arial, sans-serif; font-size: 24px;">
                                         <b>Hello, John Connor!</b>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
+                                    <td style=3D"padding: 20px 0 30px 0; colo=
+r: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20p=
+x;">
+                                        Lorem ipsum dolor sit amet, consectet=
+ur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutp=
+at sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, i=
+n posuere mauris neque at erat.
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" width=3D"100%">
                                             <tr>
-                                                <td width="260" valign="top">
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <td width=3D"260" valign=3D"t=
+op">
+                                                    <table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" width=3D"100%">
                                                         <tr>
                                                             <td>
-                                                                <img src="cid:159776557369.1862262.6914120269803677260@LAP-0041" alt="" width="100%" height="140" style="display: block;" />
+                                                                <img src=3D"c=
+id:160601604238.119504.7452668925434897382@t450-laptop" alt=3D"" width=3D"100=
+%" height=3D"140" style=3D"display: block;" />
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="padding: 25px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
+                                                            <td style=3D"padd=
+ing: 25px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 1=
+6px; line-height: 20px;">
+                                                                Lorem ipsum d=
+olor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit a=
+met blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi l=
+ibero ultricies ipsum, in posuere mauris neque at erat.
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </td>
-                                                <td style="font-size: 0; line-height: 0;" width="20">
+                                                <td style=3D"font-size: 0; li=
+ne-height: 0;" width=3D"20">
                                                     &nbsp;
                                                 </td>
-                                                <td width="260" valign="top">
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <td width=3D"260" valign=3D"t=
+op">
+                                                    <table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" width=3D"100%">
                                                         <tr>
                                                             <td>
-                                                                <img src="cid:159776557369.1862262.11532866463429358631@LAP-0041" alt="" width="100%" height="140" style="display: block;" />
+                                                                <img src=3D"c=
+id:160601604238.119504.8358802879835389633@t450-laptop" alt=3D"" width=3D"100=
+%" height=3D"140" style=3D"display: block;" />
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="padding: 25px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
+                                                            <td style=3D"padd=
+ing: 25px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 1=
+6px; line-height: 20px;">
+                                                                Lorem ipsum d=
+olor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit a=
+met blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi l=
+ibero ultricies ipsum, in posuere mauris neque at erat.
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -83,22 +118,32 @@ Content-Transfer-Encoding: 7bit
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#9a9a9a" style="padding: 30px 30px 30px 30px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <td bgcolor=3D"#9a9a9a" style=3D"padding: 30px 30px 3=
+0px 30px;">
+                            <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%">
                                 <tr>
-                                    <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                                    <td style=3D"color: #ffffff; font-family:=
+ Arial, sans-serif; font-size: 14px;" width=3D"75%">
                                         zipreport team<br/>
-                                        <a href="#" style="color: #ffffff;"><font color="#ffffff">Unsubscribe</font></a> to this newsletter instantly
+                                        <a href=3D"#" style=3D"color: #ffffff=
+;"><font color=3D"#ffffff">Unsubscribe</font></a> to this newsletter instantly
                                     </td>
-                                    <td align="right" width="25%">
-                                        <table border="0" cellpadding="0" cellspacing="0">
+                                    <td align=3D"right" width=3D"25%">
+                                        <table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0">
                                             <tr>
-                                                <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
-                                                    <a href="http://www.facebook.com/" style="color: #ffffff;">
-                                                        <img src="cid:159776557369.1862262.4813923518832712273@LAP-0041" alt="Facebook" width="38" height="38" style="display: block;" border="0" />
+                                                <td style=3D"font-family: Ari=
+al, sans-serif; font-size: 12px; font-weight: bold;">
+                                                    <a href=3D"http://www.fac=
+ebook.com/" style=3D"color: #ffffff;">
+                                                        <img src=3D"cid:16060=
+1604238.119504.974756222829966831@t450-laptop" alt=3D"Facebook" width=3D"38" =
+height=3D"38" style=3D"display: block;" border=3D"0" />
                                                     </a>
                                                 </td>
-                                                <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
+                                                <td style=3D"font-size: 0; li=
+ne-height: 0;" width=3D"20">&nbsp;</td>
                                             </tr>
                                         </table>
                                     </td>
@@ -113,10 +158,10 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============5749359165779499711==
+--===============1764770906852487757==
 Content-Type: image/gif
 Content-Transfer-Encoding: base64
-Content-ID: <159776557369.1862262.1960976319904849857@LAP-0041>
+Content-ID: <160601604238.119504.13310951174076282585@t450-laptop>
 MIME-Version: 1.0
 Content-Disposition: inline
 
@@ -1194,10 +1239,10 @@ hUUFCkIgFkigUyAhdDBpiIcCheihhR4lgYcFINhgg49KkMkFk1A9KYiWXFDBBhtcWEHWFVQAASaW
 WrAhpxZW0ACDnny1ySYLPhgKqaiimsCCsjCQiioMMPgAKQ44GKqomWwV4aukNOh2grXKooBZaC1w
 ylypwMWg27nEravdCiSYwIEHIuDLgXsHE4wwww4joIB/EWsMMsgCAgA7
 
---===============5749359165779499711==
+--===============1764770906852487757==
 Content-Type: image/gif
 Content-Transfer-Encoding: base64
-Content-ID: <159776557369.1862262.6914120269803677260@LAP-0041>
+Content-ID: <160601604238.119504.7452668925434897382@t450-laptop>
 MIME-Version: 1.0
 Content-Disposition: inline
 
@@ -1666,10 +1711,10 @@ uQAZ4Atg5QoR5Qr2MA5Zi9UfeSg8VFADziBjAmofN7QsxYBYs+BOLpgmkdhY9uCaUmQZUHAGxcCJ
 k6QKEvMM6WQFZWAt11K1Moa1yKajZ6Auq2GvuMMixHALz3BytNAM+bRiStpH9+AOcEdtwfMfowBS
 bdIEwaBStwB3kWKmxUCvdeRlebINtclRgCSwOPUMI6B4+nAO3WAnAQEAOw==
 
---===============5749359165779499711==
+--===============1764770906852487757==
 Content-Type: image/gif
 Content-Transfer-Encoding: base64
-Content-ID: <159776557369.1862262.11532866463429358631@LAP-0041>
+Content-ID: <160601604238.119504.8358802879835389633@t450-laptop>
 MIME-Version: 1.0
 Content-Disposition: inline
 
@@ -1991,10 +2036,10 @@ bSoB7GxPOMH007++lkCslg09RIp9WkDuHJJwwgkQStRRzrqR4GIEVpFwIQe8hWCFFSHs6QTH7v5S
 cSEYLdKrAxDuqs8DkheIwPu78PIeRG5FSs0uD6giHzqRttR8LNnj8vzzqaWsuIX7W+C6hBP4OwGH
 sFenMWwFBAA7
 
---===============5749359165779499711==
+--===============1764770906852487757==
 Content-Type: image/png
 Content-Transfer-Encoding: base64
-Content-ID: <159776557369.1862262.4813923518832712273@LAP-0041>
+Content-ID: <160601604238.119504.974756222829966831@t450-laptop>
 MIME-Version: 1.0
 Content-Disposition: inline
 
@@ -2017,6 +2062,6 @@ q2847cs36jiMhMNpveN5jryaQ7GP5620oEi/ommtJVX6NV3LLirTr2rTL6tbaV2f/mCR8mQzru6T
 jR6t/kl+tDKc7X7t8mz3a/1nu/SHy/Sn29Y/XhvP98+G53uerfV8/z/LHdcs3MhCOgAAAABJRU5E
 rkJggg==
 
---===============5749359165779499711==--
+--===============1764770906852487757==--
 
---===============5293278475442604880==--
+--===============1066116003685791286==--

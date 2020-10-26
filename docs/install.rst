@@ -31,7 +31,7 @@ Available backends:
 
 * ZipReport-Server_ (API server, can be run on Docker, see zipreport-docker_)
 * ZipReport-Cli_ (Command-line report generation)
-* WeasyPrint_ (WeasyPrint backend, experimental)
+* WeasyPrint_ (WeasyPrint backend, experimental, available for compatibility purposes only)
 * MIME (Mime Processor bundled, has no external dependencies)
 
 Installing from source

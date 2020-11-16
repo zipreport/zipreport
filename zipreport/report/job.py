@@ -1,4 +1,5 @@
 import collections
+from copy import deepcopy
 
 import zipreport.report.const as const
 from zipreport.report import ReportFile
@@ -44,7 +45,7 @@ class ReportJob:
         :param report: ReportFile object to use
         """
         self._report = report
-        self._options = self.DEFAULT_OPTIONS
+        self._options = deepcopy(self.DEFAULT_OPTIONS)
         # set optional report file name from manifest
         if report is not None:
             self._options[self.OPT_MAIN_SCRIPT] = report.get_param(const.MANIFEST_REPORT_FILE, const.REPORT_FILE_NAME)

@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 
 from jinja2 import select_autoescape, Environment
 
@@ -13,7 +14,7 @@ class JinjaRender:
     OPT_EXTENSIONS = 'extensions'
     OPT_STRICT_PARAMS = 'strict_params'
 
-    default_options = {
+    DEFAULT_OPTIONS = {
         OPT_EXTENSIONS: [],
         OPT_STRICT_PARAMS: True,
     }
@@ -27,9 +28,9 @@ class JinjaRender:
         """
         self.zpt = zpt
         self.env = None
-        self.options = self.default_options
+        self.options = deepcopy(self.DEFAULT_OPTIONS)
         if options is not None:
-            self.options = {**self.default_options, **options}
+            self.options = {**self.options, **options}
 
     def get_env(self) -> Environment:
         """

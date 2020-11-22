@@ -1,8 +1,8 @@
 import collections
 from copy import deepcopy
 
-import zipreport.report.const as const
-from zipreport.report import ReportFile
+from .const import *
+from .reportfile import ReportFile
 
 # Result type used by Processors
 # pdf:io.BytesIO; success:bool, error:str
@@ -26,14 +26,14 @@ class ReportJob:
 
     # option defaults
     DEFAULT_OPTIONS = {
-        OPT_PAGE_SIZE: const.PDF_PAGE_A4,
-        OPT_MAIN_SCRIPT: const.REPORT_FILE_NAME,
-        OPT_MARGINS: const.PDF_MARGIN_DEFAULT,
+        OPT_PAGE_SIZE: PDF_PAGE_A4,
+        OPT_MAIN_SCRIPT: REPORT_FILE_NAME,
+        OPT_MARGINS: PDF_MARGIN_DEFAULT,
         OPT_LANDSCAPE: False,
-        OPT_SETTLING_TIME: const.DEFAULT_SETTLING_TIME_MS,
-        OPT_RENDER_TIMEOUT: const.DEFAULT_RENDER_TIMEOUT_S,
-        OPT_JS_TIMEOUT: const.DEFAULT_JS_TIMEOUT_S,
-        OPT_PROCESS_TIMEOUT: const.DEFAULT_PROCESS_TIMEOUT_S,
+        OPT_SETTLING_TIME: DEFAULT_SETTLING_TIME_MS,
+        OPT_RENDER_TIMEOUT: DEFAULT_RENDER_TIMEOUT_S,
+        OPT_JS_TIMEOUT: DEFAULT_JS_TIMEOUT_S,
+        OPT_PROCESS_TIMEOUT: DEFAULT_PROCESS_TIMEOUT_S,
         OPT_JS_EVENT: False,
         OPT_IGNORE_SSL_ERRORS: False,
         OPT_NO_INSECURE_CONTENT: False,
@@ -49,7 +49,7 @@ class ReportJob:
         self._options = deepcopy(self.DEFAULT_OPTIONS)
         # set optional report file name from manifest
         if report is not None:
-            self._options[self.OPT_MAIN_SCRIPT] = report.get_param(const.MANIFEST_REPORT_FILE, const.REPORT_FILE_NAME)
+            self._options[self.OPT_MAIN_SCRIPT] = report.get_param(MANIFEST_REPORT_FILE, REPORT_FILE_NAME)
 
     def get_options(self) -> dict:
         """
@@ -71,7 +71,7 @@ class ReportJob:
         :param size: value in const.VALID_PAGE_SIZES
         :return: True on success, False on error
         """
-        if size in const.VALID_PAGE_SIZES:
+        if size in VALID_PAGE_SIZES:
             self._options[self.OPT_PAGE_SIZE] = size
             return True
         return False
@@ -82,7 +82,7 @@ class ReportJob:
         :param margins: value in const.VALID_MARGINS
         :return: True on success, False on error
         """
-        if margins in const.VALID_MARGINS:
+        if margins in VALID_MARGINS:
             self._options[self.OPT_MARGINS] = margins
             return True
         return False

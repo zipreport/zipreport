@@ -7,6 +7,7 @@ from zipreport.report import ReportFile
 # pdf:io.BytesIO; success:bool, error:str
 JobResult = collections.namedtuple('JobResult', ['report', 'success', 'error'])
 
+
 class ReportJob:
 
     # Available options

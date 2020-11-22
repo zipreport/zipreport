@@ -1,7 +1,17 @@
 # ZipReport
 
+![Tests](https://github.com/zipreport/zipreport/workflows/Tests/badge.svg?branch=master)
+
+![docs](https://readthedocs.org/projects/zipreport/badge/?version=latest)
+
+![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg)
+
+![license](https://img.shields.io/pypi/l/zipreport-lib.svg)
+
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
+
+Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
 
 **Highlights**:
 

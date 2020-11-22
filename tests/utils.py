@@ -2,7 +2,7 @@ from pathlib import Path
 
 # path for examples/sample1
 # used in several tests
-SAMPLE1_PATH = Path(Path(__file__).parent / Path('../examples/reports/sample1')).absolute()
+SAMPLE1_PATH =  Path(Path(__file__).parent /Path('data/sample1')).absolute()
 
 # path for examples/reports/simple
 RPT_SIMPLE_PATH = Path(Path(__file__).parent / Path('../examples/reports/simple')).absolute()

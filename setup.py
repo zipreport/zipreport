@@ -16,13 +16,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write("Unsupported Python version - Python {}.{} or greater required.".format(*REQUIRED_PYTHON))
     sys.exit(1)
 
-version = __import__('zipreport').get_version()
-
-if sys.argv[-1] == 'tag':
-    print("Tagging the version on git:")
-    os.system("git tag -a %s -m 'version %s'" % (version, version))
-    os.system("git push --tags")
-    sys.exit()
+version = __import__('zipreport.version').get_version()
 
 # read the contents of README.md
 this_directory = os.path.abspath(os.path.dirname(__file__))

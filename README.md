@@ -1,12 +1,6 @@
 # ZipReport
 
-![Tests](https://github.com/zipreport/zipreport/workflows/Tests/badge.svg?branch=master)
-
-![docs](https://readthedocs.org/projects/zipreport/badge/?version=latest)
-
-![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg)
-
-![license](https://img.shields.io/pypi/l/zipreport-lib.svg)
+![Tests](https://github.com/zipreport/zipreport/workflows/Tests/badge.svg?branch=master) ![docs](https://readthedocs.org/projects/zipreport/badge/?version=latest) ![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg) ![license](https://img.shields.io/pypi/l/zipreport-lib.svg)
 
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
@@ -69,11 +63,9 @@ if result.success:
 
 ### Paged.js
 
-[Paged.js](https://www.pagedjs.org/) an amazing javascript library that performs pagination of HTML documents for print,
+[Paged.js](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for print,
 under MIT license. It acts as polyfill for W3C specification for print, and allows the creation of headers, footers,
 page numbers, table of contents, etc. in the browser.
-
- @TODO: add link to sample
 
 ### Documentation
 

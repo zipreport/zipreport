@@ -1,4 +1,4 @@
-ZIPREPORT_VERSION = ["0", "9", "1"]
+ZIPREPORT_VERSION = ["0", "9", "2"]
 
 
 def get_version():

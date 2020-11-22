@@ -1,7 +1,17 @@
 # ZipReport
 
+![Tests](https://github.com/zipreport/zipreport/workflows/Tests/badge.svg?branch=master)
+
+![docs](https://readthedocs.org/projects/zipreport/badge/?version=latest)
+
+![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg)
+
+![license](https://img.shields.io/pypi/l/zipreport-lib.svg)
+
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
+
+Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
 
 **Highlights**:
 
@@ -10,7 +20,7 @@ permissive license.
 - Reports are packed in a single file for easy distribution or bundling;
 - Optional MIME processor to embed resources in a single email message;
 - Support for generated JS content (with zipreport-server or zipreport-cli);
-- Support for headers, page numbers and ToC (via third party javascript);
+- Support for headers, page numbers and ToC (via PagedJS, see below);
 
 **Requirements**:
 
@@ -20,6 +30,7 @@ permissive license.
 
 ### Installation
 
+Installing via pip:
 ```shell script
 $ pip install zipreport-lib
 ```
@@ -56,12 +67,16 @@ if result.success:
 		rpt.write(result.report.read())
 ```  
 
+### Paged.js
+
+[Paged.js](https://www.pagedjs.org/) an amazing javascript library that performs pagination of HTML documents for print,
+under MIT license. It acts as polyfill for W3C specification for print, and allows the creation of headers, footers,
+page numbers, table of contents, etc. in the browser.
+
+ @TODO: add link to sample
+
 ### Documentation
 
-Still a work in progress
+Detailed documentation on usage and report building is available on the [project documentation](https://zipreport.readthedocs.io/en/latest/).
 
-- [FAQ](docs/faq.md)
-- [Available Jinja filters](docs/filters.md)
-- [Available render processors](docs/processors.md)
-- [ZPT file structure](docs/zpt.md)
-  
+

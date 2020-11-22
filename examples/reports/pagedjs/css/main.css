@@ -1,0 +1,350 @@
+/***************************************************************************************************
+Paged.js report CSS
+***************************************************************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    counter-reset: figureNumber;
+}
+
+/***************************************************************************************************
+ Legends for figures and tables
+***************************************************************************************************/
+/* Figure Counter */
+figcaption {
+    counter-increment: figureNumber;
+}
+
+figcaption::before {
+    content: counter(figureNumber);
+}
+
+blockquote {
+    font-size: 10pt;
+    text-color: #999;
+    text-align: center;
+}
+
+blockquote.ref {
+    counter-increment: figureNumber;
+}
+
+/* figure label */
+blockquote.ref::before {
+    content: "Figure " counter(figureNumber) ": ";
+}
+
+/***************************************************************************************************
+ Page and title configuration
+***************************************************************************************************/
+
+/* Page title comes from content of h2 tag */
+h2 {
+    string-set: title content(text);
+}
+
+/* Page Configuration */
+@page {
+    size: A4 portrait;
+    margin: 10mm 15mm;
+    bleed: 6mm;
+
+    @page :left {
+        margin-left: 35mm;
+        margin-right: 15mm;
+    }
+
+    /* Page footer */
+    @bottom-right
+    {
+        content: "page " counter(page);
+    }
+
+    /* Page header generated from var title */
+    @top-right
+    {
+        content: string(title);
+        text-transform: uppercase;
+    }
+}
+
+/* Cover page - no header and footer, with a big background image */
+@page cover {
+    margin: 0;
+    /* use background image as cover for page */
+    background: url("../images/cover.jpg");
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* clean-up page formatting */
+    @top-left {
+        content: none;
+    }
+    @top-center {
+        content: none;
+    }
+    @top-right {
+        content: none;
+    }
+    @bottom-left {
+        content: none;
+    }
+    @bottom-center {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
+}
+
+/* Blank Page */
+@page :blank {
+    @top-left-corner {
+        content: none;
+    }
+    @top-left {
+        content: none;
+    }
+    @top-center {
+        content: none;
+    }
+    @top-right {
+        content: none;
+    }
+    @top-right-corner {
+        content: none;
+    }
+    @right-top {
+        content: none;
+    }
+    @right-middle {
+        content: none;
+    }
+    @right-bottom {
+        content: none;
+    }
+    @bottom-right-corner {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
+    @bottom-center {
+        content: none;
+    }
+    @bottom-left {
+        content: none;
+    }
+    @bottom-left-corner {
+        content: none;
+    }
+    @left-bottom {
+        content: none;
+    }
+    @left-middle {
+        content: none;
+    }
+    @left-top {
+        content: none;
+    }
+}
+
+/***************************************************************************************************
+ Chapter styling
+***************************************************************************************************/
+/* A chapter triggers a page break; chapter contents are justified;*/
+.chapter {
+    break-before: page;
+}
+
+.chapter p {
+    text-align: justify;
+}
+
+.chapter h3 {
+    padding-top: 2em;
+}
+
+
+/***************************************************************************************************
+Cover Title and Author info
+***************************************************************************************************/
+#cover h1 {
+    text-transform: uppercase;
+    text-align: right;
+    color: #555;
+    border-bottom: 1px dashed #555;
+    font-size: 2em;
+}
+
+#cover {
+    page: cover;
+}
+
+.cover-annotation {
+    float: right;
+    width: 50%;
+    text-align: right;
+    color: #777;
+}
+
+/***************************************************************************************************
+ Table of Contents
+***************************************************************************************************/
+
+#toc li a::after {
+    content: target-counter(attr(href), page);
+    float: right;
+}
+
+/* set the style for the list numbering to none */
+#list-toc-generated {
+    list-style: none;
+}
+
+#list-toc-generated .toc-element a::after {
+    content: " p. " target-counter(attr(href), page);
+    float: right;
+}
+
+#list-toc-generated .toc-element-level-1 {
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+#list-toc-generated .toc-element-level-2 {
+    margin-left: 25px;
+}
+
+
+/* counters */
+
+#list-toc-generated {
+    counter-reset: counterTocLevel1;
+}
+
+#list-toc-generated .toc-element-level-1 {
+    counter-increment: counterTocLevel1;
+    counter-reset: counterTocLevel2;
+}
+
+#list-toc-generated .toc-element-level-1::before {
+    content: counter(counterTocLevel1) ". ";
+    padding-right: 5px;
+}
+
+#list-toc-generated .toc-element-level-2 {
+    /*counter-increment: counterTocLevel2; */
+}
+
+#list-toc-generated .toc-element-level-2::before {
+    /*content: counter(counterTocLevel1) ". " counter(counterTocLevel2) ". ";*/
+    padding-right: 5px;
+}
+
+
+/* hack for leaders */
+
+#list-toc-generated {
+    overflow-x: hidden;
+}
+
+/* fake leading */
+#list-toc-generated .toc-element::after {
+    content: ".............................................." ".............................................." ".............................................." "........";
+    float: left;
+    width: 0;
+    padding-left: 5px;
+    letter-spacing: 2px;
+}
+
+#list-toc-generated .toc-element {
+    display: flex;
+}
+
+#list-toc-generated .toc-element a::after {
+    position: absolute;
+    right: 0;
+    background-color: white;
+    padding-left: 6px;
+}
+
+#list-toc-generated .toc-element a {
+    right: 0;
+    color: #000;
+    text-decoration: none;
+}
+
+#list-toc-generated .toc-element a:visited {
+    color: #000;
+}
+
+
+
+/***************************************************************************************************
+ Custom CSS table
+***************************************************************************************************/
+.custom-table {
+    border-spacing: 1px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.custom-table * {
+    position: relative;
+}
+
+.custom-table td, .custom-table th {
+    padding-left: 8px;
+}
+
+.custom-table thead tr {
+    height: 40px;
+    background: #FFED86;
+    font-size: 16px;
+}
+
+.custom-table tbody tr {
+    height: 40px;
+    border-bottom: 1px solid #E3F1D5;
+}
+
+.custom-table tbody tr:last-child {
+    border: 0;
+}
+
+.custom-table td, .custom-table th {
+    text-align: left;
+}
+
+/***************************************************************************************************
+ Misc formatting
+***************************************************************************************************/
+.align-right {
+    float: right;
+    text-align: center;
+}
+
+.full-width {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.clear:after {
+    clear: both;
+    display: table;
+    content: "";
+}
+
+.half {
+    width: 50%;
+    float: left;
+}

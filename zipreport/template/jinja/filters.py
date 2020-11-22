@@ -93,7 +93,7 @@ def dynamic_png(*args, **kwargs) -> markupsafe.Markup:
         {{ callable | png(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
 
     Mixed args:
-        {{ callable | png(with=128, height=128
+        {{ callable | png(with=128, height=128 }}
     """
     return dynamic_image(args, kwargs, '.png')
 
@@ -105,13 +105,13 @@ def dynamic_gif(*args, **kwargs) -> markupsafe.Markup:
     Can be called either via positional arguments or via named arguments, or both
 
     Positional args:
-        {{ callable | png(data_source, alt_text, width, height, css_class }}
+        {{ callable | gif(data_source, alt_text, width, height, css_class }}
 
     Named args:
-        {{ callable | png(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
+        {{ callable | gif(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
 
     Mixed args:
-        {{ callable | png(with=128, height=128
+        {{ callable | gif(with=128, height=128 }}
     """
     return dynamic_image(args, kwargs, '.gif')
 
@@ -123,13 +123,13 @@ def dynamic_jpg(*args, **kwargs) -> markupsafe.Markup:
     Can be called either via positional arguments or via named arguments, or both
 
     Positional args:
-        {{ callable | png(data_source, alt_text, width, height, css_class }}
+        {{ callable | jpg(data_source, alt_text, width, height, css_class }}
 
     Named args:
-        {{ callable | png(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
+        {{ callable | jpg(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
 
     Mixed args:
-        {{ callable | png(with=128, height=128
+        {{ callable | jpg(with=128, height=128 }}
     """
     return dynamic_image(args, kwargs, '.jpg')
 
@@ -141,13 +141,13 @@ def dynamic_svg(*args, **kwargs) -> markupsafe.Markup:
     Can be called either via positional arguments or via named arguments, or both
 
     Positional args:
-        {{ callable | png(data_source, alt_text, width, height, css_class }}
+        {{ callable | svg(data_source, alt_text, width, height, css_class }}
 
     Named args:
-        {{ callable | png(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
+        {{ callable | svg(data=data_source, alt=alt_text, width=width, height=height, class=css_class= }}
 
     Mixed args:
-        {{ callable | png(with=128, height=128
+        {{ callable | svg(with=128, height=128 }}
     """
     return dynamic_image(args, kwargs, '.svg')
 

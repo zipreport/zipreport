@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>PagedJS example</title>
+
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+    <!-- RadarChart -->
+    <link href='radarchart/radarchart.css' rel='stylesheet' type='text/css'>
+    <script src="radarchart/radarchart.js" charset="utf-8"></script>
+    <script src="radarchart/main.js" charset="utf-8"></script>
+
+    <!-- PagedJS -->
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    <!-- custom toc build script -->
+    <script src="js/toc.js"></script>
+
+    <!-- report CSS -->
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<section id="cover">
+    <div class="cover-title-bar">
+        <h1>Pretty cool sample report</h1>
+        <p><span class="cover-annotation">
+        Date: {{ date }}<br>
+        Author: {{ author }}
+        </span></p>
+    </div>
+</section>
+
+<!-- INDEX PAGE -->
+<section class="chapter toc">
+    <h1>Index</h1>
+    <div id="toc"></div>
+</section>
+
+
+<!-- CHAPTER 1 -->
+<section class="chapter">
+    <h2 id="chapter-1" class="title-element">Chapter I</h2>
+    <h3 id="part1" class="title-element">Introduction</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <p>
+        Etiam porta, lacus nec iaculis porttitor, purus arcu pretium libero, eget aliquet justo erat non enim. Curabitur
+        molestie ex eu nunc malesuada consectetur. Vestibulum faucibus ut justo vel varius. Vivamus sed ante eget urna
+        consequat vehicula. Curabitur id massa porttitor, viverra nisi ac, fermentum nibh. Vestibulum vehicula dapibus
+        tempus. Mauris lectus eros, ornare sed sem vitae, pulvinar suscipit eros. Aenean rutrum aliquam neque, in
+        dapibus nisi condimentum a. Morbi ut arcu in ante gravida ultricies.
+    </p>
+
+    <!-- css table -->
+    <h3 id="part2" class="title-element">CSS Table Example</h3>
+    <table class="custom-table">
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>Job</th>
+            <th>Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>John Doe</td>
+            <td>General Manager</td>
+            <td>United States</td>
+        </tr>
+        <tr>
+            <td>Mads Doppelgänger</td>
+            <td>Stunt double</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Sci Zophrenic</td>
+            <td>Doctor</td>
+            <td>Sweden</td>
+        </tr>
+        <tr>
+            <td>M. Onkey</td>
+            <td>Zookeeper</td>
+            <td>Australia</td>
+        </tr>
+        <tr>
+            <td>Carl Odfish</td>
+            <td>Fisherman</td>
+            <td>United Kingdom</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- table legend -->
+    <blockquote class="ref">css table example</blockquote>
+
+    <h3 id="part3" class="title-element">Plotting data</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum.
+        Mauris nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet.
+        Quisque fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper
+        at. Phasellus eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu
+        molestie massa dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet,
+        vehicula sit amet enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci
+        laoreet suscipit. Fusce in tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus
+        lorem rutrum eget. Pellentesque molestie leo odio.
+    </p>
+
+    <!-- radar chart canvas -->
+    <div class="radarChart"></div>
+
+    <!-- radar chart legend -->
+    <blockquote class="ref">Nadieh Bremer d3.js Radar Chart</blockquote>
+
+    <h3 id="part4" class="title-element">Summary</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum.
+        Mauris nisl ex, faucibus at dui vitae, rhoncus laoreet metus.
+    </p>
+</section>
+
+
+<!-- CHAPTER 2 -->
+<section class="chapter">
+    <h2 id="chapter-2" class="title-element">Chapter II</h2>
+    <h3 id="chap2-1" class="title-element">Inserting Images</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit.
+
+        <!-- image inside the paragraph -->
+        <div class="align-right">
+            <img src="https://via.placeholder.com/150"/>
+            <blockquote class="ref">A perfect placeholder</blockquote>
+        </div>
+
+        Fusce in tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget.
+        Pellentesque molestie leo odio.
+        Etiam porta, lacus nec iaculis porttitor, purus arcu pretium libero, eget aliquet justo erat non enim. Curabitur
+        molestie ex eu nunc malesuada consectetur. Vestibulum faucibus ut justo vel varius. Vivamus sed ante eget urna
+        consequat vehicula. Curabitur id massa porttitor, viverra nisi ac, fermentum nibh. Vestibulum vehicula dapibus
+        tempus. Mauris lectus eros, ornare sed sem vitae, pulvinar suscipit eros. Aenean rutrum aliquam neque, in dapibus
+        nisi condimentum a. Morbi ut arcu in ante gravida ultricies.
+    </p>
+    <p>
+        Etiam porta, lacus nec iaculis porttitor, purus arcu pretium libero, eget aliquet justo erat non enim. Curabitur
+        molestie ex eu nunc malesuada consectetur. Vestibulum faucibus ut justo vel varius. Vivamus sed ante eget urna
+        consequat vehicula. Curabitur id massa porttitor, viverra nisi ac, fermentum nibh. Vestibulum vehicula dapibus
+        tempus. Mauris lectus eros, ornare sed sem vitae, pulvinar suscipit eros. Aenean rutrum aliquam neque, in
+        dapibus nisi condimentum a. Morbi ut arcu in ante gravida ultricies.
+    </p>
+</section>
+
+<!-- CHAPTER 3 -->
+<section class="chapter">
+    <h2 id="chapter-3" class="title-element">Chapter III</h2>
+    <h3 id="chap3-1" class="title-element">Plotting server-side graphics</h3>
+
+    <p>
+        By using the the provided extended filters, it is possible to easily embed server-side generated graphics by
+        using callbacks. When the template is rendered, the images
+        are generated automatically and embedded into the report, before passing to the pdf generator.
+    </p>
+
+    <!-- server-side generated graphics -->
+    <div class="full-width clear">
+        <div class="half">
+            {{ gen_graphics_1|png(graphics_1, "graphics 1", "250","250") }}
+            <blockquote class="ref">matplotlib example</blockquote>
+        </div>
+        <div class="half">
+            {{ gen_graphics_2|png(graphics_2, "graphics 2", "250","250") }}
+            <blockquote class="ref">matplotlib 3d example</blockquote>
+        </div>
+    </div>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum.
+        Mauris nisl ex, faucibus at dui vitae, rhoncus laoreet metus.
+    </p>
+</section>
+
+<!-- JS ENTRYPOINT -->
+<script type="text/javascript">
+    /*
+    Override paged.js page handler to build ToC and to signal end of pagination operations to ZipReport
+    */
+
+    class handlers extends Paged.Handler {
+        constructor(chunker, polisher, caller) {
+            super(chunker, polisher, caller);
+        }
+
+        afterPreview(pages) {
+            // signal end of pagination operations
+            document.dispatchEvent(new Event('zpt-view-ready'))
+        }
+
+        beforeParsed(content) {
+            createToc({
+                content: content,
+                tocElement: '#toc', // container element for generated ToC
+                titleElements: ['h2', 'h3'] // elements to include in the ToC
+            });
+        }
+
+    }
+
+    (function () {
+        Paged.registerHandlers(handlers);
+        DrawSampleRadar();
+    })()
+</script>
+
+</body>
+</html>
+

@@ -13,7 +13,7 @@
 <h2>A list of colors:</h2>
 <ul>
     {% for item in color_list %}
-    <li>Color: {{ item }}</li>
+    <li>Color: <span style="color:{{ item }}">{{ item }}</span></li>
     {% endfor %}
 </ul>
 {% endblock %}

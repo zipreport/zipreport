@@ -29,8 +29,13 @@ setup(
     author="Joao Pinheiro",
     author_email="",
     url="https://github.com/zipreport/zipreport",
+    project_urls={
+        'Documentation': 'https://zipreport.readthedocs.io/en/latest/',
+        'Source': 'https://github.com/zipreport/zipreport',
+        'Tracker': 'https://github.com/zipreport/zipreport/issues',
+    },
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
-    description='Python HTML reporting engine',
+    description='Python HTML to PDF reporting engine',
     license='MIT',
     long_description=description,
     classifiers=[

@@ -12,19 +12,14 @@
 #
 import os
 import sys
-import zipreport
 
-sys.path.insert(0, os.path.abspath(os.path.join("..", "zipreport")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__name__), '..')))
 
 # -- Project information -----------------------------------------------------
 
 project = 'ZipReport'
 copyright = '2020, João Pinheiro'
 author = 'João Pinheiro'
-
-# The full version, including alpha/beta/rc tags
-release = 'v0.9.1'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -52,7 +47,11 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # Project version
-version = zipreport.get_version()
+try:
+    import zipreport
+    version = zipreport.get_version()
+except ImportError:
+    version = ""
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

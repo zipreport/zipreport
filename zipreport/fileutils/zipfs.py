@@ -23,11 +23,11 @@ class ZipFs(FsInterface):
         self._cache = PathCache(self._sep)
         self._build_cache()
 
-    def get(self, name: str) -> [io.BytesIO, None]:
+    def get(self, name: str) -> io.BytesIO:
         """
         Read a file
         :param name: file path
-        :return:
+        :return: file stream or None
         """
         zipfile = self._zip.zip()
         try:

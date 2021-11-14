@@ -23,7 +23,7 @@ Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
 
 - Python >= 3.6
 - Jinja2 >= 2.11
-- Compatible backend for pdf generation (zipreport-server, zipreport-cli or WeasyPrint);
+- Compatible backend for pdf generation (zipreport-server, zipreport-cli, xhtmltopdf, or WeasyPrint);
 
 ### Installation
 
@@ -69,6 +69,33 @@ if result.success:
 [Paged.js](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for print,
 under MIT license. It acts as polyfill for W3C specification for print, and allows the creation of headers, footers,
 page numbers, table of contents, etc. in the browser.
+
+### Available backends
+
+#### zipreport-server/zipreport-cli
+
+This is the recommended backend to use, that enables full usage of client-side JavaScript and leveraging the Paged.js
+capabilities.
+
+[zipreport-cli](https://github.com/zipreport/zipreport-cli) is an electron-based command-line utility used to convert
+webpages to PDF.
+
+[zipreport-server](https://github.com/zipreport/zipreport-server) is a daemon that allows the usage of zipreport-cli via API. 
+
+#### WeasyPrint
+
+This backend is provided for compatibility. For new projects, please use zipreport-cli or zipreport-server.
+
+[WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support JavaScript,
+and CSS is limited. 
+
+#### wkhtmltopdf
+
+This backend is provided for compatibility. While it supports some JavaScript, it's not able to run Paged.js.
+
+[Wkhtmltopdf](https://wkhtmltopdf.org/) is a binary utility based on QtWebKit to generate PDF files from HTML pages.
+While it features some JavaScript and CSS support, the underlying library is obsolete.
+
 
 ### Documentation
 

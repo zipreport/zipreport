@@ -1,5 +1,6 @@
 from zipreport.processors.interface import ProcessorInterface
-from zipreport.processors import ZipReportProcessor, ZipReportClient, ZipReportCliProcessor, MIMEProcessor
+from zipreport.processors import ZipReportProcessor, ZipReportClient, ZipReportCliProcessor, MIMEProcessor, \
+    WkHtml2PdfProcessor
 from zipreport.report import ReportFile
 from zipreport.report.job import ReportJob, JobResult
 from zipreport.template import JinjaRender
@@ -76,6 +77,19 @@ class ZipReportCli(BaseReport):
         :param cli_path: full path to zipreport-cli binary
         """
         super(ZipReportCli, self).__init__(ZipReportCliProcessor(cli_path))
+
+
+class WkHtml2PdfReport(BaseReport):
+    """
+    wkhtmltopdf report generation
+    """
+
+    def __init__(self, cli_path: str):
+        """
+        Constructor
+        :param cli_path: full path to wkhtmltopdf binary
+        """
+        super(WkHtml2PdfReport, self).__init__(WkHtml2PdfProcessor(cli_path))
 
 
 class MIMEReport(BaseReport):

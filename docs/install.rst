@@ -32,6 +32,7 @@ Available backends:
 * ZipReport-Server_ (API server, can be run on Docker, see zipreport-docker_)
 * ZipReport-Cli_ (Command-line report generation)
 * WeasyPrint_ (WeasyPrint backend, experimental, available for compatibility purposes only)
+* Wkhtmltopdf_ (wkhtmltopdf backend, available for compatibility purposes only)
 * MIME (Mime Processor bundled, has no external dependencies)
 
 Installing from source
@@ -54,6 +55,7 @@ You can now install the package from the cloned repository:
 .. _jinja2: https://palletsprojects.com/p/jinja/
 .. _requests:  https://requests.readthedocs.io/en/master/
 .. _WeasyPrint:  https://weasyprint.readthedocs.io/
+.. _Wkhtmltopdf: https://wkhtmltopdf.org/
 .. _zipreport-docker: https://github.com/zipreport/zipreport-docker
 .. _ZipReport-Server: https://github.com/zipreport/zipreport-server
 .. _ZipReport-Cli: https://github.com/zipreport/zipreport-cli

@@ -16,7 +16,9 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write("Unsupported Python version - Python {}.{} or greater required.".format(*REQUIRED_PYTHON))
     sys.exit(1)
 
-version = __import__('zipreport.version').get_version()
+#version = __import__('zipreport.version').get_version()
+# to avoid bootstrapping the module
+version = "0.9.5"
 
 # read the contents of README.md
 this_directory = os.path.abspath(os.path.dirname(__file__))

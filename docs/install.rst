@@ -5,7 +5,7 @@ Installation
 
 Required dependencies for ZipReport |version|:
 
-* jinja2_ >=2.11
+* jinja2_ >=2.11 && < 3.1
 * requests_ >= 2.22.0
 * WeasyPrint_ >= 51 (optional, see below)
 

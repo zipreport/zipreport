@@ -22,8 +22,10 @@ Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
 **Requirements**:
 
 - Python >= 3.6
-- Jinja2 >= 2.11 && < 3.1 
+- Jinja2 >= 3.1 
 - Compatible backend for pdf generation (zipreport-server, zipreport-cli, xhtmltopdf, or WeasyPrint);
+
+Note: For previous Jinja2 versions, zipreport-lib 0.9.5 is functionally similar.
 
 ### Installation
 

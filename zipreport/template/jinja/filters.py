@@ -5,7 +5,7 @@ from typing import Union
 from uuid import uuid4
 
 import markupsafe
-from jinja2 import environmentfilter
+from jinja2 import pass_environment
 from jinja2.defaults import DEFAULT_FILTERS
 
 from zipreport.template.jinjaloader import JinjaReportLoader
@@ -80,7 +80,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
     return markupsafe.Markup(html_tag('img', img_args))
 
 
-@environmentfilter
+@pass_environment
 def dynamic_png(*args, **kwargs) -> markupsafe.Markup:
     """
     Dynamic PNG img tag generator
@@ -98,7 +98,7 @@ def dynamic_png(*args, **kwargs) -> markupsafe.Markup:
     return dynamic_image(args, kwargs, '.png')
 
 
-@environmentfilter
+@pass_environment
 def dynamic_gif(*args, **kwargs) -> markupsafe.Markup:
     """
     Dynamic GIF img tag generator
@@ -116,7 +116,7 @@ def dynamic_gif(*args, **kwargs) -> markupsafe.Markup:
     return dynamic_image(args, kwargs, '.gif')
 
 
-@environmentfilter
+@pass_environment
 def dynamic_jpg(*args, **kwargs) -> markupsafe.Markup:
     """
     Dynamic JPG img tag generator
@@ -134,7 +134,7 @@ def dynamic_jpg(*args, **kwargs) -> markupsafe.Markup:
     return dynamic_image(args, kwargs, '.jpg')
 
 
-@environmentfilter
+@pass_environment
 def dynamic_svg(*args, **kwargs) -> markupsafe.Markup:
     """
     Dynamic SVG img tag generator

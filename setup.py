@@ -16,9 +16,11 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write("Unsupported Python version - Python {}.{} or greater required.".format(*REQUIRED_PYTHON))
     sys.exit(1)
 
-#version = __import__('zipreport.version').get_version()
-# to avoid bootstrapping the module
-version = "0.9.5"
+# parse/exec version straight from file
+# to avoid __init__.py and bootrsapping of unmet dependencies
+version = {}
+with open("zipreport/version.py") as fp:
+    exec(fp.read(), version)
 
 # read the contents of README.md
 this_directory = os.path.abspath(os.path.dirname(__file__))
@@ -27,7 +29,7 @@ with open(os.path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='zipreport-lib',
-    version=version,
+    version=version['__version__'],
     author="Joao Pinheiro",
     author_email="",
     url="https://github.com/zipreport/zipreport",
@@ -59,12 +61,12 @@ setup(
         "weasyprint": ["weasyprint >= 3.5.0"],
     },
     install_requires=[
-        "jinja2<3.1",
+        "jinja2>=3.1",
         "requests>=2.22.0"
     ],
     zip_safe=False,
     tests_require=[
-        "jinja2<3.1",
+        "jinja2>=3.1",
         "requests>=2.22.0"
         "coverage==4.4.1",
         "mock>=1.0.1",

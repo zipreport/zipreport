@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__name__), '..')
 # -- Project information -----------------------------------------------------
 
 project = 'ZipReport'
-copyright = '2020, João Pinheiro'
+copyright = '2020-2022, João Pinheiro'
 author = 'João Pinheiro'
 
 # -- General configuration ---------------------------------------------------

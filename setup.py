@@ -57,12 +57,12 @@ setup(
         "weasyprint": ["weasyprint >= 3.5.0"],
     },
     install_requires=[
-        "jinja2>=2.11",
+        "jinja2<3.1",
         "requests>=2.22.0"
     ],
     zip_safe=False,
     tests_require=[
-        "jinja2>=2.11",
+        "jinja2<3.1",
         "requests>=2.22.0"
         "coverage==4.4.1",
         "mock>=1.0.1",

@@ -1,7 +1,10 @@
 .. ZipReport documentation
 
-Welcome to ZipReport |version| documentation
-============================================
+Welcome to ZipReport documentation
+==================================
+
+Version: |version|
+
 
 ZipReport is a python library to aid the generation of visually appealing PDF documents from HTML templates. To achieve
 that, PDF rendering is performed using an Electron application, containing a full blown Chromium browser. By leveraging

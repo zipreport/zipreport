@@ -68,7 +68,7 @@ setup(
     zip_safe=False,
     tests_require=[
         "jinja2>=3.1",
-        "requests>=2.22.0"
+        "requests>=2.22.0",
         "coverage==4.4.1",
         "mock>=1.0.1",
         "flake8>=2.1.0",

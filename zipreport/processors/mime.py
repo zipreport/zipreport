@@ -27,13 +27,13 @@ class ResourceParser(HTMLParser):
         if not len(attrs):
             return
         attrs = dict(attrs)
-        if 'src' in attrs.keys():
-            src = attrs['src']
+        if "src" in attrs.keys():
+            src = attrs["src"]
             if self.is_local(src):
                 self._src.append(src)
 
-        elif 'href' in attrs.keys() and tag.lower() == 'link':
-            src = attrs['href']
+        elif "href" in attrs.keys() and tag.lower() == "link":
+            src = attrs["href"]
             if self.is_local(src):
                 self._href.append(src)
 
@@ -50,14 +50,13 @@ class ResourceParser(HTMLParser):
 
     def is_local(self, url: str):
         url = url.lower()
-        for prefix in ['http://', 'https://', '//']:
+        for prefix in ["http://", "https://", "//"]:
             if url.startswith(prefix):
                 return False
         return True
 
 
 class MIMEProcessor(ProcessorInterface):
-
     def process(self, job: ReportJob) -> JobResult:
         """
         Executes a rendering job to a MIME message
@@ -67,7 +66,7 @@ class MIMEProcessor(ProcessorInterface):
         """
         opts = job.get_options()
         rpt = job.get_report()
-        html = str(rpt.get(opts[job.OPT_MAIN_SCRIPT]).read(), encoding='utf-8')
+        html = str(rpt.get(opts[job.OPT_MAIN_SCRIPT]).read(), encoding="utf-8")
 
         mime_msg = EmailMessage()
         parser = ResourceParser()
@@ -81,7 +80,7 @@ class MIMEProcessor(ProcessorInterface):
             html = html.replace('="{}"'.format(src), '="cid:{}"'.format(cid[1:-1]))
             html = html.replace("='{}'".format(src), "='cid:{}'".format(cid[1:-1]))
 
-        mime_msg.add_alternative(html, subtype='html')
+        mime_msg.add_alternative(html, subtype="html")
 
         # add related resources
         payload = mime_msg.get_payload()[0]
@@ -89,8 +88,8 @@ class MIMEProcessor(ProcessorInterface):
             res = rpt.get(fname)
             ctype, encoding = mimetypes.guess_type(fname)
             if ctype is None or encoding is not None:
-                ctype = 'application/octet-stream'
-            maintype, subtype = ctype.split('/', 1)
+                ctype = "application/octet-stream"
+            maintype, subtype = ctype.split("/", 1)
             payload.add_related(res.read(), maintype, subtype, cid=cid)
 
         return JobResult(mime_msg, True, "")

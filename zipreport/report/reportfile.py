@@ -11,7 +11,6 @@ class ReportFileError(Exception):
 
 
 class ReportFile:
-
     def __init__(self, source: ZipFs, manifest: dict):
         if not isinstance(manifest, dict):
             raise ReportFileError("Invalid manifest format")

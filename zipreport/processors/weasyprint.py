@@ -56,8 +56,8 @@ class WeasyPrintProcessor(ProcessorInterface):
 
         rpt = HTML(
             base_url="/",
-            string=io.TextIOWrapper(zpt.get(REPORT_FILE_NAME), encoding='utf-8').read(),
-            url_fetcher=f
+            string=io.TextIOWrapper(zpt.get(REPORT_FILE_NAME), encoding="utf-8").read(),
+            url_fetcher=f,
         ).write_pdf(None, stylesheets=self._css, font_config=self._fconfig)
         return JobResult(io.BytesIO(rpt), True, "")
 
@@ -73,10 +73,10 @@ class WeasyPrintProcessor(ProcessorInterface):
 
         fallback = url
         # support for both file:// and relative urls
-        if url.startswith('file://'):
+        if url.startswith("file://"):
             url = url[7:]
 
         if zpt.exists(url):
-            return {'string': zpt.get(url).read()}
+            return {"string": zpt.get(url).read()}
 
         return default_url_fetcher(fallback)

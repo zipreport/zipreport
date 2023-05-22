@@ -16,7 +16,9 @@ class ZipReportClient:
     zipreport-server API Client
     """
 
-    def __init__(self, url: str, api_key: str, api_version: int = 1, secure_ssl: bool = False):
+    def __init__(
+        self, url: str, api_key: str, api_version: int = 1, secure_ssl: bool = False
+    ):
         """
         Constructor
         :param url: zipreport-server API url
@@ -38,18 +40,18 @@ class ZipReportClient:
         """
         url = "{}/v{}/render".format(self._url, self._api_version)
         request_data = {
-            'report': ('report.zpt', job.get_report().save()),
+            "report": ("report.zpt", job.get_report().save()),
         }
         for k, v in job.get_options().items():
             request_data[k] = (None, v)
 
         try:
             session = requests.sessions.session()
-            session.headers['X-Auth-Key'] = self._api_key
+            session.headers["X-Auth-Key"] = self._api_key
             r = session.post(url, verify=self._secure_ssl, files=request_data)
 
             if r.status_code == 200:
-                if r.headers.get('Content-Type') == "application/pdf":
+                if r.headers.get("Content-Type") == "application/pdf":
                     return JobResult(io.BytesIO(r.content), True, "")
 
         except Exception as e:
@@ -89,12 +91,15 @@ class ZipReportCliProcessor(ProcessorInterface):
     Local zipreport-cli report processor
     """
 
-    def __init__(self, cli_path: str):
+    def __init__(self, cli_path: str, *args):
         """
         Constructor
         :param cli_path: full path to zipreport-cli binary
         """
         self._cli = cli_path
+        if not args:
+            args = []
+        self._args = args
 
     def process(self, job: ReportJob) -> JobResult:
         """
@@ -114,11 +119,16 @@ class ZipReportCliProcessor(ProcessorInterface):
             subprocess.run(cmd, cwd=path, check=True)
             report_file = path / const.PDF_FILE_NAME
             if report_file.exists():
-                with open(report_file, 'rb') as f:
+                with open(report_file, "rb") as f:
                     report = io.BytesIO(f.read())
                     success = True
 
-        except (subprocess.CalledProcessError, FileNotFoundError, PermissionError, FileExistsError) as e:
+        except (
+            subprocess.CalledProcessError,
+            FileNotFoundError,
+            PermissionError,
+            FileExistsError,
+        ) as e:
             error = str(e)
 
         if path:
@@ -136,24 +146,25 @@ class ZipReportCliProcessor(ProcessorInterface):
         opts = job.get_options()
         args = [
             Path(self._cli),
-            '--pagesize={}'.format(opts[ReportJob.OPT_PAGE_SIZE]),
-            '--margins={}'.format(opts[ReportJob.OPT_MARGINS]),
-            '--timeout={}'.format(opts[ReportJob.OPT_RENDER_TIMEOUT]),
-            '--delay={}'.format(opts[ReportJob.OPT_SETTLING_TIME]),
+            "--pagesize={}".format(opts[ReportJob.OPT_PAGE_SIZE]),
+            "--margins={}".format(opts[ReportJob.OPT_MARGINS]),
+            "--timeout={}".format(opts[ReportJob.OPT_RENDER_TIMEOUT]),
+            "--delay={}".format(opts[ReportJob.OPT_SETTLING_TIME]),
         ]
 
         if opts[ReportJob.OPT_LANDSCAPE]:
-            args.append('--no-portrait')
+            args.append("--no-portrait")
 
         if opts[ReportJob.OPT_JS_EVENT]:
-            args.append('--js-event')
-            args.append('--js-timeout={}'.format(opts[ReportJob.OPT_JS_TIMEOUT]))
+            args.append("--js-event")
+            args.append("--js-timeout={}".format(opts[ReportJob.OPT_JS_TIMEOUT]))
 
         if opts[ReportJob.OPT_IGNORE_SSL_ERRORS]:
-            args.append('--ignore-certificate-errors')
+            args.append("--ignore-certificate-errors")
 
         if opts[ReportJob.OPT_NO_INSECURE_CONTENT]:
-            args.append('--no-insecure')
+            args.append("--no-insecure")
 
+        args.extend(self._args)
         args.extend([opts[ReportJob.OPT_MAIN_SCRIPT], dest_file])
         return args

@@ -15,7 +15,6 @@ class ReportFileLoaderError(Exception):
 
 
 class ReportFileLoader:
-
     @staticmethod
     def load(source: str) -> ReportFile:
         """
@@ -38,7 +37,9 @@ class ReportFileLoader:
         zstatus, zfs = ReportFileBuilder.build_zipfs(path, StringIO())
         if not zstatus.success():
             error_msg = "; ".join(zstatus.get_errors())
-            raise ReportFileLoaderError("Error loading report from path '{}': '{}'".format(path, error_msg))
+            raise ReportFileLoaderError(
+                "Error loading report from path '{}': '{}'".format(path, error_msg)
+            )
         try:
             manifest = json.loads(bytes(zfs.get(MANIFEST_FILE_NAME).getbuffer()))
         except Exception as e:
@@ -74,6 +75,8 @@ class ReportFileLoader:
         # load manifest
         status, manifest = ReportFileBuilder.valid_zpt(zfs)
         if not status.success():
-            raise ReportFileLoaderError("Error: {}".format("; ".join(status.get_errors())))
+            raise ReportFileLoaderError(
+                "Error: {}".format("; ".join(status.get_errors()))
+            )
 
         return ReportFile(zfs, manifest)

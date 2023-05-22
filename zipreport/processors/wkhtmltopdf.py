@@ -13,7 +13,8 @@ class WkHtml2PdfProcessor(ProcessorInterface):
     """
     wkhtmltopdf report processor
     """
-    MARGIN_MINIMUM_MM = '5'
+
+    MARGIN_MINIMUM_MM = "5"
 
     def __init__(self, cli_path: str):
         """
@@ -40,11 +41,16 @@ class WkHtml2PdfProcessor(ProcessorInterface):
             subprocess.run(cmd, cwd=path, check=True)
             report_file = path / const.PDF_FILE_NAME
             if report_file.exists():
-                with open(report_file, 'rb') as f:
+                with open(report_file, "rb") as f:
                     report = io.BytesIO(f.read())
                     success = True
 
-        except (subprocess.CalledProcessError, FileNotFoundError, PermissionError, FileExistsError) as e:
+        except (
+            subprocess.CalledProcessError,
+            FileNotFoundError,
+            PermissionError,
+            FileExistsError,
+        ) as e:
             error = str(e)
 
         if path:
@@ -52,7 +58,9 @@ class WkHtml2PdfProcessor(ProcessorInterface):
 
         return JobResult(report, success, error)
 
-    def build_cmd(self, job: ReportJob, path: Path, dest_file: str = const.PDF_FILE_NAME):
+    def build_cmd(
+        self, job: ReportJob, path: Path, dest_file: str = const.PDF_FILE_NAME
+    ):
         """
         Parse ReportJob options and generate command-line arguments for wkhtmltopdf
         :param job: ReportJob
@@ -63,34 +71,49 @@ class WkHtml2PdfProcessor(ProcessorInterface):
         opts = job.get_options()
         args = [
             str(Path(self._cli)),
-            '--enable-local-file-access',
-            '--allow', str(path),
-            '--no-stop-slow-scripts',
-            '--page-size', opts[ReportJob.OPT_PAGE_SIZE],
-            '--javascript-delay', str(opts[ReportJob.OPT_SETTLING_TIME]),
+            "--enable-local-file-access",
+            "--allow",
+            str(path),
+            "--no-stop-slow-scripts",
+            "--page-size",
+            opts[ReportJob.OPT_PAGE_SIZE],
+            "--javascript-delay",
+            str(opts[ReportJob.OPT_SETTLING_TIME]),
         ]
 
         # non-default margins
         if opts[ReportJob.OPT_MARGINS] == const.PDF_MARGIN_NONE:
-            args.extend([
-                '--margin-bottom', "0",
-                '--margin-left', "0",
-                '--margin-right', "0",
-                '--margin-top', "0"
-            ])
+            args.extend(
+                [
+                    "--margin-bottom",
+                    "0",
+                    "--margin-left",
+                    "0",
+                    "--margin-right",
+                    "0",
+                    "--margin-top",
+                    "0",
+                ]
+            )
 
         if opts[ReportJob.OPT_MARGINS] == const.PDF_MARGIN_MINIMUM:
-            args.extend([
-                '--margin-bottom', self.MARGIN_MINIMUM_MM,
-                '--margin-left', self.MARGIN_MINIMUM_MM,
-                '--margin-right', self.MARGIN_MINIMUM_MM,
-                '--margin-top', self.MARGIN_MINIMUM_MM,
-            ])
+            args.extend(
+                [
+                    "--margin-bottom",
+                    self.MARGIN_MINIMUM_MM,
+                    "--margin-left",
+                    self.MARGIN_MINIMUM_MM,
+                    "--margin-right",
+                    self.MARGIN_MINIMUM_MM,
+                    "--margin-top",
+                    self.MARGIN_MINIMUM_MM,
+                ]
+            )
 
         # page orientation
         if opts[ReportJob.OPT_LANDSCAPE]:
-            args.append('--orientation')
-            args.append('Landscape')
+            args.append("--orientation")
+            args.append("Landscape")
 
         args.extend([opts[ReportJob.OPT_MAIN_SCRIPT], dest_file])
         return args

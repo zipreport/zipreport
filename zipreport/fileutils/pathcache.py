@@ -5,7 +5,8 @@ class PathCache:
     """
     ZipFs content cache
     """
-    def __init__(self, trailing='/'):
+
+    def __init__(self, trailing="/"):
         self._sep = trailing
         self._cache = {}
 
@@ -119,7 +120,7 @@ class PathCache:
             # its a file, not a dir
             return result
 
-        return self._path_transversal(root, Path(''))
+        return self._path_transversal(root, Path(""))
 
     def _path_transversal(self, root: dict, path: Path) -> list:
         """

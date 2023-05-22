@@ -18,7 +18,7 @@ class ZipFs(FsInterface):
         Constructor
         :param zip: Zip Backend
         """
-        self._sep = '/'
+        self._sep = "/"
         self._zip = zip
         self._cache = PathCache(self._sep)
         self._build_cache()
@@ -35,7 +35,9 @@ class ZipFs(FsInterface):
             with zipfile.open(info) as zf:
                 return io.BytesIO(zf.read())
         except ValueError:
-            raise FsError("Error reading file '{}'. Maybe it doesn't exist?".format(name))
+            raise FsError(
+                "Error reading file '{}'. Maybe it doesn't exist?".format(name)
+            )
 
     def add(self, name: str, content):
         """

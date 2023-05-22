@@ -12,12 +12,12 @@ from zipreport.template.jinjaloader import JinjaReportLoader
 from zipreport.misc import html_tag
 
 # attribute names
-ARG_DATA = 'data'
-ATTR_SRC = 'src'
-ATTR_ALT = 'alt'
-ATTR_WIDTH = 'width'
-ATTR_HEIGHT = 'height'
-ATTR_CLASS = 'class'
+ARG_DATA = "data"
+ATTR_SRC = "src"
+ATTR_ALT = "alt"
+ATTR_WIDTH = "width"
+ATTR_HEIGHT = "height"
+ATTR_CLASS = "class"
 
 # named parameters allowed in image filters
 IMAGE_NAMED_PARAMS = [ARG_DATA, ATTR_ALT, ATTR_WIDTH, ATTR_HEIGHT, ATTR_CLASS]
@@ -44,7 +44,9 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
         raise RuntimeError("Invalid environment. png() filter requires ReportLoader")
 
     if not callable_generator and not isinstance(generator, str):
-        raise RuntimeError("png() must be applied to a callable function or a placeholder string")
+        raise RuntimeError(
+            "png() must be applied to a callable function or a placeholder string"
+        )
 
     # process args and kwargs
     if kwargs is None:
@@ -68,7 +70,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
     zpt = loader.get_report()
     if callable_generator:
         result = generator(img_args[ARG_DATA])
-        name = Path('data') / (uuid4().hex + extension)
+        name = Path("data") / (uuid4().hex + extension)
         zpt.add(name, result)
     else:
         # if generator is string, skip image generation and use specified file
@@ -77,7 +79,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
     # assemble html tag
     img_args.pop(ARG_DATA)
     img_args[ATTR_SRC] = "{}".format(name)
-    return markupsafe.Markup(html_tag('img', img_args))
+    return markupsafe.Markup(html_tag("img", img_args))
 
 
 @pass_environment
@@ -95,7 +97,7 @@ def dynamic_png(*args, **kwargs) -> markupsafe.Markup:
     Mixed args:
         {{ callable | png(with=128, height=128 }}
     """
-    return dynamic_image(args, kwargs, '.png')
+    return dynamic_image(args, kwargs, ".png")
 
 
 @pass_environment
@@ -113,7 +115,7 @@ def dynamic_gif(*args, **kwargs) -> markupsafe.Markup:
     Mixed args:
         {{ callable | gif(with=128, height=128 }}
     """
-    return dynamic_image(args, kwargs, '.gif')
+    return dynamic_image(args, kwargs, ".gif")
 
 
 @pass_environment
@@ -131,7 +133,7 @@ def dynamic_jpg(*args, **kwargs) -> markupsafe.Markup:
     Mixed args:
         {{ callable | jpg(with=128, height=128 }}
     """
-    return dynamic_image(args, kwargs, '.jpg')
+    return dynamic_image(args, kwargs, ".jpg")
 
 
 @pass_environment
@@ -149,12 +151,14 @@ def dynamic_svg(*args, **kwargs) -> markupsafe.Markup:
     Mixed args:
         {{ callable | svg(with=128, height=128 }}
     """
-    return dynamic_image(args, kwargs, '.svg')
+    return dynamic_image(args, kwargs, ".svg")
 
 
 def do_json(*args) -> markupsafe.Markup:
     if len(*args) != 1:
-        raise RuntimeError("Invalid number of arguments. json filter requires a variable")
+        raise RuntimeError(
+            "Invalid number of arguments. json filter requires a variable"
+        )
     try:
         return markupsafe.Markup(json.dumps(args[0]))
     except ValueError:
@@ -162,8 +166,8 @@ def do_json(*args) -> markupsafe.Markup:
 
 
 # Register filters
-DEFAULT_FILTERS['png'] = dynamic_png
-DEFAULT_FILTERS['gif'] = dynamic_gif
-DEFAULT_FILTERS['jpg'] = dynamic_jpg
-DEFAULT_FILTERS['svg'] = dynamic_svg
-DEFAULT_FILTERS['json'] = do_json
+DEFAULT_FILTERS["png"] = dynamic_png
+DEFAULT_FILTERS["gif"] = dynamic_gif
+DEFAULT_FILTERS["jpg"] = dynamic_jpg
+DEFAULT_FILTERS["svg"] = dynamic_svg
+DEFAULT_FILTERS["json"] = do_json

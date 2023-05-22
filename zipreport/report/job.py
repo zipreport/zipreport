@@ -1,42 +1,52 @@
 import collections
 from copy import deepcopy
 
-from .const import *
+from .const import (
+    PDF_PAGE_A4,
+    REPORT_FILE_NAME,
+    PDF_MARGIN_DEFAULT,
+    DEFAULT_SETTLING_TIME_MS,
+    DEFAULT_RENDER_TIMEOUT_S,
+    DEFAULT_JS_TIMEOUT_S,
+    DEFAULT_PROCESS_TIMEOUT_S,
+    MANIFEST_REPORT_FILE,
+    VALID_PAGE_SIZES,
+    VALID_MARGINS
+)
 from .reportfile import ReportFile
 
 # Result type used by Processors
 # pdf:io.BytesIO; success:bool, error:str
-JobResult = collections.namedtuple('JobResult', ['report', 'success', 'error'])
+JobResult = collections.namedtuple("JobResult", ["report", "success", "error"])
 
 
 class ReportJob:
-
     # Available options
-    OPT_PAGE_SIZE = 'page_size'
-    OPT_MAIN_SCRIPT = 'script'
-    OPT_MARGINS = 'margins'
-    OPT_LANDSCAPE = 'landscape'
-    OPT_SETTLING_TIME = 'settling_time'
-    OPT_RENDER_TIMEOUT = 'timeout_render'
-    OPT_JS_TIMEOUT = 'timeout_js'
-    OPT_PROCESS_TIMEOUT = 'timeout_process'
-    OPT_JS_EVENT = 'js_event'
-    OPT_IGNORE_SSL_ERRORS = 'ignore_ssl_errors'
-    OPT_NO_INSECURE_CONTENT = 'secure_only'
+    OPT_PAGE_SIZE = "page_size"
+    OPT_MAIN_SCRIPT = "script"
+    OPT_MARGINS = "margins"
+    OPT_LANDSCAPE = "landscape"
+    OPT_SETTLING_TIME = "settling_time"
+    OPT_RENDER_TIMEOUT = "timeout_render"
+    OPT_JS_TIMEOUT = "timeout_js"
+    OPT_PROCESS_TIMEOUT = "timeout_process"
+    OPT_JS_EVENT = "js_event"
+    OPT_IGNORE_SSL_ERRORS = "ignore_ssl_errors"
+    OPT_NO_INSECURE_CONTENT = "secure_only"
 
     # option defaults
     DEFAULT_OPTIONS = {
-        OPT_PAGE_SIZE: PDF_PAGE_A4,
-        OPT_MAIN_SCRIPT: REPORT_FILE_NAME,
-        OPT_MARGINS: PDF_MARGIN_DEFAULT,
-        OPT_LANDSCAPE: False,
-        OPT_SETTLING_TIME: DEFAULT_SETTLING_TIME_MS,
-        OPT_RENDER_TIMEOUT: DEFAULT_RENDER_TIMEOUT_S,
-        OPT_JS_TIMEOUT: DEFAULT_JS_TIMEOUT_S,
-        OPT_PROCESS_TIMEOUT: DEFAULT_PROCESS_TIMEOUT_S,
-        OPT_JS_EVENT: False,
-        OPT_IGNORE_SSL_ERRORS: False,
-        OPT_NO_INSECURE_CONTENT: False,
+        "page_size": PDF_PAGE_A4,
+        "script": REPORT_FILE_NAME,
+        "margins": PDF_MARGIN_DEFAULT,
+        "landscape": False,
+        "settling_time": DEFAULT_SETTLING_TIME_MS,
+        "timeout_render": DEFAULT_RENDER_TIMEOUT_S,
+        "timeout_js": DEFAULT_JS_TIMEOUT_S,
+        "timeout_process": DEFAULT_PROCESS_TIMEOUT_S,
+        "js_event": False,
+        "ignore_ssl_errors": False,
+        "secure_only": False,
     }
 
     def __init__(self, report: ReportFile):
@@ -49,7 +59,9 @@ class ReportJob:
         self._options = deepcopy(self.DEFAULT_OPTIONS)
         # set optional report file name from manifest
         if report is not None:
-            self._options[self.OPT_MAIN_SCRIPT] = report.get_param(MANIFEST_REPORT_FILE, REPORT_FILE_NAME)
+            self._options[self.OPT_MAIN_SCRIPT] = report.get_param(
+                MANIFEST_REPORT_FILE, REPORT_FILE_NAME
+            )
 
     def get_options(self) -> dict:
         """

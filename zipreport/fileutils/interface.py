@@ -6,7 +6,6 @@ class FsError(Exception):
 
 
 class FsInterface:
-
     def get(self, name: str) -> io.BytesIO:
         """
         Read file

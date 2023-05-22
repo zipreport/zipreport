@@ -5,14 +5,20 @@ from jinja2 import select_autoescape, Environment
 
 from zipreport.template.jinjaloader import JinjaReportLoader
 from zipreport.report import ReportFile
-from zipreport.report.const import INDEX_FILE_NAME, MANIFEST_PARAMETERS, REPORT_FILE_NAME, DATA_FILE_NAME
+from zipreport.report.const import (
+    INDEX_FILE_NAME,
+    MANIFEST_PARAMETERS,
+    REPORT_FILE_NAME,
+    DATA_FILE_NAME,
+)
+
 # register filters
 from zipreport.template.jinja import filters
 
 
 class JinjaRender:
-    OPT_EXTENSIONS = 'extensions'
-    OPT_STRICT_PARAMS = 'strict_params'
+    OPT_EXTENSIONS = "extensions"
+    OPT_STRICT_PARAMS = "strict_params"
 
     DEFAULT_OPTIONS = {
         OPT_EXTENSIONS: [],
@@ -40,8 +46,8 @@ class JinjaRender:
         """
         return Environment(
             loader=JinjaReportLoader(self.zpt),
-            autoescape=select_autoescape(['html', 'xml']),
-            extensions=self.options[self.OPT_EXTENSIONS]
+            autoescape=select_autoescape(["html", "xml"]),
+            extensions=self.options[self.OPT_EXTENSIONS],
         )
 
     def check_params(self, data: dict):
@@ -57,10 +63,16 @@ class JinjaRender:
         expected = self.zpt.get_param(MANIFEST_PARAMETERS)
         for param in expected:
             if param not in data.keys():
-                raise RuntimeError("Parameter '{}' missing on render() call".format(param))
+                raise RuntimeError(
+                    "Parameter '{}' missing on render() call".format(param)
+                )
 
-    def render(self, data: dict = None, template: str = INDEX_FILE_NAME,
-               default_data_file: str = DATA_FILE_NAME) -> str:
+    def render(
+        self,
+        data: dict = None,
+        template: str = INDEX_FILE_NAME,
+        default_data_file: str = DATA_FILE_NAME,
+    ) -> str:
         """
         Render the template into REPORT_FILE_NAME, inside the ReportFile
 

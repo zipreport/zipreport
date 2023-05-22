@@ -46,7 +46,11 @@ class DiskFs(FsInterface):
         """
         name = self._build_path(name)
         if not self._can_create(os.path.dirname(name), name):
-            raise FsError("Cannot add file '{}'; Invalid path or already existing file".format(name))
+            raise FsError(
+                "Cannot add file '{}'; Invalid path or already existing file".format(
+                    name
+                )
+            )
         with open(name, "wb", buffering=0) as f:
             f.write(content)
 
@@ -58,7 +62,11 @@ class DiskFs(FsInterface):
         """
         name = self._build_path(name)
         if not self._can_create(os.path.dirname(name), name):
-            raise FsError("Cannot add file '{}'; Invalid path or already existing dir".format(name))
+            raise FsError(
+                "Cannot add file '{}'; Invalid path or already existing dir".format(
+                    name
+                )
+            )
         os.mkdir(name)
 
     def exists(self, path: str) -> bool:

@@ -6,12 +6,15 @@ from typing import Tuple, Union
 
 from zipreport.fileutils import ZipFs, FsInterface, DiskFs
 from zipreport.fileutils.backend.zip import InMemoryZip
-from zipreport.report.const import MANIFEST_FILE_NAME, ZIPREPORT_FILE_EXTENSION, INDEX_FILE_NAME, \
-    MANIFEST_REQUIRED_FIELDS
+from zipreport.report.const import (
+    MANIFEST_FILE_NAME,
+    ZIPREPORT_FILE_EXTENSION,
+    INDEX_FILE_NAME,
+    MANIFEST_REQUIRED_FIELDS,
+)
 
 
 class BuildResult:
-
     def __init__(self, error=None):
         self._err = []
         self.add_error(error)
@@ -36,7 +39,9 @@ class ReportFileBuilder:
     """
 
     @staticmethod
-    def build_file(path: str, output_file: str, console=sys.stdout, overwrite: bool = False) -> BuildResult:
+    def build_file(
+        path: str, output_file: str, console=sys.stdout, overwrite: bool = False
+    ) -> BuildResult:
         """
         Assemble a report file from a specific path
         :param path: report dir path
@@ -49,7 +54,9 @@ class ReportFileBuilder:
         path = Path(path)
         output_file = Path(output_file)
         if output_file.suffix != ZIPREPORT_FILE_EXTENSION:
-            output_file = output_file.parent / (output_file.name + ZIPREPORT_FILE_EXTENSION)
+            output_file = output_file.parent / (
+                output_file.name + ZIPREPORT_FILE_EXTENSION
+            )
 
         console.write("\n== Building Report {} ==\n".format(output_file))
 
@@ -63,12 +70,19 @@ class ReportFileBuilder:
         if output_file.exists():
             if not output_file.is_file():
                 return status.add_error(
-                    "Output file '{}' already exists and doesn't seem to be a file".format(output_file))
+                    "Output file '{}' already exists and doesn't seem to be a file".format(
+                        output_file
+                    )
+                )
             if not overwrite:
-                return status.add_error("Output file '{}' already exists".format(output_file))
+                return status.add_error(
+                    "Output file '{}' already exists".format(output_file)
+                )
         else:
             if not output_file.parent.exists():
-                return status.add_error("Invalid path for output file: '{}'".format(output_file))
+                return status.add_error(
+                    "Invalid path for output file: '{}'".format(output_file)
+                )
 
         # build ZipFs
         zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console)
@@ -90,7 +104,9 @@ class ReportFileBuilder:
         return status
 
     @staticmethod
-    def build_zipfs(path: str, console=sys.stdout) -> Tuple[BuildResult, Union[ZipFs, None]]:
+    def build_zipfs(
+        path: str, console=sys.stdout
+    ) -> Tuple[BuildResult, Union[ZipFs, None]]:
         """
         Assemble a ZipFs structure from a specific path
         :param path: report dir path
@@ -128,10 +144,13 @@ class ReportFileBuilder:
             dest_name = name.relative_to(path)
             console.write("Copying {}...\n".format(dest_name))
             try:
-                with open(name, 'rb') as f:
+                with open(name, "rb") as f:
                     zfs.add(dest_name, f.read())
             except Exception as e:
-                return status.add_error("Error copying file {}: {}".format(name, e)), None
+                return (
+                    status.add_error("Error copying file {}: {}".format(name, e)),
+                    None,
+                )
         return status, zfs
 
     @staticmethod
@@ -152,10 +171,14 @@ class ReportFileBuilder:
             return status.add_error("Invalid manifest format"), None
         for field, _type in MANIFEST_REQUIRED_FIELDS.items():
             if field not in manifest.keys():
-                status.add_error("Missing mandatory field '{}' in manifest file".format(field))
+                status.add_error(
+                    "Missing mandatory field '{}' in manifest file".format(field)
+                )
             else:
                 if type(manifest[field]) != _type:
-                    status.add_error("Invalid type in manifest field '{}'".format(field))
+                    status.add_error(
+                        "Invalid type in manifest field '{}'".format(field)
+                    )
 
         if not status.success():
             return status, None
@@ -164,6 +187,9 @@ class ReportFileBuilder:
         try:
             fs.get(INDEX_FILE_NAME)
         except Exception as e:
-            return status.add_error("Index file '{}' not found".format(INDEX_FILE_NAME)), None
+            return (
+                status.add_error("Index file '{}' not found".format(INDEX_FILE_NAME)),
+                None,
+            )
 
         return status, manifest

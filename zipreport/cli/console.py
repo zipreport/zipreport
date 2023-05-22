@@ -9,16 +9,19 @@ from zipreport.version import get_version
 
 
 class Commands:
-    EXT = '.zpt'
+    EXT = ".zpt"
     HELP_LINE = "  %-30s %s\n"
     LIST_LINE = "%-20s %s"
     COMMANDS = {
-        'help': ['', 'Show usage information'],
-        'version': ['[-m]', 'Show version (or version number only, if -m)'],
-        'list': ['<path>', 'List reports on the given path'],
-        'info': ['<file> [<file>...]', 'Show report details'],
-        'build': ['<directory> [output_file]', 'Build zpt file bundle'],
-        'debug': ['<directory|file> [[host]:<port>]', 'Run debug server using the directory or specified file'],
+        "help": ["", "Show usage information"],
+        "version": ["[-m]", "Show version (or version number only, if -m)"],
+        "list": ["<path>", "List reports on the given path"],
+        "info": ["<file> [<file>...]", "Show report details"],
+        "build": ["<directory> [output_file]", "Build zpt file bundle"],
+        "debug": [
+            "<directory|file> [[host]:<port>]",
+            "Run debug server using the directory or specified file",
+        ],
     }
 
     def run(self, args: list):
@@ -38,7 +41,7 @@ class Commands:
         return 0
 
     def version(self, args=None):
-        minimal = len(args) == 1 and args[0] == '-m'
+        minimal = len(args) == 1 and args[0] == "-m"
         if minimal:
             vstr = "{}"
         else:
@@ -78,7 +81,7 @@ class Commands:
         else:
             dest = Path(src.name)
 
-        if dest.suffix == '':
+        if dest.suffix == "":
             dest = dest.with_suffix(self.EXT)
 
         result = ReportFileBuilder.build_file(src, dest)
@@ -123,12 +126,15 @@ class Commands:
             self.error("Error: Path is not a valid directory")
             return False
 
-        for (dirpath, dirnames, filenames) in os.walk(path):
+        for dirpath, dirnames, filenames in os.walk(path):
             for f in filenames:
-                if f.endswith('.zpt'):
+                if f.endswith(".zpt"):
                     try:
                         zpt = ReportFileLoader.load_file(f)
-                        print(self.LIST_LINE % (f, zpt.get_param(const.MANIFEST_TITLE, "")))
+                        print(
+                            self.LIST_LINE
+                            % (f, zpt.get_param(const.MANIFEST_TITLE, ""))
+                        )
                     except Exception:
                         # ignore file
                         pass

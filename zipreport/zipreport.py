@@ -1,6 +1,11 @@
 from zipreport.processors.interface import ProcessorInterface
-from zipreport.processors import ZipReportProcessor, ZipReportClient, ZipReportCliProcessor, MIMEProcessor, \
-    WkHtml2PdfProcessor
+from zipreport.processors import (
+    ZipReportProcessor,
+    ZipReportClient,
+    ZipReportCliProcessor,
+    MIMEProcessor,
+    WkHtml2PdfProcessor,
+)
 from zipreport.report import ReportFile
 from zipreport.report.job import ReportJob, JobResult
 from zipreport.template import JinjaRender
@@ -55,7 +60,9 @@ class ZipReport(BaseReport):
     zipreport-server API based report generation
     """
 
-    def __init__(self, url: str, api_key: str, api_version: int = 1, secure_ssl: bool = False):
+    def __init__(
+        self, url: str, api_key: str, api_version: int = 1, secure_ssl: bool = False
+    ):
         """
         Constructor
         :param url: zipreport-server url
@@ -63,7 +70,9 @@ class ZipReport(BaseReport):
         :param api_version: api version (default 1)
         :param secure_ssl: if true, verifies CA validity for SSL certificates (default false)
         """
-        super(ZipReport, self).__init__(ZipReportProcessor(ZipReportClient(url, api_key, api_version, secure_ssl)))
+        super(ZipReport, self).__init__(
+            ZipReportProcessor(ZipReportClient(url, api_key, api_version, secure_ssl))
+        )
 
 
 class ZipReportCli(BaseReport):
@@ -71,12 +80,13 @@ class ZipReportCli(BaseReport):
     zipreport-cli local report generation
     """
 
-    def __init__(self, cli_path: str):
+    def __init__(self, cli_path: str, *args):
         """
         Constructor
         :param cli_path: full path to zipreport-cli binary
+        :param *args: optional arguments to pass to the cli processor
         """
-        super(ZipReportCli, self).__init__(ZipReportCliProcessor(cli_path))
+        super(ZipReportCli, self).__init__(ZipReportCliProcessor(cli_path, *args))
 
 
 class WkHtml2PdfReport(BaseReport):

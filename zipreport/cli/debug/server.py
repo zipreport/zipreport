@@ -26,9 +26,15 @@ class ReportFileHandler(BaseHTTPRequestHandler):
     """
 
     server_version = "ZipReport HTTP Server"
-    root_paths = ['/', '/index.html', '/index.htm', '/report.html', '/report.htm', ]
+    root_paths = [
+        "/",
+        "/index.html",
+        "/index.htm",
+        "/report.html",
+        "/report.htm",
+    ]
     extensions_map = {
-        '': 'application/octet-stream',
+        "": "application/octet-stream",
     }
 
     def __init__(self, *args, report_path=None, extra_mime_types=None, **kwargs):
@@ -132,7 +138,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
                 if not success:
                     return response
             # rewrite path to point to report file
-            path = '/' + const.REPORT_FILE_NAME
+            path = "/" + const.REPORT_FILE_NAME
 
         if _zpt.exists(path):
             return self.handle_file(Path(path).name, _zpt.get(path))
@@ -146,10 +152,10 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :param path:str
         """
         # remove ignored parameters
-        path = path.split('?', 1)[0]
-        path = path.split('#', 1)[0]
+        path = path.split("?", 1)[0]
+        path = path.split("#", 1)[0]
         try:
-            path = unquote(path, errors='surrogatepass')
+            path = unquote(path, errors="surrogatepass")
         except UnicodeDecodeError:
             path = unquote(path)
         return posixpath.normpath(path)
@@ -166,7 +172,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         if ext in self.extensions_map:
             return self.extensions_map[ext]
 
-        return self.extensions_map['']
+        return self.extensions_map[""]
 
     def handle_file(self, fname: str, contents: io.BytesIO) -> io.BytesIO:
         """
@@ -189,7 +195,11 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :return: io.BytesIO
         """
         if item:
-            response = "<html><body><h3>Internal Server Error: {}</h3></body></html>".format(item)
+            response = (
+                "<html><body><h3>Internal Server Error: {}</h3></body></html>".format(
+                    item
+                )
+            )
         else:
             response = "<html><body><h3>File not found</h3></body></html>"
         return self._error(HTTPStatus.INTERNAL_SERVER_ERROR, response)
@@ -201,7 +211,9 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :return: io.BytesIO
         """
         if item:
-            response = "<html><body><h3>File not found: {}</h3></body></html>".format(item)
+            response = "<html><body><h3>File not found: {}</h3></body></html>".format(
+                item
+            )
         else:
             response = "<html><body><h3>File not found</h3></body></html>"
         return self._error(HTTPStatus.NOT_FOUND, response)
@@ -214,9 +226,11 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :return: io.BytesIO
         """
         size = len(contents)
-        response = io.BytesIO(bytes(contents, encoding='utf-8'))
+        response = io.BytesIO(bytes(contents, encoding="utf-8"))
         self.send_response(code)
-        self.send_header("Content-type", "text/html; charset=%s" % sys.getfilesystemencoding())
+        self.send_header(
+            "Content-type", "text/html; charset=%s" % sys.getfilesystemencoding()
+        )
         self.send_header("Content-Length", str(size))
         self.end_headers()
         response.seek(0)
@@ -224,7 +238,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
 
 
 class DebugServer:
-    DEFAULT_ADDR = 'localhost'
+    DEFAULT_ADDR = "localhost"
     DEFAULT_PORT = 8001
 
     def __init__(self, addr: str = DEFAULT_ADDR, port: int = DEFAULT_PORT):
@@ -242,7 +256,9 @@ class DebugServer:
         handler_class = partial(ReportFileHandler, report_path=report_path)
         sys.stdout.write(
             "\nStarted debug server at http://{addr}:{port}\nServing from: {path}\nUse Ctrl+C to stop...\n\n".format(
-                addr=self._addr, port=int(self._port), path=Path(report_path).absolute()))
+                addr=self._addr, port=int(self._port), path=Path(report_path).absolute()
+            )
+        )
         httpd = HTTPServer(server_address, handler_class)
         try:
             httpd.serve_forever()

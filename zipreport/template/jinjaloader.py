@@ -5,7 +5,6 @@ from zipreport.report import ReportFile
 
 
 class JinjaReportLoader(BaseLoader):
-
     def __init__(self, zpt: ReportFile):
         self.zpt = zpt
 
@@ -15,7 +14,7 @@ class JinjaReportLoader(BaseLoader):
 
         if not self.zpt.exists(template):
             raise TemplateNotFound(template)
-        source = io.TextIOWrapper(self.zpt.get(template), encoding='utf-8').read()
+        source = io.TextIOWrapper(self.zpt.get(template), encoding="utf-8").read()
         return source, template, updated
 
     def get_report(self):

@@ -33,10 +33,10 @@ class InMemoryZip:
         :param buffer: optional buffer with zip contents
         :return:
         """
-        flags = 'w'
+        flags = "w"
         if isinstance(buffer, io.BytesIO):
             self._buffer = buffer
-            flags = 'a'
+            flags = "a"
         else:
             self._buffer = io.BytesIO()
         self._zip = zipfile.ZipFile(self._buffer, flags, zipfile.ZIP_DEFLATED)
@@ -48,12 +48,14 @@ class InMemoryZip:
         :return:
         """
         if not os.path.exists(disk_file) or not os.path.isfile(disk_file):
-            raise InMemoryZipError("Zip file '{}' does not exist or is not a valid file")
+            raise InMemoryZipError(
+                "Zip file '{}' does not exist or is not a valid file"
+            )
 
         try:
-            with open(disk_file, 'rb', buffering=0) as f:
+            with open(disk_file, "rb", buffering=0) as f:
                 self._buffer = io.BytesIO(f.read())
-                self._zip = zipfile.ZipFile(self._buffer, mode='a')
+                self._zip = zipfile.ZipFile(self._buffer, mode="a")
         except Exception as e:
             raise InMemoryZipError("Error reading Zip file: {}".format(e))
 
@@ -97,7 +99,7 @@ class InMemoryZip:
         try:
             self._zip.close()
             self._buffer.seek(0)
-            with open(dest_file, 'wb', buffering=0) as f:
+            with open(dest_file, "wb", buffering=0) as f:
                 f.write(self._buffer.read())
             self._buffer = None
             self._zip = None

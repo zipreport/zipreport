@@ -112,8 +112,6 @@ class WkHtml2PdfProcessor(ProcessorInterface):
 
         # page orientation
         if opts[ReportJob.OPT_LANDSCAPE]:
-            args.append("--orientation")
-            args.append("Landscape")
-
+            args.extend(("--orientation", "Landscape"))
         args.extend([opts[ReportJob.OPT_MAIN_SCRIPT], dest_file])
         return args

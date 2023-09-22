@@ -38,7 +38,7 @@ class ZipReportClient:
         :param job: ReportJob
         :return: JobResult
         """
-        url = "{}/v{}/render".format(self._url, self._api_version)
+        url = f"{self._url}/v{self._api_version}/render"
         request_data = {
             "report": ("report.zpt", job.get_report().save()),
         }
@@ -50,14 +50,14 @@ class ZipReportClient:
             session.headers["X-Auth-Key"] = self._api_key
             r = session.post(url, verify=self._secure_ssl, files=request_data)
 
-            if r.status_code == 200:
-                if r.headers.get("Content-Type") == "application/pdf":
+            if r.headers.get("Content-Type") == "application/pdf":
+                if r.status_code == 200:
                     return JobResult(io.BytesIO(r.content), True, "")
 
         except Exception as e:
             return JobResult(None, False, str(e))
 
-        return JobResult(None, False, "HTTP Code {}".format(r.status_code))
+        return JobResult(None, False, f"HTTP Code {r.status_code}")
 
 
 class ZipReportProcessor(ProcessorInterface):
@@ -146,10 +146,10 @@ class ZipReportCliProcessor(ProcessorInterface):
         opts = job.get_options()
         args = [
             Path(self._cli),
-            "--pagesize={}".format(opts[ReportJob.OPT_PAGE_SIZE]),
-            "--margins={}".format(opts[ReportJob.OPT_MARGINS]),
-            "--timeout={}".format(opts[ReportJob.OPT_RENDER_TIMEOUT]),
-            "--delay={}".format(opts[ReportJob.OPT_SETTLING_TIME]),
+            f"--pagesize={opts[ReportJob.OPT_PAGE_SIZE]}",
+            f"--margins={opts[ReportJob.OPT_MARGINS]}",
+            f"--timeout={opts[ReportJob.OPT_RENDER_TIMEOUT]}",
+            f"--delay={opts[ReportJob.OPT_SETTLING_TIME]}",
         ]
 
         if opts[ReportJob.OPT_LANDSCAPE]:
@@ -157,7 +157,7 @@ class ZipReportCliProcessor(ProcessorInterface):
 
         if opts[ReportJob.OPT_JS_EVENT]:
             args.append("--js-event")
-            args.append("--js-timeout={}".format(opts[ReportJob.OPT_JS_TIMEOUT]))
+            args.append(f"--js-timeout={opts[ReportJob.OPT_JS_TIMEOUT]}")
 
         if opts[ReportJob.OPT_IGNORE_SSL_ERRORS]:
             args.append("--ignore-certificate-errors")

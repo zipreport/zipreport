@@ -25,27 +25,21 @@ class Commands:
     }
 
     def run(self, args: list):
-        if len(args) == 0:
+        if not args:
             self.help([])
             return 0
 
         cmd = args[0]
         method = getattr(self, cmd, None)
         if not callable(method):
-            self.error("Error: invalid command {}".format(cmd))
+            self.error(f"Error: invalid command {cmd}")
             return 1
 
-        if method(args[1:]) is False:
-            return 1
-
-        return 0
+        return 1 if method(args[1:]) is False else 0
 
     def version(self, args=None):
         minimal = len(args) == 1 and args[0] == "-m"
-        if minimal:
-            vstr = "{}"
-        else:
-            vstr = "\nVersion: {}\n"
+        vstr = "{}" if minimal else "\nVersion: {}\n"
         print(vstr.format(get_version()))
 
     def help(self, args=None):
@@ -53,18 +47,18 @@ class Commands:
             cmd = args[0]
             if cmd in self.COMMANDS.keys():
                 print("\n{cmd} usage:".format(cmd=cmd))
-                usage = cmd + " " + self.COMMANDS[cmd][0]
+                usage = f"{cmd} {self.COMMANDS[cmd][0]}"
                 print(self.HELP_LINE % (usage, self.COMMANDS[cmd][1]))
             else:
                 # this shouldn't actually happen, as commands are pre-checked
-                self.error("Error: invalid command {}".format(cmd))
+                self.error(f"Error: invalid command {cmd}")
             return
 
-        help = ""
-        for k, v in self.COMMANDS.items():
-            usage = " ".join([k, v[0]])
-            help += self.HELP_LINE % (usage, v[1])
-        print("\nUsage:\n{}\n\n".format(help))
+        help = "".join(
+            self.HELP_LINE % (" ".join([k, v[0]]), v[1])
+            for k, v in self.COMMANDS.items()
+        )
+        print(f"\nUsage:\n{help}\n\n")
 
     def build(self, args) -> bool:
         if len(args) == 0 or len(args) > 2:
@@ -76,11 +70,7 @@ class Commands:
             self.error("Error: {path} is not a valid folder".format(path=str(src)))
             return False
 
-        if len(args) == 2:
-            dest = Path(args[1]).resolve()
-        else:
-            dest = Path(src.name)
-
+        dest = Path(args[1]).resolve() if len(args) == 2 else Path(src.name)
         if dest.suffix == "":
             dest = dest.with_suffix(self.EXT)
 
@@ -114,11 +104,7 @@ class Commands:
         if len(args) > 1:
             self.error("Error: Invalid command syntax")
             return False
-        if len(args) == 0:
-            path = Path(os.getcwd())
-        else:
-            path = Path(args[0])
-
+        path = Path(os.getcwd()) if len(args) == 0 else Path(args[0])
         if not path.exists():
             self.error("Error: Invalid path")
             return False
@@ -153,14 +139,14 @@ class Commands:
                 return False
 
             if not path.is_file():
-                self.error("Error: Path {} is not a valid file".format(path))
+                self.error(f"Error: Path {path} is not a valid file")
                 return False
 
             try:
                 zpt = ReportFileLoader.load_file(path)
                 print(self.LIST_LINE % (path, zpt.get_param(const.MANIFEST_TITLE, "")))
             except Exception:
-                self.error("Error: {} is not a valid zipreport file".format(path))
+                self.error(f"Error: {path} is not a valid zipreport file")
         return True
 
     def error(self, message):

@@ -38,12 +38,12 @@ class ReportFileLoader:
         if not zstatus.success():
             error_msg = "; ".join(zstatus.get_errors())
             raise ReportFileLoaderError(
-                "Error loading report from path '{}': '{}'".format(path, error_msg)
+                f"Error loading report from path '{path}': '{error_msg}'"
             )
         try:
             manifest = json.loads(bytes(zfs.get(MANIFEST_FILE_NAME).getbuffer()))
         except Exception as e:
-            raise ReportFileLoaderError("Error: {}".format(e))
+            raise ReportFileLoaderError(f"Error: {e}")
         return ReportFile(zfs, manifest)
 
     @staticmethod
@@ -55,12 +55,12 @@ class ReportFileLoader:
         """
         file = Path(file)
         if not file.exists() or not file.is_file():
-            raise ReportFileLoaderError("Cannot find file '{}".format(file))
+            raise ReportFileLoaderError(f"Cannot find file '{file}")
 
         try:
             zfs = ZipFs(InMemoryZip(file))
         except (FsError, InMemoryZipError, BadZipFile, ValueError) as e:
-            raise ReportFileLoaderError("Error: {}".format(e))
+            raise ReportFileLoaderError(f"Error: {e}")
 
         # load manifest & assemble report
         return ReportFileLoader.load_zipfs(zfs)
@@ -75,8 +75,6 @@ class ReportFileLoader:
         # load manifest
         status, manifest = ReportFileBuilder.valid_zpt(zfs)
         if not status.success():
-            raise ReportFileLoaderError(
-                "Error: {}".format("; ".join(status.get_errors()))
-            )
+            raise ReportFileLoaderError(f'Error: {"; ".join(status.get_errors())}')
 
         return ReportFile(zfs, manifest)

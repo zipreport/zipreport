@@ -16,10 +16,7 @@ class DiskFs(FsInterface):
         Constructor
         :param path: filesystem path to use as root
         """
-        if isinstance(path, Path):
-            self._basepath = str(path)
-        else:
-            self._basepath = path
+        self._basepath = str(path) if isinstance(path, Path) else path
 
     def get(self, name: str) -> io.BytesIO:
         """
@@ -29,13 +26,12 @@ class DiskFs(FsInterface):
         """
         path = self._build_path(name)
         if not os.path.exists(path):
-            raise FsError("Path '{}' does not exist".format(path))
+            raise FsError(f"Path '{path}' does not exist")
 
-        if os.path.isfile(path):
-            with open(path, "rb", buffering=0) as f:
-                return io.BytesIO(f.read())
-        else:
-            raise FsError("Path '{}' is not a file".format(path))
+        if not os.path.isfile(path):
+            raise FsError(f"Path '{path}' is not a file")
+        with open(path, "rb", buffering=0) as f:
+            return io.BytesIO(f.read())
 
     def add(self, name: str, content):
         """
@@ -47,9 +43,7 @@ class DiskFs(FsInterface):
         name = self._build_path(name)
         if not self._can_create(os.path.dirname(name), name):
             raise FsError(
-                "Cannot add file '{}'; Invalid path or already existing file".format(
-                    name
-                )
+                f"Cannot add file '{name}'; Invalid path or already existing file"
             )
         with open(name, "wb", buffering=0) as f:
             f.write(content)
@@ -63,9 +57,7 @@ class DiskFs(FsInterface):
         name = self._build_path(name)
         if not self._can_create(os.path.dirname(name), name):
             raise FsError(
-                "Cannot add file '{}'; Invalid path or already existing dir".format(
-                    name
-                )
+                f"Cannot add file '{name}'; Invalid path or already existing dir"
             )
         os.mkdir(name)
 
@@ -93,11 +85,10 @@ class DiskFs(FsInterface):
         :return: list
         """
         path = self._build_path(path)
-        if os.path.exists(path) and os.path.isdir(path):
-            for _, _, filenames in os.walk(path):
-                return filenames
-        else:
-            raise FsError("Cannot stat '{}'; Invalid path".format(path))
+        if not os.path.exists(path) or not os.path.isdir(path):
+            raise FsError(f"Cannot stat '{path}'; Invalid path")
+        for _, _, filenames in os.walk(path):
+            return filenames
 
     def list(self, path: str) -> list:
         """
@@ -126,14 +117,12 @@ class DiskFs(FsInterface):
         :return: list
         """
         path = self._build_path(path)
+        if not os.path.exists(path) or not os.path.isdir(path):
+            raise FsError(f"Cannot stat '{path}'; Invalid path")
         result = []
-        if os.path.exists(path) and os.path.isdir(path):
-            for _, dirnames, _ in os.walk(path):
-                for dir in dirnames:
-                    result.append(dir + os.sep)
-                return result
-        else:
-            raise FsError("Cannot stat '{}'; Invalid path".format(path))
+        for _, dirnames, _ in os.walk(path):
+            result.extend(dir + os.sep for dir in dirnames)
+            return result
 
     def get_backend(self) -> any:
         """

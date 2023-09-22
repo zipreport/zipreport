@@ -27,22 +27,16 @@ class PagedJSReport:
         :return: True if operation was successful
         """
         data = {
-            'date': datetime.today().strftime('%Y-%m-%d'),
+            'date': datetime.now().strftime('%Y-%m-%d'),
             'author': 'ZipReport library',
-
-            # data for first graphic
             'graphics_1': {
                 'x-axis': 'time',
                 'g1-y-axis': 's1 and s2',
                 'g2-y-axies': 'coherence',
             },
-
-            # data for second graphic
             'graphics_2': {
                 'title': '3D surface',
             },
-
-            # encapsulate class methods into a lambda for callback
             'gen_graphics_1': lambda args: self.plot_graphics_1(args),
             'gen_graphics_2': lambda args: self.plot_graphics_2(args),
         }
@@ -159,7 +153,7 @@ if __name__ == "__main__":
         exit(1)
 
     if pdf_name.exists():
-        print("{} already exists".format(pdf_name))
+        print(f"{pdf_name} already exists")
         exit(1)
 
     # Assemble report directly from the report folder, without using zpt file
@@ -181,6 +175,6 @@ if __name__ == "__main__":
     # use a custom class to render the report
     my_report = PagedJSReport()
     if my_report.render(report, zipreport_cli, pdf_name):
-        print("Report generated to {}".format(pdf_name))
+        print(f"Report generated to {pdf_name}")
     else:
         print("Error generating the report")

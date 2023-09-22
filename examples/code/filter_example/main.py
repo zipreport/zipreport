@@ -57,7 +57,7 @@ if __name__ == "__main__":
         exit(1)
 
     if pdf_name.exists():
-        print("{} already exists".format(pdf_name))
+        print(f"{pdf_name} already exists")
         exit(1)
 
     # Assemble report directly from the report folder, without using zpt file
@@ -98,4 +98,4 @@ if __name__ == "__main__":
     with open(pdf_name, 'wb') as f:
         f.write(result.report.read())
 
-    print("Report generated to {}".format(pdf_name))
+    print(f"Report generated to {pdf_name}")

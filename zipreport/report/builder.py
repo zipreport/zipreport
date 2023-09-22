@@ -58,31 +58,24 @@ class ReportFileBuilder:
                 output_file.name + ZIPREPORT_FILE_EXTENSION
             )
 
-        console.write("\n== Building Report {} ==\n".format(output_file))
+        console.write(f"\n== Building Report {output_file} ==\n")
 
         # check paths
         if not path.exists():
-            return status.add_error("Path '{}' not found".format(path))
+            return status.add_error(f"Path '{path}' not found")
 
         if not path.is_dir():
-            return status.add_error("Path '{}' is not a directory".format(path))
+            return status.add_error(f"Path '{path}' is not a directory")
 
         if output_file.exists():
             if not output_file.is_file():
                 return status.add_error(
-                    "Output file '{}' already exists and doesn't seem to be a file".format(
-                        output_file
-                    )
+                    f"Output file '{output_file}' already exists and doesn't seem to be a file"
                 )
             if not overwrite:
-                return status.add_error(
-                    "Output file '{}' already exists".format(output_file)
-                )
-        else:
-            if not output_file.parent.exists():
-                return status.add_error(
-                    "Invalid path for output file: '{}'".format(output_file)
-                )
+                return status.add_error(f"Output file '{output_file}' already exists")
+        elif not output_file.parent.exists():
+            return status.add_error(f"Invalid path for output file: '{output_file}'")
 
         # build ZipFs
         zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console)
@@ -91,14 +84,14 @@ class ReportFileBuilder:
 
         try:
             # save zpt
-            console.write("Generating {}...\n".format(output_file))
+            console.write(f"Generating {output_file}...\n")
             if output_file.exists():
                 console.write("Report file exists, overwriting...\n")
                 output_file.unlink()
             zfs.get_backend().save(output_file)
 
         except Exception as e:
-            return status.add_error("Error saving zpt file: {}".format(e))
+            return status.add_error(f"Error saving zpt file: {e}")
 
         console.write("Done!\n")
         return status
@@ -117,10 +110,10 @@ class ReportFileBuilder:
         path = Path(path)
 
         if not path.exists():
-            return status.add_error("Path '{}' not found".format(path)), None
+            return status.add_error(f"Path '{path}' not found"), None
 
         if not path.is_dir():
-            return status.add_error("Path '{}' is not a directory".format(path)), None
+            return status.add_error(f"Path '{path}' is not a directory"), None
 
         # try to load & validate manifest
         console.write("Checking manifest & index file...\n")
@@ -137,20 +130,15 @@ class ReportFileBuilder:
         names = []
         for dirname, dirs, files in os.walk(path):
             dirname = Path(dirname)
-            for f in files:
-                names.append(dirname / Path(f))
-
+            names.extend(dirname / Path(f) for f in files)
         for name in names:
             dest_name = name.relative_to(path)
-            console.write("Copying {}...\n".format(dest_name))
+            console.write(f"Copying {dest_name}...\n")
             try:
                 with open(name, "rb") as f:
                     zfs.add(dest_name, f.read())
             except Exception as e:
-                return (
-                    status.add_error("Error copying file {}: {}".format(name, e)),
-                    None,
-                )
+                return status.add_error(f"Error copying file {name}: {e}"), None
         return status, zfs
 
     @staticmethod
@@ -165,20 +153,15 @@ class ReportFileBuilder:
         try:
             manifest = json.loads(bytes(fs.get(MANIFEST_FILE_NAME).getbuffer()))
         except Exception as e:
-            return status.add_error("Error processing manifest: {}".format(e)), None
+            return status.add_error(f"Error processing manifest: {e}"), None
 
         if type(manifest) is not dict:
             return status.add_error("Invalid manifest format"), None
         for field, _type in MANIFEST_REQUIRED_FIELDS.items():
             if field not in manifest.keys():
-                status.add_error(
-                    "Missing mandatory field '{}' in manifest file".format(field)
-                )
-            else:
-                if type(manifest[field]) != _type:
-                    status.add_error(
-                        "Invalid type in manifest field '{}'".format(field)
-                    )
+                status.add_error(f"Missing mandatory field '{field}' in manifest file")
+            elif type(manifest[field]) != _type:
+                status.add_error(f"Invalid type in manifest field '{field}'")
 
         if not status.success():
             return status, None
@@ -187,9 +170,6 @@ class ReportFileBuilder:
         try:
             fs.get(INDEX_FILE_NAME)
         except Exception as e:
-            return (
-                status.add_error("Index file '{}' not found".format(INDEX_FILE_NAME)),
-                None,
-            )
+            return status.add_error(f"Index file '{INDEX_FILE_NAME}' not found"), None
 
         return status, manifest

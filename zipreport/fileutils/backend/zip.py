@@ -57,7 +57,7 @@ class InMemoryZip:
                 self._buffer = io.BytesIO(f.read())
                 self._zip = zipfile.ZipFile(self._buffer, mode="a")
         except Exception as e:
-            raise InMemoryZipError("Error reading Zip file: {}".format(e))
+            raise InMemoryZipError(f"Error reading Zip file: {e}")
 
     def get_buffer(self) -> io.BytesIO:
         """
@@ -104,7 +104,7 @@ class InMemoryZip:
             self._buffer = None
             self._zip = None
         except Exception as e:
-            raise InMemoryZipError("Error saving Zip file: {}".format(e))
+            raise InMemoryZipError(f"Error saving Zip file: {e}")
 
     def zip(self) -> zipfile.ZipFile:
         """

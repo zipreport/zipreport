@@ -63,9 +63,7 @@ class JinjaRender:
         expected = self.zpt.get_param(MANIFEST_PARAMETERS)
         for param in expected:
             if param not in data.keys():
-                raise RuntimeError(
-                    "Parameter '{}' missing on render() call".format(param)
-                )
+                raise RuntimeError(f"Parameter '{param}' missing on render() call")
 
     def render(
         self,
@@ -106,5 +104,5 @@ class JinjaRender:
             try:
                 result = dict(json.loads(self.zpt.get(data_file).read()))
             except json.JSONDecodeError:
-                raise RuntimeError("Default data file {} is invalid".format(data_file))
+                raise RuntimeError(f"Default data file {data_file} is invalid")
         return result

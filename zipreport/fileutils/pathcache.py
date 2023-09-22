@@ -21,7 +21,7 @@ class PathCache:
         parts = list(item.parts)
         file = parts.pop()
         for p in parts:
-            if not p in root.keys():
+            if p not in root.keys():
                 root[p] = {}
             root = root[p]
         root[file] = None
@@ -73,9 +73,7 @@ class PathCache:
         if root is None:
             # its a file, not a dir
             return result
-        for k in root.keys():
-            if root[k] is None:
-                result.append(k)
+        result.extend(k for k in root.keys() if root[k] is None)
         return result
 
     def list_dirs(self, path: str) -> list:
@@ -96,9 +94,7 @@ class PathCache:
         if root is None:
             # its a file, not a dir
             return result
-        for k in root.keys():
-            if root[k] is not None:
-                result.append(k + self._sep)
+        result.extend(k + self._sep for k in root.keys() if root[k] is not None)
         return result
 
     def list(self, path) -> list:
@@ -116,11 +112,7 @@ class PathCache:
             else:
                 # invalid path
                 return result
-        if root is None:
-            # its a file, not a dir
-            return result
-
-        return self._path_transversal(root, Path(""))
+        return result if root is None else self._path_transversal(root, Path(""))
 
     def _path_transversal(self, root: dict, path: Path) -> list:
         """
@@ -131,7 +123,7 @@ class PathCache:
         """
         result = []
 
-        for k, v in root.items():
+        for k in root:
             if root[k] is None:
                 result.append(str(path / k))
             else:

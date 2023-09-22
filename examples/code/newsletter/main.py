@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     email_name = Path(args[0])  # output file path
     if email_name.exists():
-        print("{} already exists".format(email_name))
+        print(f"{email_name} already exists")
         exit(1)
 
     # Assemble report directly from the report folder, without using zpt file
@@ -51,4 +51,4 @@ if __name__ == "__main__":
     with open(email_name, 'wb') as f:
         f.write(result.report.as_bytes(policy=SMTP))
 
-    print("Email generated to {}".format(email_name))
+    print(f"Email generated to {email_name}")

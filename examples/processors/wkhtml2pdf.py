@@ -29,4 +29,4 @@ if __name__ == "__main__":
         with open(output_file, 'wb') as rpt:
             rpt.write(result.report.read())
     else:
-        print("Render failed: {}".format(result.error))
+        print(f"Render failed: {result.error}")

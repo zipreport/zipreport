@@ -26,9 +26,7 @@ class ReportFile:
         :param default: default value if parameter doesn't exist
         :return: parameter value
         """
-        if name in self._manifest.keys():
-            return self._manifest[name]
-        return default
+        return self._manifest[name] if name in self._manifest.keys() else default
 
     def get_fs(self) -> ZipFs:
         """

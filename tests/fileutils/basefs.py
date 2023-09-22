@@ -34,7 +34,7 @@ class BaseFsTest:
 
         # create dirs
         # last level are just empty dirs, so we skip it
-        if level-1 > 0:
+        if level > 1:
             for i in range(self.tree_dir_count):
                 name = self.tree_dirname.format(desc_level, i)
                 dirname = os.path.join(path, name)
@@ -58,7 +58,7 @@ class BaseFsTest:
         list_dirs = fs.list_dirs(path)
         list_files = fs.list_files(path)
         list_all = fs.list(path)
-        if level -1 > 0:
+        if level > 1:
             assert len(list_dirs) == self.tree_dir_count
         assert len(list_files) == self.tree_file_count
 
@@ -80,14 +80,14 @@ class BaseFsTest:
 
         # verify dirs
         # last level are just empty dirs, so we skip it
-        if level-1 > 0:
+        if level > 1:
             for i in range(self.tree_dir_count):
                 name = self.tree_dirname.format(desc_level, i)
                 dirname = os.path.join(path, name)
                 assert fs.is_dir(dirname) is True
                 assert fs.exists(dirname) is True
                 # all dirnames end with "/"
-                assert name + '/' in list_dirs
+                assert f'{name}/' in list_dirs
 
                 # recurse
                 self.verify_tree(fs, dirname, level - 1)
@@ -109,11 +109,11 @@ class BaseFsTest:
             name = self.tree_filename.format(desc_level, i)
             fnames.append(os.path.join(path, name))
 
-        if level -1 > 0:
+        if level > 1:
             for i in range(self.tree_dir_count):
                 # all dirs have trailing slash
                 # all paths don't have root slash
-                name = self.tree_dirname.format(desc_level, i) + '/'
+                name = f'{self.tree_dirname.format(desc_level, i)}/'
                 dirname = os.path.join(path, name)
                 dirnames.append(dirname)
                 a, b = self.gen_fnames_dirnames(dirname, level - 1)

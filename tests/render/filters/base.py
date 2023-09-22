@@ -47,8 +47,6 @@ class ImageParser(HTMLParser):
     def get_images(self) -> list:
         result = []
         for img in self._images:
-            data = {}
-            for attr in img:
-                data[attr[0]] = attr[1]
+            data = {attr[0]: attr[1] for attr in img}
             result.append(data)
         return result

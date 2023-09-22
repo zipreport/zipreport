@@ -102,8 +102,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         Process a GET request
         :return:
         """
-        response = self.process_request()
-        if response:
+        if response := self.process_request():
             try:
                 shutil.copyfileobj(response, self.wfile)
             finally:
@@ -114,8 +113,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         Process a HEAD request
         :return:
         """
-        response = self.process_request()
-        if response:
+        if response := self.process_request():
             response.close()
 
     def process_request(self):
@@ -138,7 +136,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
                 if not success:
                     return response
             # rewrite path to point to report file
-            path = "/" + const.REPORT_FILE_NAME
+            path = f"/{const.REPORT_FILE_NAME}"
 
         if _zpt.exists(path):
             return self.handle_file(Path(path).name, _zpt.get(path))
@@ -195,11 +193,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :return: io.BytesIO
         """
         if item:
-            response = (
-                "<html><body><h3>Internal Server Error: {}</h3></body></html>".format(
-                    item
-                )
-            )
+            response = f"<html><body><h3>Internal Server Error: {item}</h3></body></html>"
         else:
             response = "<html><body><h3>File not found</h3></body></html>"
         return self._error(HTTPStatus.INTERNAL_SERVER_ERROR, response)
@@ -211,9 +205,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :return: io.BytesIO
         """
         if item:
-            response = "<html><body><h3>File not found: {}</h3></body></html>".format(
-                item
-            )
+            response = f"<html><body><h3>File not found: {item}</h3></body></html>"
         else:
             response = "<html><body><h3>File not found</h3></body></html>"
         return self._error(HTTPStatus.NOT_FOUND, response)
@@ -229,7 +221,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         response = io.BytesIO(bytes(contents, encoding="utf-8"))
         self.send_response(code)
         self.send_header(
-            "Content-type", "text/html; charset=%s" % sys.getfilesystemencoding()
+            "Content-type", f"text/html; charset={sys.getfilesystemencoding()}"
         )
         self.send_header("Content-Length", str(size))
         self.end_headers()

@@ -53,15 +53,11 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
         kwargs = {}
 
     img_args = {}
-    ai = 2  # user arguments start in 3
-    for arg in IMAGE_NAMED_PARAMS:
+    for ai, arg in enumerate(IMAGE_NAMED_PARAMS, start=2):
         if arg in kwargs.keys():
             img_args[arg] = kwargs[arg]
-        else:
-            if ai < al:
-                img_args[arg] = args[ai]
-        ai += 1
-
+        elif ai < al:
+            img_args[arg] = args[ai]
     # callable may not always require data
     if ARG_DATA not in img_args.keys():
         img_args[ARG_DATA] = None
@@ -78,7 +74,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
 
     # assemble html tag
     img_args.pop(ARG_DATA)
-    img_args[ATTR_SRC] = "{}".format(name)
+    img_args[ATTR_SRC] = f"{name}"
     return markupsafe.Markup(html_tag("img", img_args))
 
 

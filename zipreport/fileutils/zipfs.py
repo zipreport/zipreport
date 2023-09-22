@@ -35,9 +35,7 @@ class ZipFs(FsInterface):
             with zipfile.open(info) as zf:
                 return io.BytesIO(zf.read())
         except ValueError:
-            raise FsError(
-                "Error reading file '{}'. Maybe it doesn't exist?".format(name)
-            )
+            raise FsError(f"Error reading file '{name}'. Maybe it doesn't exist?")
 
     def add(self, name: str, content):
         """
@@ -54,14 +52,14 @@ class ZipFs(FsInterface):
             content = content.read()
         try:
             zfile.getinfo(name)
-            raise FsError("File'{}' already exists".format(name))
+            raise FsError(f"File'{name}' already exists")
         except KeyError:
             pass
         try:
             zfile.writestr(name, content, compress_type=ZIP_DEFLATED)
             self._cache.add(name)
         except Exception as e:
-            raise FsError("Error adding '{}' to  Zip: {}".format(name, e))
+            raise FsError(f"Error adding '{name}' to  Zip: {e}")
 
     def mkdir(self, name: str):
         raise FsError("ZipFs does not support creation of explicit directories")
@@ -75,9 +73,7 @@ class ZipFs(FsInterface):
         self._zip.zip()
         path = self._clean_path(path)
         # check if file exists first, then dir
-        if not self._cache.file_exists(path):
-            return self._cache.path_exists(path)
-        return True
+        return True if self._cache.file_exists(path) else self._cache.path_exists(path)
 
     def is_dir(self, path: str) -> bool:
         # check if file is still opened

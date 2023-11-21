@@ -59,7 +59,7 @@ class ZipReport(BaseReport):
     """
 
     def __init__(
-        self, url: str, api_key: str, api_version: int = 1, secure_ssl: bool = False
+        self, url: str, api_key: str, api_version: int = 2, secure_ssl: bool = False
     ):
         """
         Constructor

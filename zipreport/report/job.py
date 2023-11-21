@@ -15,10 +15,10 @@ class ReportJob:
         OPT_PAGE_SIZE: PDF_PAGE_A4,
         OPT_MAIN_SCRIPT: REPORT_FILE_NAME,
         OPT_MARGIN_STYLE: PDF_MARGIN_DEFAULT,
-        OPT_MARGIN_LEFT: 0.0,
-        OPT_MARGIN_RIGHT: 0.0,
-        OPT_MARGIN_TOP: 0.0,
-        OPT_MARGIN_BOTTOM: 0.0,
+        OPT_MARGIN_LEFT: "0.0",
+        OPT_MARGIN_RIGHT: "0.0",
+        OPT_MARGIN_TOP: "0.0",
+        OPT_MARGIN_BOTTOM: "0.0",
         OPT_LANDSCAPE: False,
         OPT_SETTLING_TIME: DEFAULT_SETTLING_TIME_MS,
         OPT_JOB_TIMEOUT: DEFAULT_JOB_TIMEOUT_S,
@@ -132,7 +132,7 @@ class ReportJob:
             return True
         return False
 
-    def set_jsevent(self, jsevent: bool) -> bool:
+    def use_jsevent(self, jsevent: bool) -> bool:
         """
         Set if renderer backend should wait for zpt-view-ready event
         :param jsevent: True to enable
@@ -142,10 +142,10 @@ class ReportJob:
         return True
 
     def set_margins_custom_inch(self, left, right, top, bottom):
-        self._options[OPT_MARGIN_LEFT] = left
-        self._options[OPT_MARGIN_RIGHT] = right
-        self._options[OPT_MARGIN_TOP] = top
-        self._options[OPT_MARGIN_BOTTOM] = bottom
+        self._options[OPT_MARGIN_LEFT] = str(left)
+        self._options[OPT_MARGIN_RIGHT] = str(right)
+        self._options[OPT_MARGIN_TOP] = str(top)
+        self._options[OPT_MARGIN_BOTTOM] = str(bottom)
         return True
 
     def set_ignore_ssl_errors(self, ignore: bool) -> bool:

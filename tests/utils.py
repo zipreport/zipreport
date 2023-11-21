@@ -18,3 +18,9 @@ RPT_FILTER_EXAMPLE_PATH = Path(
 RPT_NEWSLETTER_PATH = Path(
     Path(__file__).parent / Path("../examples/reports/newsletter")
 ).absolute()
+
+
+# PagedJS example
+RPT_PAGEDJS_PATH = Path(
+    Path(__file__).parent / Path("../examples/pagedjs/example_report")
+).absolute()

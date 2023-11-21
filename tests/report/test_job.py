@@ -36,7 +36,7 @@ class TestReportJob:
         job.set_settling_time(100)
         job.set_js_timeout(33)
         job.set_job_timeout(40)
-        job.set_jsevent(True)
+        job.use_jsevent(True)
         job.set_ignore_ssl_errors(True)
 
         opts = job.get_options()

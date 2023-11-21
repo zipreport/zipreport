@@ -51,7 +51,7 @@ class PagedJSReport:
         JinjaRender(zpt).render(data)
 
         job = ReportJob(zpt)
-        job.set_jsevent(True)
+        job.use_jsevent(True)
 
         # generate PDF
         result = ZipReportCliProcessor(zpt_cli).process(job)

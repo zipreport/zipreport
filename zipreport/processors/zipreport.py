@@ -76,6 +76,6 @@ class ZipReportProcessor(ProcessorInterface):
         zpt = job.get_report()
         # if manifest signals js event, enable it
         if zpt.get_param(const.MANIFEST_JS_EVENT, False):
-            job.set_jsevent(True)
+            job.use_jsevent(True)
 
         return self._client.exec(job)

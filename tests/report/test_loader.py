@@ -37,12 +37,12 @@ class TestLoader:
 
         bundle = ReportFileLoader.load(destfile)
         assert bundle is not None
-        assert isinstance(bundle, ReportFile) is True
+        assert isinstance(bundle, ReportFile)
         assert bundle.get_param(MANIFEST_AUTHOR) is not None
 
         # load from dir
         path = SAMPLE1_PATH
         bundle = ReportFileLoader.load(path)
         assert bundle is not None
-        assert isinstance(bundle, ReportFile) is True
+        assert isinstance(bundle, ReportFile)
         assert bundle.get_param(MANIFEST_AUTHOR) is not None

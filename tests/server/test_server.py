@@ -61,7 +61,7 @@ class TestReportRenderServer:
         assert destfile.exists() is True
 
         # prepare rendering
-        url = "https://{}:{}".format(api_host, api_port)
+        url = f"https://{api_host}:{api_port}"
         zpt = ReportFileLoader.load(destfile)
         client = ZipReport(url, api_key)
         result = client.render_defaults(zpt, {"plot1": png_rectangle})
@@ -87,7 +87,7 @@ class TestReportRenderServer:
             "gen_graphics_2": "https://placehold.co/250",
             "graphics_2": ""
         }
-        url = "https://{}:{}".format(api_host, api_port)
+        url = f"https://{api_host}:{api_port}"
         zpt = ReportFileLoader.load(destfile)
         client = ZipReport(url, api_key)
         job = client.create_job(zpt)

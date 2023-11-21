@@ -27,12 +27,12 @@ class ResourceParser(HTMLParser):
         if not len(attrs):
             return
         attrs = dict(attrs)
-        if "src" in attrs.keys():
+        if "src" in attrs:
             src = attrs["src"]
             if self.is_local(src):
                 self._src.append(src)
 
-        elif "href" in attrs.keys() and tag.lower() == "link":
+        elif "href" in attrs and tag.lower() == "link":
             src = attrs["href"]
             if self.is_local(src):
                 self._href.append(src)
@@ -50,10 +50,9 @@ class ResourceParser(HTMLParser):
 
     def is_local(self, url: str):
         url = url.lower()
-        for prefix in ["http://", "https://", "//"]:
-            if url.startswith(prefix):
-                return False
-        return True
+        return not any(
+            url.startswith(prefix) for prefix in ["http://", "https://", "//"]
+        )
 
 
 class MIMEProcessor(ProcessorInterface):
@@ -77,8 +76,8 @@ class MIMEProcessor(ProcessorInterface):
         for src in parser.get_resource_list():
             cid = make_msgid()
             resources[cid] = src
-            html = html.replace('="{}"'.format(src), '="cid:{}"'.format(cid[1:-1]))
-            html = html.replace("='{}'".format(src), "='cid:{}'".format(cid[1:-1]))
+            html = html.replace(f'="{src}"', f'="cid:{cid[1:-1]}"')
+            html = html.replace(f"='{src}'", f"='cid:{cid[1:-1]}'")
 
         mime_msg.add_alternative(html, subtype="html")
 

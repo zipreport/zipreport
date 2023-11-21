@@ -38,12 +38,12 @@ class TestJinjaRender(BaseTest):
 
         # non-existing default data file
         empty_data = render._discover_data("non-existing-file")
-        assert isinstance(empty_data, dict) is True
+        assert isinstance(empty_data, dict)
         assert len(empty_data.items()) == 0
 
         # existing default data file
         data = render._discover_data()
-        assert isinstance(data, dict) is True
+        assert isinstance(data, dict)
         assert len(data.items()) > 0
 
         # invalid data file

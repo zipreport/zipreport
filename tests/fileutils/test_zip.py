@@ -16,7 +16,7 @@ class TestZip(BaseZipTest):
         path, zipitems, zfs = self.create_sample1_zip()
         # now we close the file, retrieve buffer
         zipfile = zfs.get_backend().save_stream()
-        assert isinstance(zipfile, io.BytesIO) is True
+        assert isinstance(zipfile, io.BytesIO)
 
         # open file again from buffer
         zfs = ZipFs(InMemoryZip(zipfile))
@@ -46,11 +46,11 @@ class TestZip(BaseZipTest):
     def test_buffer_zip(self):
         _, _, zfs = self.create_sample1_zip()
         buf = zfs.get_backend().get_buffer()
-        assert isinstance(buf, io.BytesIO) is True
+        assert isinstance(buf, io.BytesIO)
 
         with pytest.raises(InMemoryZipError) as e:
             buf = zfs.get_backend().save_stream()
-            assert isinstance(buf, io.BytesIO) is True
+            assert isinstance(buf, io.BytesIO)
             # must fail, file closed
             zfs.get_backend().get_buffer()
 
@@ -64,7 +64,7 @@ class TestZip(BaseZipTest):
         _, _, zfs = self.create_sample1_zip()
         zfs.add(fname, fcontents)
         buf = zfs.get_backend().get_buffer()
-        assert isinstance(buf, io.BytesIO) is True
+        assert isinstance(buf, io.BytesIO)
 
         # new ZipFs instance from the previous buffer
         zfs = ZipFs(InMemoryZip(buf))
@@ -72,8 +72,4 @@ class TestZip(BaseZipTest):
         assert bytes(data.getbuffer()) == fcontents
 
     def remove_dirs(self, dirlist: list):
-        result = []
-        for i in dirlist:
-            if not i.endswith("/"):
-                result.append(i)
-        return result
+        return [i for i in dirlist if not i.endswith("/")]

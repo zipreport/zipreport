@@ -33,7 +33,7 @@ class ZipReportClient:
         :param job: ReportJob
         :return: JobResult
         """
-        url = "{}/v{}/render".format(self._url, self._api_version)
+        url = f"{self._url}/v{self._api_version}/render"
         request_data = {
             "report": ("report.zpt", job.get_report().save()),
         }
@@ -45,14 +45,14 @@ class ZipReportClient:
             session.headers["X-Auth-Key"] = self._api_key
             r = session.post(url, verify=self._secure_ssl, files=request_data)
 
-            if r.status_code == 200:
-                if r.headers.get("Content-Type") == "application/pdf":
+            if r.headers.get("Content-Type") == "application/pdf":
+                if r.status_code == 200:
                     return JobResult(io.BytesIO(r.content), True, "")
 
         except Exception as e:
             return JobResult(None, False, str(e))
 
-        return JobResult(None, False, "HTTP Code {}".format(r.status_code))
+        return JobResult(None, False, f"HTTP Code {r.status_code}")
 
 
 class ZipReportProcessor(ProcessorInterface):

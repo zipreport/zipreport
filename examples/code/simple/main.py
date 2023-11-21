@@ -15,7 +15,7 @@ if __name__ == "__main__":
     pdf_name = Path(args[0])  # output file path
 
     if pdf_name.exists():
-        print("{} already exists".format(pdf_name))
+        print(f"{pdf_name} already exists")
         exit(1)
 
     report_path = Path('simple.zpt')
@@ -43,4 +43,4 @@ if __name__ == "__main__":
     with open(pdf_name, 'wb') as f:
         f.write(result.report.read())
 
-    print("Report generated to {}".format(pdf_name))
+    print(f"Report generated to {pdf_name}")

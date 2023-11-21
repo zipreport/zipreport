@@ -51,7 +51,7 @@ generate the following reports:
 - :download:`simple report<samples/simple.pdf>`
 - :download:`dynamic image generation example <samples/filter_example.pdf>`
 - :download:`MIME newsletter example (.eml file, use 'save as...') <samples/newsletter.eml>`
-- :download:`paged.js report with page numbers, ToC and front page <samples/pagedjs.pdf>`
+- :download:`paged.js report with page numbers, ToC and front page <samples/example_report.pdf>`
 
 
 Package documentation

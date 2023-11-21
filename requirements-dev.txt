@@ -7,4 +7,4 @@ pytest-cov>=2.8.1
 tox==4.5.1
 tox-docker==4.1.0
 Pillow>=10.1.0
-weasyprint>=3.5.0
+weasyprint==58.1

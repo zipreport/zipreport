@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Automated ToC Example</title>
+
+    <!-- PagedJS -->
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+
+    <!-- custom toc build script -->
+    <script src="js/toc.js"></script>
+
+    <!-- report CSS -->
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
+
+    <!-- ToC CSS -->
+    <link href='css/toc.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<section id="cover">
+    <div class="cover-title-bar">
+        <h1>Automated ToC Example</h1>
+        <p><span class="cover-annotation">
+        Date: {{ date }}<br>
+        Author: {{ author }}
+        </span></p>
+    </div>
+</section>
+
+<!-- INDEX PAGE -->
+<section class="chapter toc">
+    <h1>Index</h1>
+    <div id="toc"></div>
+</section>
+
+
+<!-- CHAPTER 1 -->
+<section class="chapter">
+    <h2 id="chapter-1" class="title-element">Chapter I</h2>
+    <h3 id="ch1-sect-1" class="title-element">Subsection I</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <h3 id="ch1-sect-2" class="title-element">Subsection II</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="chapter">
+    <h2 id="chapter-2" class="title-element">Chapter II</h2>
+    <h3 id="ch2-sect-1" class="title-element">Subsection I</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <h3 id="ch2-sect-2" class="title-element">Subsection II</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+</section>
+<!-- CHAPTER 3 -->
+<section class="chapter">
+    <h2 id="chapter-3" class="title-element">Chapter III</h2>
+    <h3 id="ch3-sect-1" class="title-element">Subsection I</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <h3 id="ch3-sect-2" class="title-element">Subsection II</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="chapter">
+    <h2 id="chapter-4" class="title-element">Chapter IV</h2>
+    <h3 id="ch4-sect-1" class="title-element">Subsection I</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <h3 id="ch4-sect-2" class="title-element">Subsection II</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="chapter">
+    <h2 id="chapter-5" class="title-element">Chapter V</h2>
+    <h3 id="ch5-sect-1" class="title-element">Subsection I</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+    <h3 id="ch5-sect-2" class="title-element">Subsection II</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla, sem id semper lacinia, lectus enim
+        viverra orci, sit amet consequat eros turpis ut enim. Proin ullamcorper elementum odio vel condimentum. Mauris
+        nisl ex, faucibus at dui vitae, rhoncus laoreet metus. Mauris tempus nec enim sit amet imperdiet. Quisque
+        fringilla erat pretium lacinia consectetur. Etiam consequat purus nisi, viverra porta nisl semper at. Phasellus
+        eget justo fringilla, faucibus augue vel, ultrices nisl. Pellentesque consequat nibh massa, eu molestie massa
+        dignissim eget. Donec vel feugiat lorem. Maecenas velit velit, euismod a viverra sit amet, vehicula sit amet
+        enim. Suspendisse potenti. Sed faucibus facilisis posuere. Sed egestas justo id orci laoreet suscipit. Fusce in
+        tincidunt neque, eget dapibus sem. Phasellus elementum ante massa, sed dapibus lorem rutrum eget. Pellentesque
+        molestie leo odio.
+    </p>
+</section>
+
+<!-- JS ENTRYPOINT -->
+<script type="text/javascript">
+    /*
+    Override paged.js page handler to build ToC and to signal end of pagination operations
+    */
+    class handlers extends Paged.Handler {
+        constructor(chunker, polisher, caller) {
+            super(chunker, polisher, caller);
+        }
+
+        afterPreview(pages) {
+            console.log('zpt-view-ready')
+        }
+
+        beforeParsed(content) {
+            createToc({
+                content: content,
+                tocElement: '#toc', // container element for generated ToC
+                titleElements: ['h2', 'h3'] // elements to include in the ToC
+            });
+        }
+
+    }
+    (function () {
+        Paged.registerHandlers(handlers);
+    })()
+</script>
+</body>
+</html>
+

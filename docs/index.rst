@@ -6,8 +6,8 @@ Welcome to ZipReport documentation
 Version: |version|
 
 
-ZipReport is a python library to aid the generation of visually appealing PDF documents from HTML templates. To achieve
-that, PDF rendering is performed using an Electron application, containing a full blown Chromium browser. By leveraging
+ZipReport is a python library to aid the generation of visually appealing PDF documents from HTML templates. It combines
+Jinja2 template capabilities with PDF generation powered by a headless Chromium browser daemon. By leveraging
 the browser rendering capabilities, it is possible to use CSS and JS for composition of the document, just as if it
 was any other web page. Available polyfills such as https://pagedjs.org can be used to generate headers,
 footers, page numbers, chapter numbers and even table of contents. It is also possible to generate graphics using popular

@@ -1,18 +1,7 @@
 import collections
 from copy import deepcopy
 
-from .const import (
-    PDF_PAGE_A4,
-    REPORT_FILE_NAME,
-    PDF_MARGIN_DEFAULT,
-    DEFAULT_SETTLING_TIME_MS,
-    DEFAULT_RENDER_TIMEOUT_S,
-    DEFAULT_JS_TIMEOUT_S,
-    DEFAULT_PROCESS_TIMEOUT_S,
-    MANIFEST_REPORT_FILE,
-    VALID_PAGE_SIZES,
-    VALID_MARGINS
-)
+from .const import *
 from .reportfile import ReportFile
 
 # Result type used by Processors
@@ -21,32 +10,21 @@ JobResult = collections.namedtuple("JobResult", ["report", "success", "error"])
 
 
 class ReportJob:
-    # Available options
-    OPT_PAGE_SIZE = "page_size"
-    OPT_MAIN_SCRIPT = "script"
-    OPT_MARGINS = "margins"
-    OPT_LANDSCAPE = "landscape"
-    OPT_SETTLING_TIME = "settling_time"
-    OPT_RENDER_TIMEOUT = "timeout_render"
-    OPT_JS_TIMEOUT = "timeout_js"
-    OPT_PROCESS_TIMEOUT = "timeout_process"
-    OPT_JS_EVENT = "js_event"
-    OPT_IGNORE_SSL_ERRORS = "ignore_ssl_errors"
-    OPT_NO_INSECURE_CONTENT = "secure_only"
-
     # option defaults
     DEFAULT_OPTIONS = {
-        "page_size": PDF_PAGE_A4,
-        "script": REPORT_FILE_NAME,
-        "margins": PDF_MARGIN_DEFAULT,
-        "landscape": False,
-        "settling_time": DEFAULT_SETTLING_TIME_MS,
-        "timeout_render": DEFAULT_RENDER_TIMEOUT_S,
-        "timeout_js": DEFAULT_JS_TIMEOUT_S,
-        "timeout_process": DEFAULT_PROCESS_TIMEOUT_S,
-        "js_event": False,
-        "ignore_ssl_errors": False,
-        "secure_only": False,
+        OPT_PAGE_SIZE: PDF_PAGE_A4,
+        OPT_MAIN_SCRIPT: REPORT_FILE_NAME,
+        OPT_MARGIN_STYLE: PDF_MARGIN_DEFAULT,
+        OPT_MARGIN_LEFT: "0.0",
+        OPT_MARGIN_RIGHT: "0.0",
+        OPT_MARGIN_TOP: "0.0",
+        OPT_MARGIN_BOTTOM: "0.0",
+        OPT_LANDSCAPE: False,
+        OPT_SETTLING_TIME: DEFAULT_SETTLING_TIME_MS,
+        OPT_JOB_TIMEOUT: DEFAULT_JOB_TIMEOUT_S,
+        OPT_JS_TIMEOUT: DEFAULT_JS_TIMEOUT_S,
+        OPT_JS_EVENT: False,
+        OPT_IGNORE_SSL_ERRORS: False,
     }
 
     def __init__(self, report: ReportFile):
@@ -59,7 +37,7 @@ class ReportJob:
         self._options = deepcopy(self.DEFAULT_OPTIONS)
         # set optional report file name from manifest
         if report is not None:
-            self._options[self.OPT_MAIN_SCRIPT] = report.get_param(
+            self._options[OPT_MAIN_SCRIPT] = report.get_param(
                 MANIFEST_REPORT_FILE, REPORT_FILE_NAME
             )
 
@@ -84,7 +62,7 @@ class ReportJob:
         :return: True on success, False on error
         """
         if size in VALID_PAGE_SIZES:
-            self._options[self.OPT_PAGE_SIZE] = size
+            self._options[OPT_PAGE_SIZE] = size
             return True
         return False
 
@@ -95,7 +73,7 @@ class ReportJob:
         :return: True on success, False on error
         """
         if margins in VALID_MARGINS:
-            self._options[self.OPT_MARGINS] = margins
+            self._options[OPT_MARGIN_STYLE] = margins
             return True
         return False
 
@@ -105,7 +83,7 @@ class ReportJob:
         :param script: name to be used for the render output file
         :return: True on success, False on error
         """
-        self._options[self.OPT_MAIN_SCRIPT] = script
+        self._options[OPT_MAIN_SCRIPT] = script
         return True
 
     def set_landscape(self, landscape: bool) -> bool:
@@ -114,7 +92,7 @@ class ReportJob:
         :param landscape: bool
         :return: True on success, False on error
         """
-        self._options[self.OPT_LANDSCAPE] = landscape
+        self._options[OPT_LANDSCAPE] = landscape
         return True
 
     def set_settling_time(self, ms: int) -> bool:
@@ -125,23 +103,11 @@ class ReportJob:
         :return: True on success, False on error
         """
         if ms > 0:
-            self._options[self.OPT_SETTLING_TIME] = ms
+            self._options[OPT_SETTLING_TIME] = ms
             return True
         return False
 
-    def set_render_timeout(self, seconds: int) -> bool:
-        """
-        Set rendering timeout
-        Render timeout is the time the render backend will wait for the whole rendering task
-        :param seconds: seconds to wait
-        :return: True on success, False on error
-        """
-        if seconds > 0:
-            self._options[self.OPT_RENDER_TIMEOUT] = seconds
-            return True
-        return False
-
-    def set_jsevent_timeout(self, seconds: int) -> bool:
+    def set_js_timeout(self, seconds: int) -> bool:
         """
         Set JS Event timeout
         Js Event timeout is the amount of time to wait for the zpt-view-ready js event
@@ -149,30 +115,37 @@ class ReportJob:
         :return: True on success, False on error
         """
         if seconds > 0:
-            self._options[self.OPT_JS_EVENT] = True
-            self._options[self.OPT_JS_TIMEOUT] = seconds
+            self._options[OPT_JS_EVENT] = True
+            self._options[OPT_JS_TIMEOUT] = seconds
             return True
         return False
 
-    def set_process_timeout(self, seconds: int) -> bool:
+    def set_job_timeout(self, seconds: int) -> bool:
         """
-        Set Process timeout
-        Time to wait for the render backend
+        Set Job timeout
+        Time to wait for the browser rendering process
         :param seconds:
         :return: True on success, False on error
         """
         if seconds > 0:
-            self._options[self.OPT_PROCESS_TIMEOUT] = seconds
+            self._options[OPT_JOB_TIMEOUT] = seconds
             return True
         return False
 
-    def set_jsevent(self, jsevent: bool) -> bool:
+    def use_jsevent(self, jsevent: bool) -> bool:
         """
         Set if renderer backend should wait for zpt-view-ready event
         :param jsevent: True to enable
         :return: True on success, False on error
         """
-        self._options[self.OPT_JS_EVENT] = jsevent
+        self._options[OPT_JS_EVENT] = jsevent
+        return True
+
+    def set_margins_custom_inch(self, left, right, top, bottom):
+        self._options[OPT_MARGIN_LEFT] = str(left)
+        self._options[OPT_MARGIN_RIGHT] = str(right)
+        self._options[OPT_MARGIN_TOP] = str(top)
+        self._options[OPT_MARGIN_BOTTOM] = str(bottom)
         return True
 
     def set_ignore_ssl_errors(self, ignore: bool) -> bool:
@@ -181,14 +154,5 @@ class ReportJob:
         :param ignore: true to disable
         :return: True on success, False on error
         """
-        self._options[self.OPT_IGNORE_SSL_ERRORS] = ignore
-        return True
-
-    def set_no_insecure_content(self, no_insecure: bool) -> bool:
-        """
-        Enable or disable rendering of insecure content
-        :param no_insecure: true to disable insecure content
-        :return: True on success, False on error
-        """
-        self._options[self.OPT_NO_INSECURE_CONTENT] = no_insecure
+        self._options[OPT_IGNORE_SSL_ERRORS] = ignore
         return True

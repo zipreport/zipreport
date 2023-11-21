@@ -47,8 +47,7 @@ the required options:
 CSS considerations
 ==================
 
-When using the zipreport electron-based processors (zipreport-cli, zipreport-server), be aware that the media type *print*
-will be used for PDF generation.
+When using zipreport-server, be aware that the media type *print* will be used for PDF generation.
 
 .. _js-signaling:
 
@@ -57,10 +56,10 @@ Waiting for JavaScript execution before rendering
 
 Some reports may contain complex JavaScript logic for page composition, and timing the finalization of these operations
 are a challenge. ZipReport provides a more reliable alternative to relying on waiting a predefined amount of time before triggering the render -
-a JavaScript event notification system that explicitly notifies the Electron application that client-side rendering is
+a JavaScript event notification system that explicitly notifies the supervisor application that client-side rendering is
 finalized and PDF generation can be done.
 
-The notification mechanism works by dispatching an event named 'zpt-view-ready'. As an example, this can be used to signal
+The notification mechanism works by writing  the string 'zpt-view-ready' to the console. As an example, this can be used to signal
 paged.js end of operations:
 
 .. code-block:: html
@@ -77,8 +76,8 @@ paged.js end of operations:
                 }
 
                 afterPreview(pages) {
-                    // dispatch event signaling readiness for PDF generation
-                    document.dispatchEvent(new Event('zpt-view-ready'))
+                    // event signaling readiness for PDF generation
+                    console.log('zpt-view-ready')
                 }
             }
 
@@ -221,7 +220,7 @@ come from the rectangle_color template variable), and returns a io.BytesIO buffe
         return buffer
 
 
-Lastly, we add some boilerplate to load, process and save the report. This example relies on zipreport-cli for rendering
+Lastly, we add some boilerplate to load, process and save the report. This example relies on zipreport-server for rendering
 (Some additional validations were omitted for readability):
 
 .. code-block:: python
@@ -229,8 +228,7 @@ Lastly, we add some boilerplate to load, process and save the report. This examp
     if __name__ == "__main__":
 
         args = sys.argv[1:]
-        zipreport_cli = Path(args[0])  # zipreport-cli binary path
-        pdf_name = Path(args[1])  # output file path
+        pdf_name = Path(args[0])  # output file path
 
         report_name = "simple_report.zpt"
         report = ReportFileLoader.load(report_name)
@@ -244,7 +242,7 @@ Lastly, we add some boilerplate to load, process and save the report. This examp
         }
 
         # render using zipreport-cli processor
-        result = ZipReportCli(zipreport_cli).render_defaults(report, report_data)
+        result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(report, report_data)
         if not result.success:
             print("An error occured while generating the pdf:", result.error)
             exit(1)
@@ -257,9 +255,7 @@ We can now run our example program:
 
 .. code-block:: shell
 
-    $ python3 main.py /opt/zpt-cli/zpt-cli result.pdf
-    Converted 'file:///tmp/tmpogw5b5cs/report.html' to PDF: 'report.pdf'
-    Elapsed Time: 792.996ms
+    $ python3 main.py result.pdf
     Report generated to result.pdf
     $
 
@@ -284,7 +280,7 @@ data.json contents with a placeholder url:
 .. code-block:: json
 
     {
-      "colored_rectangle_fn": "https://via.placeholder.com/256/f99.png",
+      "colored_rectangle_fn": "https://placehold.co/400",
       "rectangle_color": ""
     }
 
@@ -304,7 +300,7 @@ Page numbers, headers and footers
 =================================
 
 Page numbers, headers and footers can be generated automatically using `paged.js <https://www.pagedjs.org/>`__. Please
-check paged.js `documentation <https://www.pagedjs.org/documentation/07-generated-content-in-margin-boxes/#running-elements-headersfooter-with-specific-complex-content>`__
+check paged.js `documentation <https://pagedjs.org/documentation/7-generated-content-in-margin-boxes/>`__
 for detailed information on available formatting options and advanced usage.
 
 To ensure correct PDF generation, specially on lengthy or complex documents, it is recommended to always enable the
@@ -471,15 +467,16 @@ Advanced usage
 
 Visit paged.js `documentation <https://www.pagedjs.org/documentation/>`__ for more details on available features.
 An advanced example, with a cover page, sections and a table of contents can be found in bundled examples
-available in the `repository <https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/>`__.
+available in the `repository <https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/example_report>`__.
 
 
 Generating table of contents
 ============================
 
-Paged.js documentation has a `detailed article <https://www.pagedjs.org/posts/2020-02-19-toc/>`__ demonstrating the creation
-of a auto-generated Table of Contents with JavaScript and CSS. It works by populating a div element with the desired
-index entries, and then use the CSS target-counter property to generate the page numbers.
+ZipReport provides a simple example of automatic table of content generation with JavaScript and CSS in
+the `repository <https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report>`__. It works
+by populating a div element with the desired index entries, and then use the CSS target-counter property to
+generate the page numbers.
 
 Lets build an example reusing the paged.js `example js file <https://gitlab.pagedmedia.org/tools/experiments/blob/master/table-of-content/js/createToc.js>`__
 and the `example css file <https://gitlab.pagedmedia.org/tools/experiments/blob/master/table-of-content/css/table-of-content.css>`__.
@@ -487,8 +484,8 @@ Copy both files to your report folder, and rename them to toc.js and toc.css res
 
 .. code-block:: shell
 
-    wget https://gitlab.pagedmedia.org/tools/experiments/raw/145bc5c5e401b5e3e287156a56916fe1f604d9ab/table-of-content/js/createToc.js -O toc.js
-    wget https://gitlab.pagedmedia.org/tools/experiments/raw/145bc5c5e401b5e3e287156a56916fe1f604d9ab/table-of-content/css/table-of-content.css -O toc.css
+    wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/js/toc.js -O toc.js
+    wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/css/toc.css -O toc.css
 
 
 We can then revisit and extend our previous example from :ref:`page-numbers`:
@@ -537,7 +534,7 @@ to the paged.js event handlers, just before closing the body tag:
 
                 afterPreview(pages) {
                     // signal zipreport PDF generation engine
-                    document.dispatchEvent(new Event('zpt-view-ready'))
+                    console.log('zpt-view-ready')
                 }
 
                 beforeParsed(content) {

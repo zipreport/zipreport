@@ -7,7 +7,6 @@ from zipreport.fileutils.backend.zip import InMemoryZip
 
 
 class BaseZipTest:
-
     def create_sample1_zip(self, path=SAMPLE1_PATH) -> list:
         # create a zip file from examples/sample1
         assert os.path.exists(path) is True
@@ -18,7 +17,7 @@ class BaseZipTest:
             dirname = Path(dirname)
             for fname in files:
                 fname = dirname / Path(fname)
-                with open(fname, 'rb') as fh:
+                with open(fname, "rb") as fh:
                     zfs.add(str(fname.relative_to(path)), fh.read())
                     zipitems += 1
         return [path, zipitems, zfs]

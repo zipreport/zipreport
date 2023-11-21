@@ -9,20 +9,18 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
-from zipreport.processors import ZipReportCliProcessor
+from zipreport import ZipReport
 from zipreport.report import ReportFileBuilder, ReportFileLoader, ReportJob, ReportFile
-from zipreport.template import JinjaRender
 
 # required to support 3d plotting
 from mpl_toolkits.mplot3d import Axes3D
 
 class PagedJSReport:
 
-    def render(self, zpt: ReportFile, zpt_cli: str, output='report.pdf') -> bool:
+    def render(self, zpt: ReportFile, output='report.pdf') -> bool:
         """
         Render a report
         :param zpt: ReportFile to use
-        :param zpt_cli: path to zpt-cli
         :param output: output file
         :return: True if operation was successful
         """
@@ -47,14 +45,12 @@ class PagedJSReport:
             'gen_graphics_2': lambda args: self.plot_graphics_2(args),
         }
 
-        # render report
-        JinjaRender(zpt).render(data)
-
+        # create job
         job = ReportJob(zpt)
-        job.set_jsevent(True)
+        job.use_jsevent(True)
 
         # generate PDF
-        result = ZipReportCliProcessor(zpt_cli).process(job)
+        result = ZipReport("https://127.0.0.1:6543", "somePassword").render(job, data)
 
         # save and return
         if result.success:
@@ -148,15 +144,10 @@ class PagedJSReport:
 if __name__ == "__main__":
 
     args = sys.argv[1:]
-    if len(args) != 2:
-        print("Usage: python3 main.py <path_to_zptcli_binary> <destination_file.pdf>")
+    if len(args) != 1:
+        print("Usage: python3 main.py <destination_file.pdf>")
         exit(1)
-    zipreport_cli = Path(args[0])  # zipreport-cli binary path
-    pdf_name = Path(args[1])  # output file path
-
-    if not zipreport_cli.exists() or zipreport_cli.is_dir():
-        print("zpt-cli not found")
-        exit(1)
+    pdf_name = Path(args[0])  # output file path
 
     if pdf_name.exists():
         print("{} already exists".format(pdf_name))
@@ -169,7 +160,7 @@ if __name__ == "__main__":
     #
     # report = ReportFileLoader.load(zpt_file_path)
     #
-    report_path = Path("../../reports/pagedjs").absolute()
+    report_path = Path("../../pagedjs/example_report").absolute()
     status, zfs = ReportFileBuilder.build_zipfs(report_path)
     if not status.success():
         print("Error loading the report")
@@ -180,7 +171,7 @@ if __name__ == "__main__":
 
     # use a custom class to render the report
     my_report = PagedJSReport()
-    if my_report.render(report, zipreport_cli, pdf_name):
+    if my_report.render(report, pdf_name):
         print("Report generated to {}".format(pdf_name))
     else:
         print("Error generating the report")

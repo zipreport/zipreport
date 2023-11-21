@@ -3,21 +3,16 @@
 import sys
 from pathlib import Path
 
-from zipreport import ZipReportCli
+from zipreport import ZipReport
 from zipreport.report import ReportFileLoader
 
 if __name__ == "__main__":
 
     args = sys.argv[1:]
-    if len(args) != 2:
-        print("Usage: python3 main.py <path_to_zptcli_binary> <destination_file.pdf>")
+    if len(args) != 1:
+        print("Usage: python3 main.py <destination_file.pdf>")
         exit(1)
-    zipreport_cli = Path(args[0])  # zipreport-cli binary path
-    pdf_name = Path(args[1])  # output file path
-
-    if not zipreport_cli.exists() or zipreport_cli.is_dir():
-        print("zpt-cli not found")
-        exit(1)
+    pdf_name = Path(args[0])  # output file path
 
     if pdf_name.exists():
         print("{} already exists".format(pdf_name))
@@ -39,7 +34,7 @@ if __name__ == "__main__":
     }
 
     # render using zipreport-cli processor
-    result = ZipReportCli(zipreport_cli).render_defaults(report, report_data)
+    result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(report, report_data)
     if not result.success:
         print("An error occured while generating the report:", result.error)
         exit(1)

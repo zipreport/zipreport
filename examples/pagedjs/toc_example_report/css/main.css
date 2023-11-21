@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    counter-reset: figureNumber;
+}
+
+/***************************************************************************************************
+ Page and title configuration
+***************************************************************************************************/
+
+/* Page title comes from content of h2 tag */
+h2 {
+    string-set: title content(text);
+}
+
+/* Page Configuration */
+@page {
+    size: A4 portrait;
+    margin: 10mm 15mm;
+    bleed: 6mm;
+
+    @page :left {
+        margin-left: 35mm;
+        margin-right: 15mm;
+    }
+
+    /* Page footer */
+    @bottom-right
+    {
+        content: "page " counter(page);
+    }
+
+    /* Page header generated from var title */
+    @top-right
+    {
+        content: string(title);
+        text-transform: uppercase;
+    }
+}
+
+/* Cover page - no header and footer, no background */
+@page cover {
+    margin: 0;
+    /* clean-up page formatting */
+    @top-left {
+        content: none;
+    }
+    @top-center {
+        content: none;
+    }
+    @top-right {
+        content: none;
+    }
+    @bottom-left {
+        content: none;
+    }
+    @bottom-center {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
+}
+
+/* Blank Page */
+@page :blank {
+    @top-left-corner {
+        content: none;
+    }
+    @top-left {
+        content: none;
+    }
+    @top-center {
+        content: none;
+    }
+    @top-right {
+        content: none;
+    }
+    @top-right-corner {
+        content: none;
+    }
+    @right-top {
+        content: none;
+    }
+    @right-middle {
+        content: none;
+    }
+    @right-bottom {
+        content: none;
+    }
+    @bottom-right-corner {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
+    @bottom-center {
+        content: none;
+    }
+    @bottom-left {
+        content: none;
+    }
+    @bottom-left-corner {
+        content: none;
+    }
+    @left-bottom {
+        content: none;
+    }
+    @left-middle {
+        content: none;
+    }
+    @left-top {
+        content: none;
+    }
+}
+
+/***************************************************************************************************
+ Chapter styling
+***************************************************************************************************/
+/* A chapter triggers a page break; chapter contents are justified;*/
+.chapter {
+    break-before: page;
+}
+
+.chapter p {
+    text-align: justify;
+}
+
+.chapter h3 {
+    padding-top: 2em;
+}
+
+
+/***************************************************************************************************
+Cover Title and Author info
+***************************************************************************************************/
+#cover h1 {
+    text-align: left;
+    color: #555;
+    margin-top:50%;
+    margin-left: 25%;
+    padding-left: 10px;
+    border-left: 32px solid #555;
+    font-size: 2em;
+}
+
+#cover {
+    page: cover;
+}
+
+.cover-annotation {
+    float: right;
+    margin-right:25%;
+    width: 50%;
+    text-align: right;
+    color: #777;
+}

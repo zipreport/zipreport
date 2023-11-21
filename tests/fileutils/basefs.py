@@ -14,7 +14,7 @@ class BaseFsTest:
     tree_file_count = 10
     tree_level = TREE_LEVEL
 
-    def build_tree(self, fs: FsInterface, path='/', level=tree_level):
+    def build_tree(self, fs: FsInterface, path="/", level=tree_level):
         """
         Create a FS tree of x tree_level
         each dir will have 10 files and 10 dirs
@@ -30,11 +30,14 @@ class BaseFsTest:
         # create files
         for i in range(self.tree_file_count):
             name = self.tree_filename.format(desc_level, i)
-            fs.add(os.path.join(path, name), bytes(self.tree_content.format(desc_level, i), encoding='utf8'))
+            fs.add(
+                os.path.join(path, name),
+                bytes(self.tree_content.format(desc_level, i), encoding="utf8"),
+            )
 
         # create dirs
         # last level are just empty dirs, so we skip it
-        if level-1 > 0:
+        if level - 1 > 0:
             for i in range(self.tree_dir_count):
                 name = self.tree_dirname.format(desc_level, i)
                 dirname = os.path.join(path, name)
@@ -42,7 +45,7 @@ class BaseFsTest:
                     fs.mkdir(dirname)
                 self.build_tree(fs, dirname, level - 1)
 
-    def verify_tree(self, fs: FsInterface, path='/', level=TREE_LEVEL):
+    def verify_tree(self, fs: FsInterface, path="/", level=TREE_LEVEL):
         """
         Verify FS tree contents
         :param fs:
@@ -58,12 +61,12 @@ class BaseFsTest:
         list_dirs = fs.list_dirs(path)
         list_files = fs.list_files(path)
         list_all = fs.list(path)
-        if level -1 > 0:
+        if level - 1 > 0:
             assert len(list_dirs) == self.tree_dir_count
         assert len(list_files) == self.tree_file_count
 
         # verify list_all
-        expected_files, expected_dirs = self.gen_fnames_dirnames('/', level)
+        expected_files, expected_dirs = self.gen_fnames_dirnames("/", level)
         list_all_expected = expected_dirs + expected_files
         assert len(list_all) == len(list_all_expected)
         for item in list_all:
@@ -73,33 +76,33 @@ class BaseFsTest:
         for i in range(self.tree_file_count):
             name = self.tree_filename.format(desc_level, i)
             assert name in list_files
-            expected = bytes(self.tree_content.format(desc_level, i), encoding='utf8')
+            expected = bytes(self.tree_content.format(desc_level, i), encoding="utf8")
             contents = fs.get(os.path.join(path, name))
             assert contents.getbuffer() == expected
             assert fs.exists(os.path.join(path, name)) is True
 
         # verify dirs
         # last level are just empty dirs, so we skip it
-        if level-1 > 0:
+        if level - 1 > 0:
             for i in range(self.tree_dir_count):
                 name = self.tree_dirname.format(desc_level, i)
                 dirname = os.path.join(path, name)
                 assert fs.is_dir(dirname) is True
                 assert fs.exists(dirname) is True
                 # all dirnames end with "/"
-                assert name + '/' in list_dirs
+                assert name + "/" in list_dirs
 
                 # recurse
                 self.verify_tree(fs, dirname, level - 1)
 
-    def gen_fnames_dirnames(self, path='/', level=TREE_LEVEL):
+    def gen_fnames_dirnames(self, path="/", level=TREE_LEVEL):
         """
         Generate a list of all filenames and dirnames from the specified path
         :param path:
         :param level:
         :return:
         """
-        path = path.lstrip('/')
+        path = path.lstrip("/")
         desc_level = self.tree_level - level
         fnames = []
         dirnames = []
@@ -109,11 +112,11 @@ class BaseFsTest:
             name = self.tree_filename.format(desc_level, i)
             fnames.append(os.path.join(path, name))
 
-        if level -1 > 0:
+        if level - 1 > 0:
             for i in range(self.tree_dir_count):
                 # all dirs have trailing slash
                 # all paths don't have root slash
-                name = self.tree_dirname.format(desc_level, i) + '/'
+                name = self.tree_dirname.format(desc_level, i) + "/"
                 dirname = os.path.join(path, name)
                 dirnames.append(dirname)
                 a, b = self.gen_fnames_dirnames(dirname, level - 1)

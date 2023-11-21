@@ -1,4 +1,3 @@
 from .interface import ProcessorInterface
-from .zipreport import ZipReportCliProcessor, ZipReportProcessor, ZipReportClient
-from .wkhtmltopdf import WkHtml2PdfProcessor
+from .zipreport import ZipReportProcessor, ZipReportClient
 from .mime import MIMEProcessor

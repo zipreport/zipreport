@@ -1,6 +1,3 @@
-/***************************************************************************************************
-Paged.js report CSS
-***************************************************************************************************/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 body {
@@ -171,11 +168,10 @@ h2 {
 Cover Title and Author info
 ***************************************************************************************************/
 #cover h1 {
-    text-transform: uppercase;
-    text-align: right;
-    color: #555;
-    border-bottom: 1px dashed #555;
-    font-size: 2em;
+    text-align: center;
+    margin-top:30%;
+    color: #000;
+    font-size: 2.5em;
 }
 
 #cover {
@@ -183,10 +179,11 @@ Cover Title and Author info
 }
 
 .cover-annotation {
-    float: right;
-    width: 50%;
-    text-align: right;
-    color: #777;
+    float: left;
+    width:100%;
+    margin-top:90%;
+    text-align: center;
+    color: #444;
 }
 
 /***************************************************************************************************

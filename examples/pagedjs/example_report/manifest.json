@@ -1,6 +1,6 @@
 {
   "author": "zipreport",
-  "title": "PagedJS example",
+  "title": "PagedJS example report",
   "description": "PagedJS example with both server-generated and js-generated graphics. Includes automatic index, figure labeling and page numbers.",
   "version": "1.0",
   "useJSEvent": "true",

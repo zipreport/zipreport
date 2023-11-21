@@ -11,8 +11,10 @@ from zipreport.report.reportfile import ReportFile
 
 
 class TestLoader:
-    temp_dir = '/tmp'
-    temp_methods = ['test_loader_pass', ]
+    temp_dir = "/tmp"
+    temp_methods = [
+        "test_loader_pass",
+    ]
 
     def setup_method(self, method):
         if method.__name__ in self.temp_methods:
@@ -20,13 +22,13 @@ class TestLoader:
 
     def teardown_method(self, method):
         if method.__name__ in self.temp_methods:
-            if os.path.exists(self.temp_dir) and self.temp_dir != '/tmp':
+            if os.path.exists(self.temp_dir) and self.temp_dir != "/tmp":
                 rmtree(self.temp_dir)
-                self.temp_dir = '/tmp'
+                self.temp_dir = "/tmp"
 
     def test_loader_pass(self):
         # load from file
-        destfile = Path(self.temp_dir) / 'test.zpt'
+        destfile = Path(self.temp_dir) / "test.zpt"
 
         # build zpt file
         result = ReportFileBuilder.build_file(SAMPLE1_PATH, destfile)

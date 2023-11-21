@@ -24,7 +24,7 @@ ZipReport was only tested on Linux systems.
 What HTML/CSS/JS features are supported?
 ________________________________________
 
-When using ZipReport backends, the rendering is executed by Chromium (as an Electron application), all features supported by a modern Chromium browsers can be used.
+When using zipreport-server, the rendering is executed by Chromium; all features supported by a modern Chromium browsers can be used.
 When using WeasyPrint, basic WeasyPrint features ate supported.
 
 Is it fast?

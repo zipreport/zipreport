@@ -7,8 +7,12 @@ import pytest
 
 from tests.utils import SAMPLE1_PATH, RPT_PAGEDJS_PATH
 from zipreport import ZipReport
-from zipreport.report import ReportFileBuilder, ZIPREPORT_FILE_EXTENSION, ReportFileLoader
+from zipreport.processors.weasyprint import WeasyPrintProcessor
+from zipreport.report import ReportFileBuilder, ZIPREPORT_FILE_EXTENSION, ReportFileLoader, ReportJob
 from shutil import rmtree
+
+from zipreport.template import JinjaRender
+
 
 @pytest.fixture
 def api_host():
@@ -24,6 +28,7 @@ def api_key():
 def api_port():
     return os.getenv("ZIPREPORT_API_PORT", 6543)
 
+
 def png_rectangle(data) -> io.BytesIO:
     # generate a rectangle with the specified color
     img = Image.new('RGB', (256, 256))
@@ -33,6 +38,7 @@ def png_rectangle(data) -> io.BytesIO:
     # rewind to the beginning of the buffer
     buffer.seek(0)
     return buffer
+
 
 class TestReportRenderServer:
     temp_dir = tempfile.gettempdir()
@@ -74,12 +80,12 @@ class TestReportRenderServer:
 
         # prepare rendering
         data = {
-          "date": "1 Jan 2023",
-          "author": "ZipReport Team",
-          "gen_graphics_1": "https://placehold.co/250",
-          "graphics_1": "",
-          "gen_graphics_2": "https://placehold.co/250",
-          "graphics_2": ""
+            "date": "1 Jan 2023",
+            "author": "ZipReport Team",
+            "gen_graphics_1": "https://placehold.co/250",
+            "graphics_1": "",
+            "gen_graphics_2": "https://placehold.co/250",
+            "graphics_2": ""
         }
         url = "https://{}:{}".format(api_host, api_port)
         zpt = ReportFileLoader.load(destfile)
@@ -87,6 +93,25 @@ class TestReportRenderServer:
         job = client.create_job(zpt)
         job.use_jsevent(True)
         result = client.render(job, data)
+        assert result.success is True
+        buf = result.report.read()
+        assert len(buf) > 1000
+
+    def test_render_weasyprint(self, api_host, api_port, api_key):
+        destfile = Path(self.temp_dir) / "sample1"
+
+        result = ReportFileBuilder.build_file(SAMPLE1_PATH, destfile)
+        assert result.success() is True
+        assert destfile.exists() is False
+        destfile = destfile.parent / (destfile.name + ZIPREPORT_FILE_EXTENSION)
+        assert destfile.exists() is True
+
+        # prepare rendering
+        zpt = ReportFileLoader.load(destfile)
+        JinjaRender(zpt).render({"plot1": png_rectangle})
+        job = ReportJob(zpt)
+        print(zpt.get_fs().list("/data"))
+        result = WeasyPrintProcessor().process(job)
         assert result.success is True
         buf = result.report.read()
         assert len(buf) > 1000

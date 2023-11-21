@@ -33,7 +33,7 @@ Example of structure from examples/reports/simple:
     $ cd examples/reports/simple
     .
     ├── css
-    │   └── style.css
+    │   └── style.css
     ├── data.json
     ├── index.html
     ├── manifest.json
@@ -176,7 +176,6 @@ own, if necessary. Just implement a new class that implements :class:`zipreport.
 Class                                                                                                       Description
 =========================================================================================================== ===========================================
 :class:`zipreport.processors.ZipReportProcessor<zipreport.processors.zipreport.ZipReportProcessor>`         zipreport=server API PDF report generation
-:class:`zipreport.processors.ZipReportCliProcessor<zipreport.processors.zipreport.ZipReportCliProcessor>`   zipreport=cli PDF report generation
 :class:`zipreport.processors.MIMEProcessor<zipreport.processors.mime.MIMEProcessor>`                        MIME email report generation
 :class:`zipreport.processors.weasyprint.WeasyPrintProcessor`                                                WeasyPrint PDF report generation
 =========================================================================================================== ===========================================
@@ -203,7 +202,6 @@ available:
 Class                                                             Description
 ================================================================= =============================
 :class:`zipreport.ZipReport<zipreport.zipreport.ZipReport>`       ZipReportProcessor helper
-:class:`zipreport.ZipReportCli<zipreport.zipreport.ZipReportCli>` ZipReportCliProcessor helper
 :class:`zipreport.MIMEReport<zipreport.zipreport.MIMEReport>`     MIMEProcessor helper
 ================================================================= =============================
 
@@ -245,7 +243,7 @@ ZipReportProcessor example:
     zpt = ReportFileLoader.load("simple.zpt")
 
     # initialize api client
-    api_client = ZipReportClient("http://127.0.0.1:6543", "secretKey")
+    api_client = ZipReportClient("https://127.0.0.1:6543", "secretKey")
 
     # first step:
     # render the template using the report_data dict
@@ -303,106 +301,7 @@ Code example:
     zpt = ReportFileLoader.load("reports/simple.zpt")
 
     # render the report using ZipReport helper class
-    result = ZipReport("http://127.0.0.1:6543", "someSecret").render_defaults(zpt, report_data)
-
-    # if PDF generation was successful, save file
-    if result.success:
-        with open(output_file, 'wb') as rpt:
-            rpt.write(result.report.read())
-
-
-ZipReportCliProcessor
-_____________________
-
-:class:`ZipReportCliProcessor<zipreport.processors.zipreport.ZipReportCliProcessor>` relies on zipreport-cli to perform PDF rendering locally. The in-memory report file is unpacked to a
-random temporary folder, created on the operating system tmp path, then zipreport-cli is invoked to perform the HTML to
-PDF conversion on that folder. After generation of the PDF file, the newly created temporary folder is removed.
-
-Constructor:
-
-.. py:function:: ZipReportCliProcessor(cli_path:str)
-
-*cli_path* is the full path to the location of the zipreport-cli binary
-
-ZipReportCliProcessor example:
-
-.. code-block:: python
-
-    from zipreport.processors import ZipReportCliProcessor
-    from zipreport.report import ReportFileLoader, ReportJob
-    from zipreport.template import JinjaRender
-
-    # output file
-    output_file = "result.pdf"
-
-    # zipreport-cli path
-    zpt_cli = "/opt/zpt-cli/zpt-cli"
-
-    # template variables
-    report_data = {
-        'title': "Example report using Jinja templating",
-        'color_list': ['red', 'blue', 'green'],
-        'description': 'a long text field with some filler description',
-    }
-
-    # load report from file
-    zpt = ReportFileLoader.load("simple.zpt")
-
-    # first step:
-    # render the template using the report_data dict
-    # the result of the rendering is stored in-memory within the zpt file, with the name
-    # report.html
-    JinjaRender(zpt).render(report_data)
-
-    # create a rendering job from the zpt file
-    job = ReportJob(zpt)
-
-    # second step:
-    # generate a PDF by calling the processor
-    # this method returns a JobResult
-    result = ZipReportCliProcessor(zpt_cli).process(job)
-
-    # if PDF generation was successful, save to file
-    if result.success:
-        with open(output_file, 'wb') as rpt:
-            rpt.write(result.report.read())
-
-
-
-Using ZipReportCli Helper
-+++++++++++++++++++++++++
-
-ZipReportCliProcessor can also be used in a simplified fashion, by using the helper class :class:`ZipReportCli<zipreport.zipreport.ZipReportCli>`.
-This class will create a default :class:`ReportJob<zipreport.reports.job.ReportJob>`, simplifying the PDF generation process.
-
-Constructor:
-
-.. py:function:: ZipReportCli(cli_path:str)
-
-*cli_path* is the full path to the location of the zipreport-cli binary
-
-Code example:
-
-.. code-block:: python
-
-    from zipreport import ZipReportCli
-    from zipreport.report import ReportFileLoader
-
-    # output file
-    output_file = "result.pdf"
-
-    # template variables
-    report_data = {
-        'title': "Example report using Jinja templating",
-        'color_list': ['red', 'blue', 'green'],
-        'description': 'a long text field with some filler description',
-    }
-
-    # load report from file
-    zpt = ReportFileLoader.load("reports/simple.zpt")
-
-    # render the report using ZipReport helper class
-    result = ZipReportCli("/opt/zpt-cli/zpt-cli").render_defaults(zpt, report_data)
+    result = ZipReport("https://127.0.0.1:6543", "someSecret").render_defaults(zpt, report_data)
 
     # if PDF generation was successful, save file
     if result.success:

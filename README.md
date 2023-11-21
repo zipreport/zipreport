@@ -58,36 +58,41 @@ Installing via pip:
 $ pip install zipreport-lib
 ```
 
-##### Quick example
+##### TL;DR; example
 
 Using zipreport-cli backend to render a report file:
 ```python
-from zipreport import ZipReportCli
+from zipreport import ZipReport
 from zipreport.report import ReportFileLoader
 
-# path to zipreport-cli binary
-cli_path = "/opt/zpt-cli/zpt-cli"
+# existing zpt template
+report_file = "report.zpt"
 
 # output file
 output_file = "result.pdf"
 
-# template variables to be used for rendering
+# template variables
 report_data = {
-	'title': "Example report using Jinja templating",
-	'color_list': ['red', 'blue', 'green'],
-	'description': 'a long text field with some filler description so the page isn\'t that empty',
+    'title': "Example report using Jinja templating",
+    'color_list': ['red', 'blue', 'green'],
+    'description': 'a long text field with some filler description',
 }
 
-# load zpt report file
-zpt = ReportFileLoader.load("reports/simple.zpt")
+# load report from file
+zpt = ReportFileLoader.load(report_file)
 
-# render the report with default job options
-result = ZipReportCli(cli_path).render_defaults(zpt, report_data)
+# initialize api client
+client = ZipReport("https://127.0.0.1:6543", "secretKey")
+job = client.create_job(zpt)
 
+# generate a PDF by calling the processor, using the API client
+# this method returns a JobResult
+result = client.render(job, report_data)
+
+# if PDF generation was successful, save to file
 if result.success:
-	# write output file
-	with open(output_file, 'wb') as rpt:
-		rpt.write(result.report.read())
+    with open(output_file, 'wb') as rpt:
+        rpt.write(result.report.read())
 ```  
 
 ### Paged.js

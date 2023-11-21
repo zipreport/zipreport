@@ -4,7 +4,7 @@ from email.utils import make_msgid
 from html.parser import HTMLParser
 
 from zipreport.processors.interface import ProcessorInterface
-from zipreport.report import JobResult, ReportJob
+from zipreport.report import JobResult, ReportJob, OPT_MAIN_SCRIPT
 
 
 class ResourceParser(HTMLParser):
@@ -66,7 +66,7 @@ class MIMEProcessor(ProcessorInterface):
         """
         opts = job.get_options()
         rpt = job.get_report()
-        html = str(rpt.get(opts[job.OPT_MAIN_SCRIPT]).read(), encoding="utf-8")
+        html = str(rpt.get(opts[OPT_MAIN_SCRIPT]).read(), encoding="utf-8")
 
         mime_msg = EmailMessage()
         parser = ResourceParser()

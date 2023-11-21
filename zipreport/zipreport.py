@@ -2,9 +2,7 @@ from zipreport.processors.interface import ProcessorInterface
 from zipreport.processors import (
     ZipReportProcessor,
     ZipReportClient,
-    ZipReportCliProcessor,
     MIMEProcessor,
-    WkHtml2PdfProcessor,
 )
 from zipreport.report import ReportFile
 from zipreport.report.job import ReportJob, JobResult
@@ -73,33 +71,6 @@ class ZipReport(BaseReport):
         super(ZipReport, self).__init__(
             ZipReportProcessor(ZipReportClient(url, api_key, api_version, secure_ssl))
         )
-
-
-class ZipReportCli(BaseReport):
-    """
-    zipreport-cli local report generation
-    """
-
-    def __init__(self, cli_path: str, *args):
-        """
-        Constructor
-        :param cli_path: full path to zipreport-cli binary
-        :param *args: optional arguments to pass to the cli processor
-        """
-        super(ZipReportCli, self).__init__(ZipReportCliProcessor(cli_path, *args))
-
-
-class WkHtml2PdfReport(BaseReport):
-    """
-    wkhtmltopdf report generation
-    """
-
-    def __init__(self, cli_path: str):
-        """
-        Constructor
-        :param cli_path: full path to wkhtmltopdf binary
-        """
-        super(WkHtml2PdfReport, self).__init__(WkHtml2PdfProcessor(cli_path))
 
 
 class MIMEReport(BaseReport):

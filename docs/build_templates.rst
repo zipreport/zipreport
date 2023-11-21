@@ -47,8 +47,7 @@ the required options:
 CSS considerations
 ==================
 
-When using the zipreport electron-based processors (zipreport-cli, zipreport-server), be aware that the media type *print*
-will be used for PDF generation.
+When using zipreport-server, be aware that the media type *print* will be used for PDF generation.
 
 .. _js-signaling:
 
@@ -57,10 +56,10 @@ Waiting for JavaScript execution before rendering
 
 Some reports may contain complex JavaScript logic for page composition, and timing the finalization of these operations
 are a challenge. ZipReport provides a more reliable alternative to relying on waiting a predefined amount of time before triggering the render -
-a JavaScript event notification system that explicitly notifies the Electron application that client-side rendering is
+a JavaScript event notification system that explicitly notifies the supervisor application that client-side rendering is
 finalized and PDF generation can be done.
 
-The notification mechanism works by dispatching an event named 'zpt-view-ready'. As an example, this can be used to signal
+The notification mechanism works by writing  the string 'zpt-view-ready' to the console. As an example, this can be used to signal
 paged.js end of operations:
 
 .. code-block:: html
@@ -77,8 +76,8 @@ paged.js end of operations:
                 }
 
                 afterPreview(pages) {
-                    // dispatch event signaling readiness for PDF generation
-                    document.dispatchEvent(new Event('zpt-view-ready'))
+                    // event signaling readiness for PDF generation
+                    console.log('zpt-view-ready')
                 }
             }
 

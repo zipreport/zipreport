@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>PagedJS example</title>
+    <title>PagedJS example report</title>
 
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
@@ -25,10 +25,9 @@
 <!-- COVER PAGE -->
 <section id="cover">
     <div class="cover-title-bar">
-        <h1>Pretty cool sample report</h1>
+        <h1> &gt; Pretty cool sample report</h1>
         <p><span class="cover-annotation">
-        Date: {{ date }}<br>
-        Author: {{ author }}
+        <b>Date:</b> {{ date }} | <b>Author:</b> {{ author }}
         </span></p>
     </div>
 </section>
@@ -148,7 +147,7 @@
 
         <!-- image inside the paragraph -->
         <div class="align-right">
-            <img src="https://via.placeholder.com/150"/>
+            <img src="https://placehold.co/150"/>
             <blockquote class="ref">A perfect placeholder</blockquote>
         </div>
 
@@ -175,7 +174,7 @@
     <h3 id="chap3-1" class="title-element">Plotting server-side graphics</h3>
 
     <p>
-        By using the the provided extended filters, it is possible to easily embed server-side generated graphics by
+        By using the provided extended filters, it is possible to easily embed server-side generated graphics by
         using callbacks. When the template is rendered, the images
         are generated automatically and embedded into the report, before passing to the pdf generator.
     </p>
@@ -212,7 +211,7 @@
 
         afterPreview(pages) {
             // signal end of pagination operations
-            document.dispatchEvent(new Event('zpt-view-ready'))
+            console.log('zpt-view-ready')
         }
 
         beforeParsed(content) {
@@ -224,7 +223,6 @@
         }
 
     }
-
     (function () {
         Paged.registerHandlers(handlers);
         DrawSampleRadar();

@@ -8,7 +8,7 @@
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
 
-Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
+Want to see it in action? Check this [example](docs/samples/example_report.pdf)!
 
 **Highlights**:
 
@@ -16,16 +16,40 @@ Want to see it in action? Check this [example](docs/samples/pagedjs.pdf)!
 - Dynamic image support (embedding of runtime-generated images);
 - Reports are packed in a single file for easy distribution or bundling;
 - Optional MIME processor to embed resources in a single email message;
-- Support for generated JS content (with zipreport-server or zipreport-cli);
-- Support for headers, page numbers and ToC (via PagedJS, see below);
+- Support for browser-generated JS content (with zipreport-server);
+- Support for headers, page numbers and ToC (using [PagedJS](https://pagedjs.org/), see details below);
 
 **Requirements**:
 
-- Python >= 3.7
+- Python >= 3.8
 - Jinja2 >= 3.1 
-- Compatible backend for pdf generation (zipreport-server, zipreport-cli, xhtmltopdf, or WeasyPrint);
+- Compatible backend for pdf generation (zipreport-server, xhtmltopdf, or WeasyPrint);
 
-Note: For previous Jinja2 versions, zipreport-lib 0.9.5 is functionally similar.
+### v2.x.x breaking changes
+
+Starting with zipreport 2.0.0, support for the electron-based zipreport-cli rendering backend is removed; using
+a [zipreport-server](https://github.com/zipreport/zipreport-server) version 2.0.0 or later - preferably using a docker container,
+is now the recommended approach.
+
+The behavior of the JS event approach has also changed; PDF rendering can now be triggered via console message,
+instead of dispatching an event. **If you use JS events to trigger rendering, you need to update your templates**.
+
+Old method:
+```javascript
+    (...)
+    // signal PDF generation after all DOM changes are performed
+    document.dispatchEvent(new Event('zpt-view-ready'))
+    (...)
+```
+
+New method, starting with v2.0.0:
+```javascript
+    (...)
+    // signal PDF generation after all DOM changes are performed
+    console.log('zpt-view-ready')
+    (...)
+```
+
 
 ### Installation
 
@@ -68,35 +92,28 @@ if result.success:
 
 ### Paged.js
 
-[Paged.js](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for print,
+[PagedJS](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for print,
 under MIT license. It acts as polyfill for W3C specification for print, and allows the creation of headers, footers,
 page numbers, table of contents, etc. in the browser.
 
+To use PagedJS capabilities, [zipreport-server](https://github.com/zipreport/zipreport-server) must be used as a backend.
+
 ### Available backends
 
-#### zipreport-server/zipreport-cli
+#### Zipreport-Server
 
-This is the recommended backend to use, that enables full usage of client-side JavaScript and leveraging the Paged.js
-capabilities.
+[zipreport-server](https://github.com/zipreport/zipreport-server) is a headless browser daemon orchestrator, designed specifically to work with ZipReport. It can be
+either installed locally or run via docker.
 
-[zipreport-cli](https://github.com/zipreport/zipreport-cli) is an electron-based command-line utility used to convert
-webpages to PDF.
-
-[zipreport-server](https://github.com/zipreport/zipreport-server) is a daemon that allows the usage of zipreport-cli via API. 
+zipreport-server is the only supported backend that enables full usage of client-side JavaScript and leveraging the PagedJS
+capabilities. 
 
 #### WeasyPrint
 
-This backend is provided for compatibility. For new projects, please use zipreport-cli or zipreport-server.
+This backend is provided for compatibility. For new projects, please use zipreport-server.
 
 [WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support JavaScript,
 and CSS is limited. 
-
-#### wkhtmltopdf
-
-This backend is provided for compatibility. While it supports some JavaScript, it's not able to run Paged.js.
-
-[Wkhtmltopdf](https://wkhtmltopdf.org/) is a binary utility based on QtWebKit to generate PDF files from HTML pages.
-While it features some JavaScript and CSS support, the underlying library is obsolete.
 
 
 ### Documentation

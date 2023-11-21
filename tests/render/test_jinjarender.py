@@ -6,7 +6,6 @@ from zipreport.report import REPORT_FILE_NAME
 
 
 class TestJinjaRender(BaseTest):
-
     def test_render(self):
         # test render happy path
         zpt = self.build_zpt()
@@ -17,7 +16,7 @@ class TestJinjaRender(BaseTest):
         # check that output file was generated
         html_report = zpt.get(REPORT_FILE_NAME)
         assert html_report is not None
-        html_report = str(html_report.read(), 'utf-8')
+        html_report = str(html_report.read(), "utf-8")
         assert html_report == str(result)
         assert html_report.find("Lorem ipsum dolor sit amet") > 0
 
@@ -38,7 +37,7 @@ class TestJinjaRender(BaseTest):
         render = JinjaRender(zpt)
 
         # non-existing default data file
-        empty_data = render._discover_data('non-existing-file')
+        empty_data = render._discover_data("non-existing-file")
         assert isinstance(empty_data, dict) is True
         assert len(empty_data.items()) == 0
 
@@ -49,5 +48,5 @@ class TestJinjaRender(BaseTest):
 
         # invalid data file
         with pytest.raises(RuntimeError):
-            zpt.add('invalid.json', "")
-            render._discover_data('invalid.json')
+            zpt.add("invalid.json", "")
+            render._discover_data("invalid.json")

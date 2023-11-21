@@ -7,8 +7,8 @@ from .basezip import BaseZipTest
 
 
 class TestZipFs(BaseFsTest, BaseZipTest):
-    dname = 'this_test_dir'
-    fname = 'this_test_file.txt'
+    dname = "this_test_dir"
+    fname = "this_test_file.txt"
     fcontents = b"The quick brown fox jumped over the lazy dog"
 
     def test_zipfs(self):
@@ -16,13 +16,13 @@ class TestZipFs(BaseFsTest, BaseZipTest):
         path, zipitems, zfs = self.create_sample1_zip()
 
         rootdirs, rootfiles, items = self.path_walk(path)
-        zipdirs = zfs.list_dirs('/')
+        zipdirs = zfs.list_dirs("/")
 
         # check dir validations
         for dir in rootdirs:
             assert dir in zipdirs
             assert zfs.is_dir(dir) is True
-            assert zfs.is_dir(dir.rstrip('/')) is True
+            assert zfs.is_dir(dir.rstrip("/")) is True
 
         zfs.add(self.fname, self.fcontents)
         assert zfs.get(self.fname).getbuffer() == self.fcontents

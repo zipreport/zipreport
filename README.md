@@ -5,6 +5,12 @@
 [![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg)](https://pypi.org/project/zipreport-lib/)
 [![license](https://img.shields.io/pypi/l/zipreport-lib.svg)](https://github.com/zipreport/zipreport/blob/master/LICENSE)
 
+---
+
+**Documentation:** [https://zipreport.github.io/zipreport/](https://zipreport.github.io/zipreport/).
+
+---
+
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
 
@@ -119,10 +125,5 @@ This backend is provided for compatibility. For new projects, please use ziprepo
 
 [WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support JavaScript,
 and CSS is limited. 
-
-
-### Documentation
-
-Detailed documentation on usage and report building is available on the [project documentation](https://zipreport.readthedocs.io/en/latest/).
 
 

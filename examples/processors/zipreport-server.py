@@ -22,7 +22,7 @@ if __name__ == "__main__":
     zpt = ReportFileLoader.load("reports/simple.zpt")
 
     # render the report with default job options
-    result = ZipReport('http://127.0.0.1:6543', "").render_defaults(zpt, report_data)
+    result = ZipReport('https://127.0.0.1:6543', "somePassword").render_defaults(zpt, report_data)
 
     if result.success:
         with open(output_file, 'wb') as rpt:

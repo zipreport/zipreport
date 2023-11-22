@@ -10,3 +10,4 @@ Pillow
 weasyprint==58.1
 mkdocs-material==9.2.7
 mdx-include>=1.4.1
+pymdown-extensions

@@ -1,0 +1,1257 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PDF generation in Python with Jinja2 templates and client-side JS support">
+      
+      
+      
+        <link rel="canonical" href="https://zipreport.github.io/zipreport/build_templates/">
+      
+      
+        <link rel="prev" href="../how_it_works/">
+      
+      
+        <link rel="next" href="../cli/">
+      
+      
+      <link rel="icon" href="../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Building Templates - ZipReport</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#building-templates" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ZipReport" class="md-header__button md-logo" aria-label="ZipReport" data-md-component="logo">
+      
+  <img src="../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ZipReport
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building Templates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zipreport/zipreport" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ZipReport" class="md-nav__button md-logo" aria-label="ZipReport" data-md-component="logo">
+      
+  <img src="../img/logo.png" alt="logo">
+
+    </a>
+    ZipReport
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zipreport/zipreport" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_it_works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How it works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Building Templates
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Building Templates
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#template-design-considerations" class="md-nav__link">
+    Template design considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zipreport-jinja-considerations" class="md-nav__link">
+    ZipReport Jinja considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css-considerations" class="md-nav__link">
+    CSS considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-javascript-execution-before-rendering" class="md-nav__link">
+    Waiting for JavaScript execution before rendering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-images-dynamically" class="md-nav__link">
+    Generating images dynamically
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating images dynamically">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundled-jinja-filters-for-images" class="md-nav__link">
+    Bundled Jinja filters for images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-image-generation-function-for-an-image-filter" class="md-nav__link">
+    Writing an image generation function for an image filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-placeholders-for-previewing-purposes" class="md-nav__link">
+    Using placeholders for previewing purposes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-numbers-headers-and-footers" class="md-nav__link">
+    Page numbers, headers and footers
+  </a>
+  
+    <nav class="md-nav" aria-label="Page numbers, headers and footers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#including-pagedjs-on-your-report" class="md-nav__link">
+    Including paged.js on your report
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-page-numbers" class="md-nav__link">
+    Adding page numbers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-breaks" class="md-nav__link">
+    Configuring page breaks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-header" class="md-nav__link">
+    Adding a header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-footer" class="md-nav__link">
+    Adding a footer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    Complete example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    Advanced usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-table-of-contents-toc" class="md-nav__link">
+    Generating table of contents (ToC)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI tool: zipreport
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security considerations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#template-design-considerations" class="md-nav__link">
+    Template design considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zipreport-jinja-considerations" class="md-nav__link">
+    ZipReport Jinja considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css-considerations" class="md-nav__link">
+    CSS considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-javascript-execution-before-rendering" class="md-nav__link">
+    Waiting for JavaScript execution before rendering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-images-dynamically" class="md-nav__link">
+    Generating images dynamically
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating images dynamically">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundled-jinja-filters-for-images" class="md-nav__link">
+    Bundled Jinja filters for images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-image-generation-function-for-an-image-filter" class="md-nav__link">
+    Writing an image generation function for an image filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-placeholders-for-previewing-purposes" class="md-nav__link">
+    Using placeholders for previewing purposes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-numbers-headers-and-footers" class="md-nav__link">
+    Page numbers, headers and footers
+  </a>
+  
+    <nav class="md-nav" aria-label="Page numbers, headers and footers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#including-pagedjs-on-your-report" class="md-nav__link">
+    Including paged.js on your report
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-page-numbers" class="md-nav__link">
+    Adding page numbers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-breaks" class="md-nav__link">
+    Configuring page breaks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-header" class="md-nav__link">
+    Adding a header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-footer" class="md-nav__link">
+    Adding a footer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    Complete example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    Advanced usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-table-of-contents-toc" class="md-nav__link">
+    Generating table of contents (ToC)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="building-templates">Building Templates<a class="headerlink" href="#building-templates" title="Permanent link">&para;</a></h1>
+<h2 id="template-design-considerations">Template design considerations<a class="headerlink" href="#template-design-considerations" title="Permanent link">&para;</a></h2>
+<p>Typical report template design will require external resources, such as Javascript libraries and web fonts. These resources
+can be added locally or referenced externally from eg. CDNs, as any regular web page. However, keep in mind that referencing
+external resources may pose a security risk, and requires internet access when generating PDFs.</p>
+<p>Having these resources locally will reduce the PDF rendering time and minimize or eliminate the need to have internet access,
+but will increase the packaged report size and the effort required to maintain reports. Some assets may also have licensing
+limitations that prevent usage and redistribution in a packaged format.</p>
+<p>The recommended approach depends on the use case. Reports where PDF rendering time is not critical can reference resources
+externally as needed; Reports where rendering time is critical (such as generated in response to a user interaction) should
+have these resources referenced locally, as much as possible.</p>
+<h2 id="zipreport-jinja-considerations">ZipReport Jinja considerations<a class="headerlink" href="#zipreport-jinja-considerations" title="Permanent link">&para;</a></h2>
+<p>ZipReport allows most Jinja features, including adding your own filters. However, you can only import templates within
+your report folder path (including subfolders). Adding extensions to Jinja is also supported, when using the JinjaRender
+class directly. It works by instantiating <em>zipreport.template.JinjaRender</em> with
+the required options:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span>
+<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">JinjaRender</span>
+
+<span class="c1"># load report from file</span>
+<span class="n">zpt</span> <span class="o">=</span> <span class="n">ReportFileLoader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;simple.zpt&quot;</span><span class="p">)</span>
+
+<span class="c1"># extensions for jinja usage</span>
+<span class="n">jinja_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;jinja2.ext.i18n&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="c1"># initialize JinjaRender() with the desired options</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">JinjaRender</span><span class="p">(</span><span class="n">zpt</span><span class="p">,</span> <span class="n">jinja_options</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="css-considerations">CSS considerations<a class="headerlink" href="#css-considerations" title="Permanent link">&para;</a></h2>
+<p>When using zipreport-server, be aware that the media type <em>print</em> will be used for PDF generation.</p>
+<h2 id="waiting-for-javascript-execution-before-rendering">Waiting for JavaScript execution before rendering<a class="headerlink" href="#waiting-for-javascript-execution-before-rendering" title="Permanent link">&para;</a></h2>
+<p>Some reports may contain complex JavaScript logic for page composition, and timing the finalization of these operations
+are a challenge. ZipReport provides a more reliable alternative to relying on waiting a predefined amount of time before triggering the render -
+a JavaScript event notification system that explicitly notifies the supervisor application that client-side rendering is
+finalized and PDF generation can be done.</p>
+<p>The notification mechanism works by writing  the string '<strong>zpt-view-ready</strong>' to the console. As an example, this can be used to signal
+paged.js end of operations:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html PUBLIC&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://s3.amazonaws.com/pagedmedia/pagedjs/dist/paged.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="c1">// custom paged.js handler</span>
+<span class="w">        </span><span class="kd">class</span><span class="w"> </span><span class="nx">handlers</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Paged</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">chunker</span><span class="p">,</span><span class="w"> </span><span class="nx">polisher</span><span class="p">,</span><span class="w"> </span><span class="nx">caller</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">super</span><span class="p">(</span><span class="nx">chunker</span><span class="p">,</span><span class="w"> </span><span class="nx">polisher</span><span class="p">,</span><span class="w"> </span><span class="nx">caller</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="nx">afterPreview</span><span class="p">(</span><span class="nx">pages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// event signaling readiness for PDF generation</span>
+<span class="w">                </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;zpt-view-ready&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Register handler on paged.js library</span>
+<span class="w">        </span><span class="nx">Paged</span><span class="p">.</span><span class="nx">registerHandlers</span><span class="p">(</span><span class="nx">handlers</span><span class="p">);</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="generating-images-dynamically">Generating images dynamically<a class="headerlink" href="#generating-images-dynamically" title="Permanent link">&para;</a></h2>
+<p>ZipReport provides several filters that allow the generation and inclusion of images generated in runtime, without requiring
+client-side composition. This is quite useful to add data-driven graphics to the reports, both for PDF and MIME generation.</p>
+<p>The image is generated by calling a function that will save the results to a io.BytesIO memory buffer. This buffer will
+be added to the in-memory representation of the report file as an image with a random name by the filter, and then the
+appropriate html image tag will be generated, for rendering purposes.</p>
+<h3 id="bundled-jinja-filters-for-images">Bundled Jinja filters for images<a class="headerlink" href="#bundled-jinja-filters-for-images" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Filter name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>png</td>
+<td>Generates dynamic PNG image</td>
+</tr>
+<tr>
+<td>gif</td>
+<td>Generates dynamic GIF image</td>
+</tr>
+<tr>
+<td>jpg</td>
+<td>Generates dynamic JPEG image</td>
+</tr>
+<tr>
+<td>svg</td>
+<td>Generates dynamic SVG image</td>
+</tr>
+</tbody>
+</table>
+<p>Call syntax:</p>
+<div class="highlight"><pre><span></span><code>Positional args:
+    {{ callable | filter(data_source, alt_text, width, height, css_class }}
+
+Named args:
+    {{ callable | filter(data=data_source, alt=alt_text, width=width, height=height, class=css_class }}
+</code></pre></div>
+<p>Where:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callable</td>
+<td>function that will generate the specific graphic; it is passed as a template variable</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>bundled jinja filter to generate the appropriate img tag; see below for available filters</td>
+</tr>
+<tr>
+<td>data_source</td>
+<td>variable with data to be passed to the callable as a parameter</td>
+</tr>
+<tr>
+<td>alt_text</td>
+<td>optional img tag alt text</td>
+</tr>
+<tr>
+<td>width</td>
+<td>optional image tag width</td>
+</tr>
+<tr>
+<td>height</td>
+<td>optional image tag height</td>
+</tr>
+<tr>
+<td>css_class</td>
+<td>optional image tag css classes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="writing-an-image-generation-function-for-an-image-filter">Writing an image generation function for an image filter<a class="headerlink" href="#writing-an-image-generation-function-for-an-image-filter" title="Permanent link">&para;</a></h3>
+<p>Writing a function to be used dynamically in the report is quite simple; it is a regular function that receives
+an argument and returns a io.BytesIO buffer object.</p>
+<p>Below we'll see a complete example on how to generate and embed a simple image on a template.  The complete code is
+available on the examples/filter_simple folder.</p>
+<p>Example file list:</p>
+<div class="highlight"><pre><span></span><code>sample_report/index.html
+sample_report/manifest.json
+main.py
+</code></pre></div>
+<p>We start with a simple html template and a manifest file into the sample_report folder:</p>
+<p>Html template (index.html):</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Zipreport jinja filter example<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>PNG Example<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+{{ colored_rectangle_fn|png(rectangle_color, &quot;label for png&quot;) }}
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Manifest file(manifest.json):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;zipreport&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jinja Filter example&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dynamic jinja filter example&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;colored_rectangle_fn&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;rectangle_color&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We can now build the report:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>zipreport<span class="w"> </span>build<span class="w"> </span><span class="nv">sample_report</span>
+
+<span class="o">==</span><span class="w"> </span>Building<span class="w"> </span>Report<span class="w"> </span>simple_report.zpt<span class="w"> </span><span class="o">==</span>
+Checking<span class="w"> </span>manifest<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>index<span class="w"> </span>file...
+Building...
+Copying<span class="w"> </span>manifest.json...
+Copying<span class="w"> </span>index.html...
+Generating<span class="w"> </span>simple_report.zpt...
+Done!
+</code></pre></div>
+<p>Then, we start writing our main.py code. First, we create our image generation function. This function will generate
+a png colored rectangle using PIL, based on the specified color passed as argument (in this case, the value will
+come from the rectangle_color template variable), and returns a <em>io.BytesIO</em> buffer.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">def</span> <span class="nf">render_image</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">:</span>
+    <span class="c1"># generate a rectangle with the specified color</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="c1"># save generated image to a memory buffer</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;PNG&#39;</span><span class="p">)</span>
+    <span class="c1"># rewind to the beginning of the buffer</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">buffer</span>
+</code></pre></div>
+<p>Lastly, we add some boilerplate to load, process and save the report. This example relies on zipreport-server for rendering
+(Some additional validations were omitted for readability):</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">pdf_name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># output file path</span>
+
+    <span class="n">report_name</span> <span class="o">=</span> <span class="s2">&quot;simple_report.zpt&quot;</span>
+    <span class="n">report</span> <span class="o">=</span> <span class="n">ReportFileLoader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">report_name</span><span class="p">)</span>
+
+    <span class="c1"># template variables</span>
+    <span class="n">report_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># our callback function to generate the image</span>
+        <span class="s1">&#39;colored_rectangle_fn&#39;</span><span class="p">:</span> <span class="n">render_image</span><span class="p">,</span>
+        <span class="c1"># desired color to use</span>
+        <span class="s1">&#39;rectangle_color&#39;</span><span class="p">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># render using zipreport-cli processor</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">ZipReport</span><span class="p">(</span><span class="s2">&quot;https://127.0.0.1:6543&quot;</span><span class="p">,</span> <span class="s2">&quot;somePassword&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">render_defaults</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">report_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occured while generating the pdf:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># save io.BytesIO buffer to file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pdf_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</code></pre></div>
+<p>We can now run our example program:</p>
+<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>python3<span class="w"> </span>main.py<span class="w"> </span>result.pdf
+Report<span class="w"> </span>generated<span class="w"> </span>to<span class="w"> </span>result.pdf
+$
+</code></pre></div>
+Expected result contents:</p>
+<p><img alt="PDF generated from the example" src="../img/simple_report1.png" /></p>
+<h3 id="using-placeholders-for-previewing-purposes">Using placeholders for previewing purposes<a class="headerlink" href="#using-placeholders-for-previewing-purposes" title="Permanent link">&para;</a></h3>
+<p>Due to the dynamic nature of the dynamic image generation, it is not possible to preview the report correctly with <em>zipreport debug</em>.
+To work around this limitation, it is possible to specify a placeholder image (local or remote) instead of the callable parameter.
+The data source parameter, while mandatory, is ignored.</p>
+<p>Following on the previous example, we can add a data.json to simple_report1 with a string url for an image instead of the callable
+function. This url can either be external (ex. a placeholder generation site) or local (a local image within the template
+structure):</p>
+<p>data.json contents with a placeholder url:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;colored_rectangle_fn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://placehold.co/400&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rectangle_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>data.json contents with a local image:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;colored_rectangle_fn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/images/png_graphic.png&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rectangle_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="page-numbers-headers-and-footers">Page numbers, headers and footers<a class="headerlink" href="#page-numbers-headers-and-footers" title="Permanent link">&para;</a></h2>
+<p>Page numbers, headers and footers can be generated automatically using <a href="https://www.pagedjs.org/">paged.js</a>. Please
+check paged.js documentation for detailed information on available formatting options and advanced usage.</p>
+<p>To ensure correct PDF generation, specially on lengthy or complex documents, it is recommended to always enable the
+<a href="#waiting-for-javascript-execution-before-rendering">js signaling</a> functionality.</p>
+<h3 id="including-pagedjs-on-your-report">Including paged.js on your report<a class="headerlink" href="#including-pagedjs-on-your-report" title="Permanent link">&para;</a></h3>
+<p>The most convenient way of including paged.js is to use the CDN link in your html report page:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- PagedJS --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/pagedjs/dist/paged.polyfill.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="o">&lt;!</span><span class="nt">--</span><span class="w"> </span><span class="nt">custom</span><span class="w"> </span><span class="nt">CSS</span><span class="w"> </span><span class="nt">rules</span><span class="w"> </span><span class="nt">goes</span><span class="w"> </span><span class="nt">here</span><span class="o">;</span><span class="w"> </span><span class="nt">see</span><span class="w"> </span><span class="nt">below</span><span class="w"> </span><span class="nt">--</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- page content goes here --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="adding-page-numbers">Adding page numbers<a class="headerlink" href="#adding-page-numbers" title="Permanent link">&para;</a></h3>
+<p>Extending on our previous example, we can now add page numbers to the bottom right corner of the page via css:</p>
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c">/* page footer */</span>
+<span class="w">    </span><span class="p">@</span><span class="k">bottom-right</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c">/* page numbers will be prefixed by string &quot;page&quot; */</span>
+<span class="w">        </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;page &quot;</span><span class="w"> </span><span class="nt">counter</span><span class="o">(</span><span class="nt">page</span><span class="o">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="configuring-page-breaks">Configuring page breaks<a class="headerlink" href="#configuring-page-breaks" title="Permanent link">&para;</a></h3>
+<p>Forcing page breaks on specific sections is also possible. In this example, we will add page breaks for <section> tags:</p>
+<div class="highlight"><pre><span></span><code><span class="c">/* section tag triggers page break */</span>
+<span class="nt">section</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">break-before</span><span class="p">:</span><span class="w"> </span><span class="kc">page</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now each section block will trigger a page break on our report:</p>
+<div class="highlight"><pre><span></span><code>(...)
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>this is page 1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>this is page 2<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="adding-a-header">Adding a header<a class="headerlink" href="#adding-a-header" title="Permanent link">&para;</a></h3>
+<p>To add a header with the current chapter name, we map the heading tag (in this case, H1) to a variable,
+and then we extend our @page CSS definition to display that var on the top right corner of the page:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(...)</span>
+
+<span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c">/* display &#39;title&#39; contents in the top right corner of the page, in uppercase */</span>
+<span class="w">    </span><span class="p">@</span><span class="k">top-right</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="nt">string</span><span class="o">(</span><span class="nt">title</span><span class="o">);</span>
+<span class="w">        </span><span class="nt">text-transform</span><span class="o">:</span><span class="w"> </span><span class="nt">uppercase</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="o">(...)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="adding-a-footer">Adding a footer<a class="headerlink" href="#adding-a-footer" title="Permanent link">&para;</a></h3>
+<p>Adding a static footer is similar to the approach used for page numbering. Just choose the desired page location and specify
+the desired content:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(...)</span>
+<span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c">/* display static text on the footer */</span>
+<span class="w">    </span><span class="p">@</span><span class="k">bottom-center</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sample footer&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="o">(...)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="complete-example">Complete example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h3>
+<p>This is how our final version of a two-page report, with page numbers in the bottom right corner, a page header with the current
+chapter name in uppercase, and a fixed footer with a sample text looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- PagedJS --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/pagedjs/dist/paged.polyfill.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="c">/* &#39;title&#39; variable comes from h1 contents */</span>
+<span class="w">        </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">string-set</span><span class="p">:</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="nf">content</span><span class="p">(</span><span class="kc">text</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c">/* section tag triggers page break */</span>
+<span class="w">        </span><span class="nt">section</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break-before</span><span class="p">:</span><span class="w"> </span><span class="kc">page</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c">/* display &#39;title&#39; contents in the top right corner of the page, in uppercase */</span>
+<span class="w">            </span><span class="p">@</span><span class="k">top-right</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="nt">string</span><span class="o">(</span><span class="nt">title</span><span class="o">);</span>
+<span class="w">                </span><span class="nt">text-transform</span><span class="o">:</span><span class="w"> </span><span class="nt">uppercase</span><span class="o">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c">/* display static text on the footer */</span>
+<span class="w">            </span><span class="p">@</span><span class="k">bottom-center</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sample footer&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c">/* page footer */</span>
+<span class="w">            </span><span class="p">@</span><span class="k">bottom-right</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c">/* page numbers will be prefixed by string &quot;page&quot; */</span>
+<span class="w">                </span><span class="nt">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;page &quot;</span><span class="w"> </span><span class="nt">counter</span><span class="o">(</span><span class="nt">page</span><span class="o">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>this is page 1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>this is page 2<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
+<p>Visit <a href="https://www.pagedjs.org/">paged.js documentation</a> for more details on available features.
+An advanced example, with a cover page, sections and a table of contents can be found in the
+available <a href="https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/example_report/">examples</a>.</p>
+<h2 id="generating-table-of-contents-toc">Generating table of contents (ToC)<a class="headerlink" href="#generating-table-of-contents-toc" title="Permanent link">&para;</a></h2>
+<p>ZipReport provides a simple example of automatic table of content generation with JavaScript and CSS in
+the <a href="https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/">examples section</a>. It works
+by populating a div element with the desired index entries, and then use the CSS target-counter property to
+generate the page numbers.</p>
+<p>Lets build an example reusing both the js and css example files (originally they were provided by paged.js, but are no longer available).
+Copy both files to your report folder, and rename them to toc.js and toc.css respectively:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/js/toc.js<span class="w"> </span>-O<span class="w"> </span>toc.js
+$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/css/toc.css<span class="w"> </span>-O<span class="w"> </span>toc.css
+</code></pre></div></p>
+<p>We can then revisit and extend our previous example from <a href="#adding-page-numbers">page numbers</a>:</p>
+<div class="highlight"><pre><span></span><code>(...)
+<span class="cm">&lt;!-- PagedJS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/pagedjs/dist/paged.polyfill.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- ToC script --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;toc.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;toc.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+(..)
+</code></pre></div>
+<p>And add the index page to the body, and add a css class 'toc-element' to mark desired toc entries:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- INDEX PAGE --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;toc&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Index<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;toc&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;toc-element&quot;</span><span class="p">&gt;</span>this is page 1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;toc-element&quot;</span><span class="p">&gt;</span>this is page 2<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>And finally, hook both the dynamic ToC generation and ZipReport <a href="#waiting-for-javascript-execution-before-rendering">js signaling</a>
+to the paged.js event handlers, just before closing the body tag:</p>
+<div class="highlight"><pre><span></span><code>    (...)
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="kd">class</span><span class="w"> </span><span class="nx">handlers</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Paged</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">chunker</span><span class="p">,</span><span class="w"> </span><span class="nx">polisher</span><span class="p">,</span><span class="w"> </span><span class="nx">caller</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">super</span><span class="p">(</span><span class="nx">chunker</span><span class="p">,</span><span class="w"> </span><span class="nx">polisher</span><span class="p">,</span><span class="w"> </span><span class="nx">caller</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="nx">afterPreview</span><span class="p">(</span><span class="nx">pages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// signal zipreport PDF generation engine</span>
+<span class="w">                </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;zpt-view-ready&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="nx">beforeParsed</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">createToc</span><span class="p">({</span>
+<span class="w">                    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">tocElement</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#toc&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// our target element</span>
+<span class="w">                    </span><span class="nx">titleElements</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;.toc-element&#39;</span><span class="p">]</span><span class="w"> </span><span class="c1">// CSS classes of elements to add to the index</span>
+<span class="w">                </span><span class="p">});</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">Paged</span><span class="p">.</span><span class="nx">registerHandlers</span><span class="p">(</span><span class="nx">handlers</span><span class="p">);</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/zipreport/zipreport" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.suggest", "search.highlight", "content.tabs.link"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+    
+  </body>
+</html>

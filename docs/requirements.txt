@@ -1,4 +1,0 @@
-weasyprint
-Sphinx>=3.0
-sphinx_rtd_theme>=0.4
-setuptools>=65.5.1

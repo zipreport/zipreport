@@ -1,13 +1,12 @@
 # ZipReport
 
 [![Tests](https://github.com/zipreport/zipreport/workflows/Tests/badge.svg?branch=master)](https://github.com/zipreport/zipreport/actions)
-[![docs](https://readthedocs.org/projects/zipreport/badge/?version=latest)](https://zipreport.readthedocs.io/en/latest/)
 [![pypi](https://img.shields.io/pypi/v/zipreport-lib.svg)](https://pypi.org/project/zipreport-lib/)
 [![license](https://img.shields.io/pypi/l/zipreport-lib.svg)](https://github.com/zipreport/zipreport/blob/master/LICENSE)
 
 ---
 
-**Documentation:** [https://zipreport.github.io/zipreport/](https://zipreport.github.io/zipreport/).
+**Documentation:** [https://zipreport.github.io/zipreport/](https://zipreport.github.io/zipreport/)
 
 ---
 

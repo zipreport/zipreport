@@ -40,7 +40,7 @@ class ReportFileBuilder:
 
     @staticmethod
     def build_file(
-        path: str, output_file: str, console=sys.stdout, overwrite: bool = False
+        path: str, output_file: str, console=sys.stdout, overwrite: bool = False, follow_links:bool=False
     ) -> BuildResult:
         """
         Assemble a report file from a specific path
@@ -48,6 +48,7 @@ class ReportFileBuilder:
         :param output_file: destination report file
         :param console: console writer
         :param overwrite: if True, overwrite destination if exists
+        :param follow_links: if True, symlinks are followed
         :return: BuildResult
         """
         status = BuildResult()
@@ -85,7 +86,7 @@ class ReportFileBuilder:
                 )
 
         # build ZipFs
-        zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console)
+        zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console, follow_links=follow_links)
         if not zfs_status.success():
             return zfs_status
 
@@ -105,12 +106,13 @@ class ReportFileBuilder:
 
     @staticmethod
     def build_zipfs(
-        path: str, console=sys.stdout
+        path: str, console=sys.stdout, follow_links=False
     ) -> Tuple[BuildResult, Union[ZipFs, None]]:
         """
         Assemble a ZipFs structure from a specific path
         :param path: report dir path
         :param console: console writer
+        :param follow_links: if true, follow symlinks
         :return: [BuildResult, ZipFs]
         """
         status = BuildResult()
@@ -121,6 +123,9 @@ class ReportFileBuilder:
 
         if not path.is_dir():
             return status.add_error("Path '{}' is not a directory".format(path)), None
+
+        # inform symlink status
+        console.write("Follow Symlinks: {}\n".format(follow_links))
 
         # try to load & validate manifest
         console.write("Checking manifest & index file...\n")
@@ -135,7 +140,7 @@ class ReportFileBuilder:
         console.write("Building...\n")
         zfs = ZipFs(InMemoryZip())
         names = []
-        for dirname, dirs, files in os.walk(path):
+        for dirname, dirs, files in os.walk(path, followlinks=follow_links):
             dirname = Path(dirname)
             for f in files:
                 names.append(dirname / Path(f))

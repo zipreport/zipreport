@@ -37,12 +37,20 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         "": "application/octet-stream",
     }
 
-    def __init__(self, *args, report_path=None, extra_mime_types=None, **kwargs):
+    def __init__(
+        self,
+        *args,
+        report_path=None,
+        extra_mime_types=None,
+        follow_links: bool = False,
+        **kwargs
+    ):
         """
         Constructor
         :param args:
         :param report_path: path of the directory or zpt file to process
         :param extra_mime_types: optional extra mime types to register
+        :param follow_links: if True, follow symlinks
         :param kwargs:
         """
         self.bootstrap_mime_types(extra_mime_types)
@@ -51,6 +59,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         self.report_path = Path(report_path)
         self.is_report_file = self.report_path.is_file()
         self.enc = sys.getfilesystemencoding()
+        self.follow_links = follow_links
 
         super().__init__(*args, **kwargs)
 
@@ -84,7 +93,9 @@ class ReportFileHandler(BaseHTTPRequestHandler):
                 _zpt = ReportFileLoader.load_file(self.report_path)
             else:
                 sys.stdout.write("Rebuilding report from path...\n")
-                bresult, zpt = ReportFileBuilder.build_zipfs(self.report_path)
+                bresult, zpt = ReportFileBuilder.build_zipfs(
+                    self.report_path, follow_links=self.follow_links
+                )
                 if not bresult.success():
                     return False, self.error_500(";".join(bresult.get_errors()))
                 # create ReportFile from zipfs
@@ -251,9 +262,11 @@ class DebugServer:
     def set_port(self, port: int):
         self._port = port
 
-    def run(self, report_path: str):
+    def run(self, report_path: str, follow_links: bool = False) -> None:
         server_address = (self._addr, int(self._port))
-        handler_class = partial(ReportFileHandler, report_path=report_path)
+        handler_class = partial(
+            ReportFileHandler, report_path=report_path, follow_links=follow_links
+        )
         sys.stdout.write(
             "\nStarted debug server at http://{addr}:{port}\nServing from: {path}\nUse Ctrl+C to stop...\n\n".format(
                 addr=self._addr, port=int(self._port), path=Path(report_path).absolute()

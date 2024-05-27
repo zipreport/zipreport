@@ -39,6 +39,11 @@ $ cd examples/reports/simple
 $
 ```
 
+### Supporting symbolic links (min version: 2.1.0)
+
+The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing of resources between
+templates, the usage of symbolic links is supported in both *zipreport debug* and *zipreport build*. By using *-s*, the commands
+will follow and process any related symlinks, as long as they are linked within the structure of the template.
 
 ### Report file format (zpt)
 

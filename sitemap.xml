@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://zipreport.github.io/zipreport/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/build_templates/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/cli/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/faq/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/how_it_works/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/install/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/release-notes/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://zipreport.github.io/zipreport/security/</loc>
-         <lastmod>2023-11-22</lastmod>
+         <lastmod>2024-05-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

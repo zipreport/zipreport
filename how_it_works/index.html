@@ -346,6 +346,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#supporting-symbolic-links-min-version-210" class="md-nav__link">
+    Supporting symbolic links (min version: 2.1.0)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#report-file-format-zpt" class="md-nav__link">
     Report file format (zpt)
   </a>
@@ -591,6 +598,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#supporting-symbolic-links-min-version-210" class="md-nav__link">
+    Supporting symbolic links (min version: 2.1.0)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#report-file-format-zpt" class="md-nav__link">
     Report file format (zpt)
   </a>
@@ -745,6 +759,10 @@ partials, css resources, javascript resources, images or fonts.</p>
 <span class="m">2</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">5</span><span class="w"> </span>files
 $
 </code></pre></div>
+<h3 id="supporting-symbolic-links-min-version-210">Supporting symbolic links (min version: 2.1.0)<a class="headerlink" href="#supporting-symbolic-links-min-version-210" title="Permanent link">&para;</a></h3>
+<p>The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing of resources between
+templates, the usage of symbolic links is supported in both <em>zipreport debug</em> and <em>zipreport build</em>. By using <em>-s</em>, the commands
+will follow and process any related symlinks, as long as they are linked within the structure of the template.</p>
 <h3 id="report-file-format-zpt">Report file format (zpt)<a class="headerlink" href="#report-file-format-zpt" title="Permanent link">&para;</a></h3>
 <p>ZipReport report files (*.zpt) are just regular zip files with - at least - the following entries:</p>
 <table>

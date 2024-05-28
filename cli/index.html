@@ -565,11 +565,11 @@
 <td>Show basic report details</td>
 </tr>
 <tr>
-<td>build <directory> [output_file]</td>
+<td>build <directory> [output_file] [-s]</td>
 <td>Build a zpt file from a jinja template</td>
 </tr>
 <tr>
-<td>debug <directory\|file> [[host]:<port>]</td>
+<td>debug <directory\|file> [[host]:\&lt;port&gt;] [-s]</td>
 <td>Run debug server using the directory or specified file</td>
 </tr>
 </tbody>
@@ -586,9 +586,10 @@ sample1.zpt<span class="w">          </span>Sample<span class="w"> </span>report
 $
 </code></pre></div>
 <h3 id="generate-a-report-file">Generate a report file<a class="headerlink" href="#generate-a-report-file" title="Permanent link">&para;</a></h3>
-<p>Generating a report file (zpt) from existing Jinja2 report files:</p>
+<p>Generating a report file (zpt) from existing Jinja2 report files (the option -s can be used if templates use symlinks):</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>zipreport<span class="w"> </span>build<span class="w"> </span>reports/sample1<span class="w"> </span>sample1-1.0.0
 <span class="o">==</span><span class="w"> </span>Building<span class="w"> </span>Report<span class="w"> </span>sample1-1.0.0.zpt<span class="w"> </span><span class="o">==</span>
+Follow<span class="w"> </span>Symlinks:<span class="w"> </span>False
 Checking<span class="w"> </span>manifest<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>index<span class="w"> </span>file...
 Building...
 Copying<span class="w"> </span>manifest.json...
@@ -601,9 +602,9 @@ $
 </code></pre></div>
 <h2 id="running-a-template-for-development-purposes-debugging">Running a template for development purposes (debugging)<a class="headerlink" href="#running-a-template-for-development-purposes-debugging" title="Permanent link">&para;</a></h2>
 <p>The debug argument creates a local webserver to run a given Jinja template or report file. At each page request (
-refresh)
-it will re-render the template as HTML.</p>
-<p>Beware, the template should have a valid manifest.json and data.json files. If no data.json is present and
+refresh) it will re-render the template as HTML.</p>
+<p>To use debug with a template that uses symbolic links, the -s option must be used.</p>
+<p>Please note, the template should have a valid manifest.json and data.json files. If no data.json is present and
 variables are required to render the template, the render will fail. See <a href="../build_templates/">building templates</a> for
 more information.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>zipreport<span class="w"> </span>debug<span class="w"> </span>reports/sample1/

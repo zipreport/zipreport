@@ -1,46 +1,34 @@
 # ZipReport Filter Example
 #
-import io
 import sys
 from pathlib import Path
 
-import svgwrite
-from PIL import Image
+import markupsafe
+from jinja2 import Environment, pass_environment
 
 from zipreport import ZipReport
 from zipreport.report import ReportFileBuilder, ReportFileLoader
+from zipreport.template import EnvironmentWrapper
 
 
-def render_image(color="red", format="PNG"):
-    img = Image.new("RGB", (256, 256), color=color)
-    buffer = io.BytesIO()
-    img.save(buffer, format=format)
-    buffer.seek(0)
-    return buffer
+@pass_environment
+def defoxifier(*args, **kwargs) -> markupsafe.Markup:
+    """
+    Example filter that replaces "fox" with "racoon"
+    """
+    al = len(args)
+    if al < 2:
+        raise RuntimeError("Invalid number of arguments")
+
+    text = args[1].replace("fox", "racoon")
+    return markupsafe.Markup(text)
 
 
-def render_png(data):
-    return render_image(data, "PNG")
-
-
-def render_gif(data):
-    return render_image(data, "GIF")
-
-
-def render_jpg(data):
-    return render_image(data, "JPEG")
-
-
-def render_svg(data):
-    dwg = svgwrite.Drawing(profile="tiny")
-    shapes = dwg.add(dwg.g(id="shapes", fill=data))
-    shapes.add(dwg.rect(insert=(0, 0), size=(100, 100), fill=data))
-    # StringIO is used because buffer.write() needs to accept string-like data
-    buffer = io.StringIO()
-    dwg.write(buffer)
-    buffer.seek(0)
-    # convert string buffer into bytes
-    return bytes(buffer.read(), encoding="utf-8")
+class MyCustomWrapper(EnvironmentWrapper):
+    def wrap(self, e: Environment):
+        # register our fancy defoxifier filter
+        e.filters["defoxifier"] = defoxifier
+        return e
 
 
 if __name__ == "__main__":
@@ -61,7 +49,7 @@ if __name__ == "__main__":
     #
     # report = ReportFileLoader.load(zpt_file_path)
     #
-    report_path = Path("../../reports/filter_example").absolute()
+    report_path = Path("../../reports/env_wrapper/custom_filter_example").absolute()
     status, zfs = ReportFileBuilder.build_zipfs(report_path)
     if not status.success():
         print("Error loading the report")
@@ -72,19 +60,15 @@ if __name__ == "__main__":
 
     # template variables
     report_data = {
-        "png_graphic": render_png,
-        "png_graphic_data": "pink",
-        "gif_graphic": render_gif,
-        "gif_graphic_data": "blue",
-        "jpg_graphic": render_jpg,
-        "jpg_graphic_data": "green",
-        "svg_graphic": render_svg,
-        "svg_graphic_data": "yellow",
+        "title_text": "the quick brown fox jumps over the lazy dog",
     }
+
+    # create custom wrapper object
+    my_wrapper = MyCustomWrapper()
 
     # render using zipreport processor
     result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(
-        report, report_data
+        report, report_data, wrapper=my_wrapper
     )
     if not result.success:
         print("An error occured while generating the pdf:", result.error)

@@ -8,7 +8,6 @@ from zipreport import MIMEReport
 from zipreport.report import ReportFileBuilder, ReportFileLoader
 
 if __name__ == "__main__":
-
     args = sys.argv[1:]
     if len(args) != 1:
         print("Usage: python3 main.py <destination_file.eml>")
@@ -37,7 +36,7 @@ if __name__ == "__main__":
 
     # template variables
     report_data = {
-        'name': "John Connor",
+        "name": "John Connor",
     }
 
     # render using zipreport-cli processor
@@ -48,7 +47,7 @@ if __name__ == "__main__":
 
     # save io.BytesIO buffer to file
     # result.report is of type EmailMessage()
-    with open(email_name, 'wb') as f:
+    with open(email_name, "wb") as f:
         f.write(result.report.as_bytes(policy=SMTP))
 
     print("Email generated to {}".format(email_name))

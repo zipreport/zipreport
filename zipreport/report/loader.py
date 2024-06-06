@@ -28,14 +28,16 @@ class ReportFileLoader:
         return ReportFileLoader.load_file(source)
 
     @staticmethod
-    def load_dir(path: str, follow_links:bool=False) -> ReportFile:
+    def load_dir(path: str, follow_links: bool = False) -> ReportFile:
         """
         Generate ReportFile from a directory with a valid report template
         :param path: template path
         :follow_links: if True, symlinks are followed
         :return: ReportFile
         """
-        zstatus, zfs = ReportFileBuilder.build_zipfs(path, StringIO(), follow_links=follow_links)
+        zstatus, zfs = ReportFileBuilder.build_zipfs(
+            path, StringIO(), follow_links=follow_links
+        )
         if not zstatus.success():
             error_msg = "; ".join(zstatus.get_errors())
             raise ReportFileLoaderError(

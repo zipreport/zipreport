@@ -15,9 +15,9 @@ from zipreport.report import ReportFileBuilder, ReportFileLoader, ReportJob, Rep
 # required to support 3d plotting
 from mpl_toolkits.mplot3d import Axes3D
 
-class PagedJSReport:
 
-    def render(self, zpt: ReportFile, output='report.pdf') -> bool:
+class PagedJSReport:
+    def render(self, zpt: ReportFile, output="report.pdf") -> bool:
         """
         Render a report
         :param zpt: ReportFile to use
@@ -25,24 +25,21 @@ class PagedJSReport:
         :return: True if operation was successful
         """
         data = {
-            'date': datetime.today().strftime('%Y-%m-%d'),
-            'author': 'ZipReport library',
-
+            "date": datetime.today().strftime("%Y-%m-%d"),
+            "author": "ZipReport library",
             # data for first graphic
-            'graphics_1': {
-                'x-axis': 'time',
-                'g1-y-axis': 's1 and s2',
-                'g2-y-axies': 'coherence',
+            "graphics_1": {
+                "x-axis": "time",
+                "g1-y-axis": "s1 and s2",
+                "g2-y-axies": "coherence",
             },
-
             # data for second graphic
-            'graphics_2': {
-                'title': '3D surface',
+            "graphics_2": {
+                "title": "3D surface",
             },
-
             # encapsulate class methods into a lambda for callback
-            'gen_graphics_1': lambda args: self.plot_graphics_1(args),
-            'gen_graphics_2': lambda args: self.plot_graphics_2(args),
+            "gen_graphics_1": lambda args: self.plot_graphics_1(args),
+            "gen_graphics_2": lambda args: self.plot_graphics_2(args),
         }
 
         # create job
@@ -54,7 +51,7 @@ class PagedJSReport:
 
         # save and return
         if result.success:
-            with open(output, 'wb') as rpt:
+            with open(output, "wb") as rpt:
                 rpt.write(result.report.read())
             return True
         return False
@@ -83,18 +80,18 @@ class PagedJSReport:
         fig, axs = plt.subplots(2, 1)
         axs[0].plot(t, s1, t, s2)
         axs[0].set_xlim(0, 2)
-        axs[0].set_xlabel(data['x-axis'])
-        axs[0].set_ylabel(data['g1-y-axis'])
+        axs[0].set_xlabel(data["x-axis"])
+        axs[0].set_ylabel(data["g1-y-axis"])
         axs[0].grid(True)
 
-        cxy, f = axs[1].cohere(s1, s2, 256, 1. / dt)
-        axs[1].set_ylabel(data['g1-y-axis'])
+        cxy, f = axs[1].cohere(s1, s2, 256, 1.0 / dt)
+        axs[1].set_ylabel(data["g1-y-axis"])
 
         fig.tight_layout()
 
         # save generated image to buffer
         buf = io.BytesIO()
-        plt.savefig(buf, format='png')
+        plt.savefig(buf, format="png")
         plt.close()
         buf.seek(0)
         return buf.read()
@@ -108,25 +105,26 @@ class PagedJSReport:
         :param data:
         :return:
         """
-        plt.title(data['title'])
+        plt.title(data["title"])
         fig = plt.figure()
-        ax = fig.add_subplot(projection='3d')
+        ax = fig.add_subplot(projection="3d")
 
         # Make data.
         X = np.arange(-5, 5, 0.25)
         Y = np.arange(-5, 5, 0.25)
         X, Y = np.meshgrid(X, Y)
-        R = np.sqrt(X ** 2 + Y ** 2)
+        R = np.sqrt(X**2 + Y**2)
         Z = np.sin(R)
 
         # Plot the surface.
-        surf = ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('coolwarm'),
-                               linewidth=0, antialiased=False)
+        surf = ax.plot_surface(
+            X, Y, Z, cmap=cm.get_cmap("coolwarm"), linewidth=0, antialiased=False
+        )
 
         # Customize the z axis.
         ax.set_zlim(-1.01, 1.01)
         ax.zaxis.set_major_locator(LinearLocator(10))
-        ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+        ax.zaxis.set_major_formatter(FormatStrFormatter("%.02f"))
 
         # Add a color bar which maps values to colors.
         fig.colorbar(surf, shrink=0.5, aspect=5)
@@ -135,14 +133,13 @@ class PagedJSReport:
 
         # save generated image to buffer
         buf = io.BytesIO()
-        plt.savefig(buf, format='png')
+        plt.savefig(buf, format="png")
         plt.close()
         buf.seek(0)
         return buf.read()
 
 
 if __name__ == "__main__":
-
     args = sys.argv[1:]
     if len(args) != 1:
         print("Usage: python3 main.py <destination_file.pdf>")

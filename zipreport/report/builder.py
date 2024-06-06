@@ -40,7 +40,11 @@ class ReportFileBuilder:
 
     @staticmethod
     def build_file(
-        path: str, output_file: str, console=sys.stdout, overwrite: bool = False, follow_links:bool=False
+        path: str,
+        output_file: str,
+        console=sys.stdout,
+        overwrite: bool = False,
+        follow_links: bool = False,
     ) -> BuildResult:
         """
         Assemble a report file from a specific path
@@ -86,7 +90,9 @@ class ReportFileBuilder:
                 )
 
         # build ZipFs
-        zfs_status, zfs = ReportFileBuilder.build_zipfs(path, console, follow_links=follow_links)
+        zfs_status, zfs = ReportFileBuilder.build_zipfs(
+            path, console, follow_links=follow_links
+        )
         if not zfs_status.success():
             return zfs_status
 

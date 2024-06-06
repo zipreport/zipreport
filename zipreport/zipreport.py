@@ -6,7 +6,7 @@ from zipreport.processors import (
 )
 from zipreport.report import ReportFile
 from zipreport.report.job import ReportJob, JobResult
-from zipreport.template import JinjaRender
+from zipreport.template import JinjaRender, EnvironmentWrapper
 
 
 class BaseReport:
@@ -30,27 +30,34 @@ class BaseReport:
             raise RuntimeError("Invalid report file")
         return ReportJob(zpt)
 
-    def render(self, job: ReportJob, data: dict = None) -> JobResult:
+    def render(
+        self, job: ReportJob, data: dict = None, wrapper: EnvironmentWrapper = None
+    ) -> JobResult:
         """
         Render a report job, using Jinja
         :param job: ReportJob to render
         :param data: dict of variables for the report
+        :param wrapper: optional environment wrapper object
         :return: JobResult
         """
         if not isinstance(job, ReportJob):
             raise RuntimeError("Invalid report file")
-        JinjaRender(job.get_report()).render(data)
+
+        JinjaRender(job.get_report(), wrapper=wrapper).render(data)
         return self._processor.process(job)
 
-    def render_defaults(self, zpt: ReportFile, data: dict = None) -> JobResult:
+    def render_defaults(
+        self, zpt: ReportFile, data: dict = None, wrapper: EnvironmentWrapper = None
+    ) -> JobResult:
         """
         Render a report file
         It will create a ReportJob with default configuration
         :param zpt: ReportFile to use
         :param data: dict of variables for the report
+        :param wrapper: optional environment wrapper object
         :return: JobResult
         """
-        return self.render(self.create_job(zpt), data)
+        return self.render(self.create_job(zpt), data, wrapper=wrapper)
 
 
 class ZipReport(BaseReport):

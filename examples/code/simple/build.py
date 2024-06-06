@@ -6,8 +6,8 @@ from pathlib import Path
 from zipreport.report import ReportFileBuilder
 
 if __name__ == "__main__":
-    report_path = Path('../../reports/simple').absolute()
-    report = Path('simple.zpt')
+    report_path = Path("../../reports/simple").absolute()
+    report = Path("simple.zpt")
 
     if report.exists():
         print("Destination file {} already exists, skipping...".format(report))

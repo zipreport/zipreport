@@ -1,8 +1,10 @@
 import json
 from copy import deepcopy
+from typing import Callable
 
 from jinja2 import select_autoescape, Environment
 
+from zipreport.template import EnvironmentWrapper
 from zipreport.template.jinjaloader import JinjaReportLoader
 from zipreport.report import ReportFile
 from zipreport.report.const import (
@@ -25,7 +27,9 @@ class JinjaRender:
         OPT_STRICT_PARAMS: True,
     }
 
-    def __init__(self, zpt: ReportFile, options: dict = None):
+    def __init__(
+        self, zpt: ReportFile, options: dict = None, wrapper: EnvironmentWrapper = None
+    ):
         """
         jinja Renderer
 
@@ -34,6 +38,11 @@ class JinjaRender:
         """
         self.zpt = zpt
         self.env = None
+
+        if not isinstance(wrapper, EnvironmentWrapper):
+            wrapper = EnvironmentWrapper()
+        self.wrapper = wrapper
+
         self.options = deepcopy(self.DEFAULT_OPTIONS)
         if options is not None:
             self.options = {**self.options, **options}
@@ -44,11 +53,12 @@ class JinjaRender:
 
         :return:  Environment
         """
-        return Environment(
+        env = Environment(
             loader=JinjaReportLoader(self.zpt),
             autoescape=select_autoescape(["html", "xml"]),
             extensions=self.options[self.OPT_EXTENSIONS],
         )
+        return self.wrapper.wrap(env)
 
     def check_params(self, data: dict):
         """

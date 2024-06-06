@@ -13,9 +13,9 @@ if __name__ == "__main__":
 
     # template variables
     report_data = {
-        'title': "Example report using Jinja templating",
-        'color_list': ['red', 'blue', 'green'],
-        'description': 'a long text field with some filler description so the page isn\'t that empty',
+        "title": "Example report using Jinja templating",
+        "color_list": ["red", "blue", "green"],
+        "description": "a long text field with some filler description so the page isn't that empty",
     }
 
     # load report from file
@@ -25,5 +25,5 @@ if __name__ == "__main__":
     result = MIMEReport().render_defaults(zpt, report_data)
 
     if result.success:
-        with open(output_file, 'wb') as rpt:
+        with open(output_file, "wb") as rpt:
             rpt.write(result.report.as_bytes())  # report is of type EmailMessage

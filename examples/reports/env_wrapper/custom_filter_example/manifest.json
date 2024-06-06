@@ -1,0 +1,9 @@
+{
+  "author": "zipreport",
+  "title": "Custom Jinja Filter example",
+  "description": "Custom jinja filter example with EnvironmentWrapper",
+  "version": "1.0",
+  "params": [
+    "title_text"
+  ]
+}

@@ -12,7 +12,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from io import BytesIO
 
 from zipreport.report import ReportFile, ReportFileLoader, ReportFileBuilder, const
-from zipreport.template import JinjaRender
+from zipreport.template import JinjaRender, EnvironmentWrapper
 
 # shared ReportFile Object to be reused between requests
 _zpt = None
@@ -43,6 +43,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         report_path=None,
         extra_mime_types=None,
         follow_links: bool = False,
+        wrapper: EnvironmentWrapper = None,
         **kwargs
     ):
         """
@@ -51,6 +52,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :param report_path: path of the directory or zpt file to process
         :param extra_mime_types: optional extra mime types to register
         :param follow_links: if True, follow symlinks
+        :param wrapper: optional Jinja2 Environment wrapper
         :param kwargs:
         """
         self.bootstrap_mime_types(extra_mime_types)
@@ -60,6 +62,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         self.is_report_file = self.report_path.is_file()
         self.enc = sys.getfilesystemencoding()
         self.follow_links = follow_links
+        self.wrapper = wrapper
 
         super().__init__(*args, **kwargs)
 
@@ -102,7 +105,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
                 _zpt = ReportFileLoader.load_zipfs(zpt)
             # render template to REPORT_FILE_NAME
             # returns a dummy BytesIO object
-            JinjaRender(_zpt).render()
+            JinjaRender(_zpt, wrapper=self.wrapper).render()
             return True, io.BytesIO()
 
         except Exception as e:
@@ -262,10 +265,18 @@ class DebugServer:
     def set_port(self, port: int):
         self._port = port
 
-    def run(self, report_path: str, follow_links: bool = False) -> None:
+    def run(
+        self,
+        report_path: str,
+        follow_links: bool = False,
+        wrapper: EnvironmentWrapper = False,
+    ) -> None:
         server_address = (self._addr, int(self._port))
         handler_class = partial(
-            ReportFileHandler, report_path=report_path, follow_links=follow_links
+            ReportFileHandler,
+            report_path=report_path,
+            follow_links=follow_links,
+            wrapper=wrapper,
         )
         sys.stdout.write(
             "\nStarted debug server at http://{addr}:{port}\nServing from: {path}\nUse Ctrl+C to stop...\n\n".format(

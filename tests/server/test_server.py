@@ -110,7 +110,6 @@ class TestReportRenderServer:
         zpt = ReportFileLoader.load(destfile)
         JinjaRender(zpt).render({"plot1": png_rectangle})
         job = ReportJob(zpt)
-        print(zpt.get_fs().list("/data"))
         result = WeasyPrintProcessor().process(job)
         assert result.success is True
         buf = result.report.read()

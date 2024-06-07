@@ -25,7 +25,7 @@ def defoxifier(*args, **kwargs) -> markupsafe.Markup:
 
 
 class MyCustomWrapper(EnvironmentWrapper):
-    def wrap(self, e: Environment):
+    def wrap(self, e: Environment) -> Environment:
         # register our fancy defoxifier filter
         e.filters["defoxifier"] = defoxifier
         return e

@@ -1,0 +1,9 @@
+{
+  "author": "zipreport",
+  "title": "Sample report 1",
+  "description": "Sample report with Environment Wrapper",
+  "version": "1.0",
+  "params": [
+    "title_text"
+  ]
+}

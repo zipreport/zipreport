@@ -5,7 +5,8 @@ the result of rendering the Jinja template is generated and stored within the me
 with the name *report.html*. Then, the in-memory report file is passed to a Processor, to be rendered onto its final
 form - either PDF or MIME message.
 Content, such as dynamically generated images is also embedded on the in-memory report file. It is also possible to add
-extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not allowed.
+extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not
+allowed.
 
 ## Report Files
 
@@ -14,11 +15,14 @@ extension. These files can be easily generated with the zipreport cli tool. For 
 the [cli documentation](cli.md)
 
 For a Jinja template to be packed into a report file (and be a valid report), it needs to contain a manifest. A manifest
-is a JSON file called manifest.json, that contains basic report information, such as title and mandatory template variables.
-The template may also contain a data.json file, that will be used when debugging (zipreport debug) the template. This file
+is a JSON file called manifest.json, that contains basic report information, such as title and mandatory template
+variables.
+The template may also contain a data.json file, that will be used when debugging (zipreport debug) the template. This
+file
 provides placeholder data for the required fields, for previewing purposes.
 
-The main Jinja template file must be named **index.html**. A template cannot contain a file called named *report.html*. This
+The main Jinja template file must be named **index.html**. A template cannot contain a file called named *report.html*.
+This
 is a reserved name, used to store the result of the Jinja rendering. The template can also include other files, such as
 partials, css resources, javascript resources, images or fonts.
 
@@ -41,40 +45,36 @@ $
 
 ### Supporting symbolic links (min version: 2.1.0)
 
-The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing of resources between
-templates, the usage of symbolic links is supported in both *zipreport debug* and *zipreport build*. By using *-s*, the commands
+The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing
+of resources between
+templates, the usage of symbolic links is supported in both *zipreport debug* and *zipreport build*. By using *-s*, the
+commands
 will follow and process any related symlinks, as long as they are linked within the structure of the template.
 
 ### Report file format (zpt)
 
 ZipReport report files (*.zpt) are just regular zip files with - at least - the following entries:
 
-
-| File          |            Mandatory  | Description                                                                                           |
-|---------------|---|-------------------------------------------------------------------------------------------------------|
-| index.html    |yes| Report template main file                                                                             |
-| manifest.json | yes| Report manifest file. Contains report information such as title, description and mandatory parameters |
-| data.json | no | Optional data file to be used when debugging the template                                             |
-
-
+| File          | Mandatory | Description                                                                                           |
+|---------------|-----------|-------------------------------------------------------------------------------------------------------|
+| index.html    | yes       | Report template main file                                                                             |
+| manifest.json | yes       | Report manifest file. Contains report information such as title, description and mandatory parameters |
+| data.json     | no        | Optional data file to be used when debugging the template                                             |
 
 For more details on these files, see below.
 
 ### Manifest file: manifest.json
 
-
 The manifest.json is a regular JSON file. Its structure is as follows:
 
-
-| Field | Type | Description                                                                                                                                    |
-|-------|------|------------------------------------------------------------------------------------------------------------------------------------------------|
-|author|string| Report author identification                                                                                                                   |                                                                                                                    
-|title|string| Report title                                                                                                                                   |                                                                                                                                    
-|description|string| Extended description                                                                                                                           |                                                                                                                            
-|version|string| ZipReport engine version (currently ignored)                                                                                                   |                                                                                                    
-|useJSEvent|string| If "true", will automatically use jsEvent with ZipReport =cli/server                                                                           |                                                                             
-|params|list| List of mandatory parameter names. When rendering the report, will generate an exception if the passed parameter keys does not match this list |  
-
+| Field       | Type   | Description                                                                                                                                    |
+|-------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| author      | string | Report author identification                                                                                                                   |                                                                                                                    
+| title       | string | Report title                                                                                                                                   |                                                                                                                                    
+| description | string | Extended description                                                                                                                           |                                                                                                                            
+| version     | string | ZipReport engine version (currently ignored)                                                                                                   |                                                                                                    
+| useJSEvent  | string | If "true", will automatically use jsEvent with ZipReport =cli/server                                                                           |                                                                             
+| params      | list   | List of mandatory parameter names. When rendering the report, will generate an exception if the passed parameter keys does not match this list |  
 
 Additionally, the manifest **can** contain other fields relevant to the application, they are just ignored by ZipReport.
 If other fields exist, they can be accessed from the application on certain usage patterns.
@@ -83,19 +83,20 @@ Example of manifest.json from examples/reports/simple:
 
 ```json
     {
-      "author": "jpinheiro",
-      "title": "Simple Report",
-      "description": "Simple ZipReport Report",
-      "version": "1.0",
-      "params": [
-        "title",
-        "color_list",
-        "description"
-      ]
-    }
+  "author": "jpinheiro",
+  "title": "Simple Report",
+  "description": "Simple ZipReport Report",
+  "version": "1.0",
+  "params": [
+    "title",
+    "color_list",
+    "description"
+  ]
+}
 ```
 
-In this example, to render the report, it is necessary to pass a dict containing the keys specified in *params*. The dict
+In this example, to render the report, it is necessary to pass a dict containing the keys specified in *params*. The
+dict
 may contain other keys. If the keys specified in the manifest are not present, rendering will generate a *RuntimeError*
 exception.
 
@@ -126,7 +127,8 @@ Example of data.json from examples/reports/simple, for the manifest in the previ
 ### Main template file: index.html
 
 This is the Jinja template entrypoint for rendering. It can reference local resources residing below the template folder
-in the filesystem hierarchy (meaning it is not possible to use partials from another template), or external resources such
+in the filesystem hierarchy (meaning it is not possible to use partials from another template), or external resources
+such
 as javascript libraries, css frameworks or fonts.
 
 Example of index.html from examples/reports/simple, using a partial (*partials/base.html*) as wel as some
@@ -168,11 +170,11 @@ invocation.
 There are several available processors to interact with the different backend options. You can also easily create your
 own, if necessary. Just implement a new class that implements  *zipreport.processors.ProcessorInterface*.
 
-| Class                                                             | Description                                |
-|-------------------------------------------------------------------|--------------------------------------------|
-| zipreport.processors.ZipReportProcessor | zipreport-server API PDF report generation |
-| zipreport.processors.MIMEProcessor     | MIME email report generation |
-| zipreport.processors.weasyprint.WeasyPrintProcessor|WeasyPrint PDF report generation|
+| Class                                               | Description                                |
+|-----------------------------------------------------|--------------------------------------------|
+| zipreport.processors.ZipReportProcessor             | zipreport-server API PDF report generation |
+| zipreport.processors.MIMEProcessor                  | MIME email report generation               |
+| zipreport.processors.weasyprint.WeasyPrintProcessor | WeasyPrint PDF report generation           |
 
 #### Processor Interface
 
@@ -192,25 +194,27 @@ error information (if any), and the result buffer.
 Helper classes encapsulate both the processor logic and the Jinja rendering logic. The following helper classes are
 available:
 
-|Class|Description|
-|---|---|
-|zipreport.ZipReport|ZipReportProcessor helper|
-|zipreport.MIMEReport|MIMEProcessor helper|
+| Class                | Description               |
+|----------------------|---------------------------|
+| zipreport.ZipReport  | ZipReportProcessor helper |
+| zipreport.MIMEReport | MIMEProcessor helper      |
 
 See below for usage examples for each processor.
 
-
 #### ZipReportProcessor
 
-*ZipReportProcessor* interacts with the zipreport-server API to generate a PDF. From a development perspective, all required
+*ZipReportProcessor* interacts with the zipreport-server API to generate a PDF. From a development perspective, all
+required
 operations are done in-memory and no local storage is needed.
 
 Constructor:
+
 ```python
 ZipReportProcessor(client: ZipReportClient)
 ``` 
 
-*client* is an instance of *zipreport.processors.ZipReportClient*, whose function is to encapsulate API communication logic.
+*client* is an instance of *zipreport.processors.ZipReportClient*, whose function is to encapsulate API communication
+logic.
 
 ZipReportProcessor example:
 
@@ -255,19 +259,21 @@ if result.success:
         rpt.write(result.report.read())
 ```
 
-
 #### Using ZipReport Helper
 
 ZipReportProcessor can also be used in a simplified fashion, by using the helper class *ZipReport*.
 This class will create an API client, as well as a default *ReportJob*, simplifying the code implementation.
 
 Constructor:
+
 ```python
-ZipReport( url: str, api_key: str, api_version: int = 2, secure_ssl: bool = False)
+ZipReport(url: str, api_key: str, api_version: int = 2, secure_ssl: bool = False)
 ```
 
-*url* is the API endpoint url, *api_key* is the API authentication token, and *secure_ssl* enables or disables full certificate
-chain verification on SSL certificates for HTTPS endpoints. *api_version* specifies the API version to connect; currently,
+*url* is the API endpoint url, *api_key* is the API authentication token, and *secure_ssl* enables or disables full
+certificate
+chain verification on SSL certificates for HTTPS endpoints. *api_version* specifies the API version to connect;
+currently,
 only v2 is implemented.
 
 Code example:
@@ -298,10 +304,10 @@ if result.success:
         rpt.write(result.report.read())
 ```
 
-
 #### MimeProcessor
 
-*MIMEProcessor* generates a multipart MIME email message with all local resources embedded. It requires no local storage.
+*MIMEProcessor* generates a multipart MIME email message with all local resources embedded. It requires no local
+storage.
 
 Constructor:
 
@@ -351,7 +357,6 @@ if result.success:
 
 ```
 
-
 #### Using MIMEProcessor Helper
 
 MIMEProcessor can also be used in a simplified fashion, by using the helper class *MIMEReport*.
@@ -391,19 +396,22 @@ if result.success:
         rpt.write(result.report.as_bytes())
 ```
 
-
 #### WeasyPrintProcessor
 
 *WeasyPrintProcessor* relies on WeasyPrint for PDF generation.
-By using WeasyPrint, client-side Javascript is not supported, and CSS support is limited. Check WeasyPrint website for more
-details. Details on how to install ZipReport with WeasyPrint support can be found in the [installation instructions](install.md).
+By using WeasyPrint, client-side Javascript is not supported, and CSS support is limited. Check WeasyPrint website for
+more
+details. Details on how to install ZipReport with WeasyPrint support can be found in
+the [installation instructions](install.md).
 
 Constructor:
+
 ```python
 WeasyPrintProcessor()
 ```
 
-The WeasyPrintProcessor includes some additional methods to map WeasyPrint basic requirements to ZipReport processor logic:
+The WeasyPrintProcessor includes some additional methods to map WeasyPrint basic requirements to ZipReport processor
+logic:
 
 ```python
 WeasyPrintProcessor.add_css(self, css)
@@ -416,10 +424,10 @@ Example:
 ```python
 from zipreport.processors.weasyprint import WeasyPrintProcessor
 from weasyprint import CSS
+
 processor = WeasyPrintProcessor()
 processor.add_css(CSS(string='body { font-family: serif !important }'))
 ```
-
 
 ```python
 WeasyPrintProcessor.set_font_config(self, font_config)

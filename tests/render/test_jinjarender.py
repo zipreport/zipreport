@@ -1,8 +1,22 @@
+import markupsafe
 import pytest
+from jinja2 import Environment, pass_environment
 
 from tests.render.base import BaseTest
-from zipreport.template import JinjaRender
+from zipreport.template import JinjaRender, EnvironmentWrapper
 from zipreport.report import REPORT_FILE_NAME
+
+
+@pass_environment
+def sample_filter(*args, **kwargs) -> markupsafe.Markup:
+    # this filter just returns "lorem ipsum dolor sit"
+    return markupsafe.Markup("lorem ipsum dolor sit")
+
+
+class CustomEnv(EnvironmentWrapper):
+    def wrap(self, e: Environment):
+        e.filters["sample"] = sample_filter
+        return e
 
 
 class TestJinjaRender(BaseTest):
@@ -50,3 +64,15 @@ class TestJinjaRender(BaseTest):
         with pytest.raises(RuntimeError):
             zpt.add("invalid.json", "")
             render._discover_data("invalid.json")
+
+    def test_custom_env(self):
+        zpt = self.build_customenv_zpt()
+        engine = JinjaRender(zpt, wrapper=CustomEnv())
+
+        env = engine.get_env()
+        assert "sample" in env.filters.keys()
+        assert callable(env.filters["sample"])
+
+        result = engine.render({"title_text": "some sample text"})
+        assert len(result) > 0
+        assert result.find("<h1>lorem ipsum dolor sit</h1>") > -1

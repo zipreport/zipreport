@@ -4,14 +4,14 @@ ZipReport includes a cli tool to ease the process of creation and maintenance of
 
 **Available command-line arguments**
 
-| Argument                                       | Description                                            |
-|------------------------------------------------|--------------------------------------------------------|
-| help                                           | Show usage information                                 |
-| version [-m]                                   | Show version (or version number only, if -m)           |
-| list [path]                                    | List report files on the current or specified path     |
-| info <file>                                    | Show basic report details                              |
-| build <directory> [output_file] [-s]           | Build a zpt file from a jinja template                 |
-| debug <directory\|file> [[host]:\<port\>] [-s] | Run debug server using the directory or specified file |
+| Argument                                                 | Description                                            |
+|----------------------------------------------------------|--------------------------------------------------------|
+| help                                                     | Show usage information                                 |
+| version [-m]                                             | Show version (or version number only, if -m)           |
+| list [path]                                              | List report files on the current or specified path     |
+| info <file>                                              | Show basic report details                              |
+| build <directory> [output_file] [-s]                     | Build a zpt file from a jinja template                 |
+| debug <directory\|file> [[host]:\<port\>] [-s] [-w path] | Run debug server using the directory or specified file |
 
 ### List report files
 
@@ -67,6 +67,29 @@ Started debug server at http://localhost:8001
 Serving from: reports/sample1
 Use Ctrl+C to stop...
 ```
+
+## Using zipreport debug with a custom Environment wrapper
+
+Starting with version 2.2.0, zipreport supports using a custom class as a Jinja2 Environment wrapper. To use the custom
+environment wrapper, *zipreport debug* needs to be able to initialize the object during execution time. The wrapper can
+either
+be provided by an already existing module namespace, or by creating a local file with the class definition:
+
+| value                 | example             | description                                |
+|-----------------------|---------------------|--------------------------------------------|
+| mymodule.class-name   | appmodule.MyWrapper | uses class-name in mymodule as a wrapper   |
+| local-file.class-name | myfile.MyWrapper    | uses class-name in local-file as a wrapper |
+
+The wrapper path value can then be passed to zipreport-debug using the -w argument:
+
+```shell
+$ zipreport debug -w mymodule.class-name reports/sample1/
+Started debug server at http://localhost:8001
+Serving from: reports/sample1
+Use Ctrl+C to stop...
+```
+
+An example of a custom wrapper file suitable for zipreport debug can be found [here](https://github.com/zipreport/zipreport/blob/master/examples/reports/env_wrapper/debug.py). 
 
 
 

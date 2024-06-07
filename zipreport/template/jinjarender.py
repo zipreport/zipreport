@@ -58,7 +58,11 @@ class JinjaRender:
             autoescape=select_autoescape(["html", "xml"]),
             extensions=self.options[self.OPT_EXTENSIONS],
         )
-        return self.wrapper.wrap(env)
+        env = self.wrapper.wrap(env)
+        if not isinstance(env, Environment):
+            raise ValueError("wrapped Environment result is not a jinja Environment object")
+
+        return env
 
     def check_params(self, data: dict):
         """

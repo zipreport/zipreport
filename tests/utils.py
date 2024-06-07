@@ -1,8 +1,11 @@
 from pathlib import Path
 
-# path for examples/sample1
+# path for tests/data/sample1
 # used in several tests
 SAMPLE1_PATH = Path(Path(__file__).parent / Path("data/sample1")).absolute()
+
+# path for template for custom env test
+CUSTOM_ENV_PATH = Path(Path(__file__).parent / Path("data/custom_env")).absolute()
 
 # path for examples/reports/simple
 RPT_SIMPLE_PATH = Path(

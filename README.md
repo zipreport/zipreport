@@ -18,6 +18,7 @@ Want to see it in action? Check this [example](docs/samples/example_report.pdf)!
 **Highlights**:
 
 - Create your reports using Jinja templates;
+- Customize the Jinja Environment();
 - Dynamic image support (embedding of runtime-generated images);
 - Reports are packed in a single file for easy distribution or bundling;
 - Optional MIME processor to embed resources in a single email message;

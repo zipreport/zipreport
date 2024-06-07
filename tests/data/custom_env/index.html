@@ -1,0 +1,9 @@
+{% extends 'partials/base.html' %}
+
+{% block title%}
+Html Example page with custom environment wrapper
+{% endblock %}
+
+{% block content %}
+<h1>{{ title_text | sample }}</h1>
+{% endblock %}

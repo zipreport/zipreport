@@ -403,6 +403,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-zipreport-debug-with-a-custom-environment-wrapper" class="md-nav__link">
+    Using zipreport debug with a custom Environment wrapper
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -522,6 +529,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-zipreport-debug-with-a-custom-environment-wrapper" class="md-nav__link">
+    Using zipreport debug with a custom Environment wrapper
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -569,7 +583,7 @@
 <td>Build a zpt file from a jinja template</td>
 </tr>
 <tr>
-<td>debug <directory\|file> [[host]:\&lt;port&gt;] [-s]</td>
+<td>debug <directory\|file> [[host]:\&lt;port&gt;] [-s] [-w path]</td>
 <td>Run debug server using the directory or specified file</td>
 </tr>
 </tbody>
@@ -612,6 +626,39 @@ Started<span class="w"> </span>debug<span class="w"> </span>server<span class="w
 Serving<span class="w"> </span>from:<span class="w"> </span>reports/sample1
 Use<span class="w"> </span>Ctrl+C<span class="w"> </span>to<span class="w"> </span>stop...
 </code></pre></div>
+<h2 id="using-zipreport-debug-with-a-custom-environment-wrapper">Using zipreport debug with a custom Environment wrapper<a class="headerlink" href="#using-zipreport-debug-with-a-custom-environment-wrapper" title="Permanent link">&para;</a></h2>
+<p>Starting with version 2.2.0, zipreport supports using a custom class as a Jinja2 Environment wrapper. To use the custom
+environment wrapper, <em>zipreport debug</em> needs to be able to initialize the object during execution time. The wrapper can
+either
+be provided by an already existing module namespace, or by creating a local file with the class definition:</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>example</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mymodule.class-name</td>
+<td>appmodule.MyWrapper</td>
+<td>uses class-name in mymodule as a wrapper</td>
+</tr>
+<tr>
+<td>local-file.class-name</td>
+<td>myfile.MyWrapper</td>
+<td>uses class-name in local-file as a wrapper</td>
+</tr>
+</tbody>
+</table>
+<p>The wrapper path value can then be passed to zipreport-debug using the -w argument:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>zipreport<span class="w"> </span>debug<span class="w"> </span>-w<span class="w"> </span>mymodule.class-name<span class="w"> </span>reports/sample1/
+Started<span class="w"> </span>debug<span class="w"> </span>server<span class="w"> </span>at<span class="w"> </span>http://localhost:8001
+Serving<span class="w"> </span>from:<span class="w"> </span>reports/sample1
+Use<span class="w"> </span>Ctrl+C<span class="w"> </span>to<span class="w"> </span>stop...
+</code></pre></div>
+<p>An example of a custom wrapper file suitable for zipreport debug can be found <a href="https://github.com/zipreport/zipreport/blob/master/examples/reports/env_wrapper/debug.py">here</a>. </p>
 
 
 

@@ -733,16 +733,20 @@ the result of rendering the Jinja template is generated and stored within the me
 with the name <em>report.html</em>. Then, the in-memory report file is passed to a Processor, to be rendered onto its final
 form - either PDF or MIME message.
 Content, such as dynamically generated images is also embedded on the in-memory report file. It is also possible to add
-extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not allowed.</p>
+extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not
+allowed.</p>
 <h2 id="report-files">Report Files<a class="headerlink" href="#report-files" title="Permanent link">&para;</a></h2>
 <p>A report file is a Jinja template, a manifest file and an optional data file packed into a zip file, usually with .zpt
 extension. These files can be easily generated with the zipreport cli tool. For more information on the cli tool, check
 the <a href="../cli/">cli documentation</a></p>
 <p>For a Jinja template to be packed into a report file (and be a valid report), it needs to contain a manifest. A manifest
-is a JSON file called manifest.json, that contains basic report information, such as title and mandatory template variables.
-The template may also contain a data.json file, that will be used when debugging (zipreport debug) the template. This file
+is a JSON file called manifest.json, that contains basic report information, such as title and mandatory template
+variables.
+The template may also contain a data.json file, that will be used when debugging (zipreport debug) the template. This
+file
 provides placeholder data for the required fields, for previewing purposes.</p>
-<p>The main Jinja template file must be named <strong>index.html</strong>. A template cannot contain a file called named <em>report.html</em>. This
+<p>The main Jinja template file must be named <strong>index.html</strong>. A template cannot contain a file called named <em>report.html</em>.
+This
 is a reserved name, used to store the result of the Jinja rendering. The template can also include other files, such as
 partials, css resources, javascript resources, images or fonts.</p>
 <p>Example of structure from examples/reports/simple:</p>
@@ -760,8 +764,10 @@ partials, css resources, javascript resources, images or fonts.</p>
 $
 </code></pre></div>
 <h3 id="supporting-symbolic-links-min-version-210">Supporting symbolic links (min version: 2.1.0)<a class="headerlink" href="#supporting-symbolic-links-min-version-210" title="Permanent link">&para;</a></h3>
-<p>The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing of resources between
-templates, the usage of symbolic links is supported in both <em>zipreport debug</em> and <em>zipreport build</em>. By using <em>-s</em>, the commands
+<p>The template file tree is often a well-defined, contained structure. Starting with version 2.1.0, to allow eg. sharing
+of resources between
+templates, the usage of symbolic links is supported in both <em>zipreport debug</em> and <em>zipreport build</em>. By using <em>-s</em>, the
+commands
 will follow and process any related symlinks, as long as they are linked within the structure of the template.</p>
 <h3 id="report-file-format-zpt">Report file format (zpt)<a class="headerlink" href="#report-file-format-zpt" title="Permanent link">&para;</a></h3>
 <p>ZipReport report files (*.zpt) are just regular zip files with - at least - the following entries:</p>
@@ -839,18 +845,19 @@ will follow and process any related symlinks, as long as they are linked within 
 If other fields exist, they can be accessed from the application on certain usage patterns.</p>
 <p>Example of manifest.json from examples/reports/simple:</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jpinheiro&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Simple Report&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Simple ZipReport Report&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;title&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;color_list&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;description&quot;</span>
-<span class="w">      </span><span class="p">]</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jpinheiro&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Simple Report&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Simple ZipReport Report&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;title&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;color_list&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>In this example, to render the report, it is necessary to pass a dict containing the keys specified in <em>params</em>. The dict
+<p>In this example, to render the report, it is necessary to pass a dict containing the keys specified in <em>params</em>. The
+dict
 may contain other keys. If the keys specified in the manifest are not present, rendering will generate a <em>RuntimeError</em>
 exception.</p>
 <h3 id="data-placeholder-file-datajson">Data placeholder file: data.json<a class="headerlink" href="#data-placeholder-file-datajson" title="Permanent link">&para;</a></h3>
@@ -874,7 +881,8 @@ development. It is ignored when used outside the scope of zipreport debug.</p>
 </code></pre></div>
 <h3 id="main-template-file-indexhtml">Main template file: index.html<a class="headerlink" href="#main-template-file-indexhtml" title="Permanent link">&para;</a></h3>
 <p>This is the Jinja template entrypoint for rendering. It can reference local resources residing below the template folder
-in the filesystem hierarchy (meaning it is not possible to use partials from another template), or external resources such
+in the filesystem hierarchy (meaning it is not possible to use partials from another template), or external resources
+such
 as javascript libraries, css frameworks or fonts.</p>
 <p>Example of index.html from examples/reports/simple, using a partial (<em>partials/base.html</em>) as wel as some
 Jinja template expressions:</p>
@@ -960,12 +968,14 @@ available:</p>
 </table>
 <p>See below for usage examples for each processor.</p>
 <h4 id="zipreportprocessor">ZipReportProcessor<a class="headerlink" href="#zipreportprocessor" title="Permanent link">&para;</a></h4>
-<p><em>ZipReportProcessor</em> interacts with the zipreport-server API to generate a PDF. From a development perspective, all required
+<p><em>ZipReportProcessor</em> interacts with the zipreport-server API to generate a PDF. From a development perspective, all
+required
 operations are done in-memory and no local storage is needed.</p>
-<p>Constructor:
+<p>Constructor:</p>
 <div class="highlight"><pre><span></span><code><span class="n">ZipReportProcessor</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">ZipReportClient</span><span class="p">)</span>
-</code></pre></div></p>
-<p><em>client</em> is an instance of <em>zipreport.processors.ZipReportClient</em>, whose function is to encapsulate API communication logic.</p>
+</code></pre></div>
+<p><em>client</em> is an instance of <em>zipreport.processors.ZipReportClient</em>, whose function is to encapsulate API communication
+logic.</p>
 <p>ZipReportProcessor example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors</span> <span class="kn">import</span> <span class="n">ZipReportProcessor</span><span class="p">,</span> <span class="n">ZipReportClient</span>
 <span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
@@ -1009,11 +1019,13 @@ operations are done in-memory and no local storage is needed.</p>
 <h4 id="using-zipreport-helper">Using ZipReport Helper<a class="headerlink" href="#using-zipreport-helper" title="Permanent link">&para;</a></h4>
 <p>ZipReportProcessor can also be used in a simplified fashion, by using the helper class <em>ZipReport</em>.
 This class will create an API client, as well as a default <em>ReportJob</em>, simplifying the code implementation.</p>
-<p>Constructor:
-<div class="highlight"><pre><span></span><code><span class="n">ZipReport</span><span class="p">(</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">secure_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-</code></pre></div></p>
-<p><em>url</em> is the API endpoint url, <em>api_key</em> is the API authentication token, and <em>secure_ssl</em> enables or disables full certificate
-chain verification on SSL certificates for HTTPS endpoints. <em>api_version</em> specifies the API version to connect; currently,
+<p>Constructor:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ZipReport</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">secure_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p><em>url</em> is the API endpoint url, <em>api_key</em> is the API authentication token, and <em>secure_ssl</em> enables or disables full
+certificate
+chain verification on SSL certificates for HTTPS endpoints. <em>api_version</em> specifies the API version to connect;
+currently,
 only v2 is implemented.</p>
 <p>Code example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport</span> <span class="kn">import</span> <span class="n">ZipReport</span>
@@ -1041,7 +1053,8 @@ only v2 is implemented.</p>
         <span class="n">rpt</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </code></pre></div>
 <h4 id="mimeprocessor">MimeProcessor<a class="headerlink" href="#mimeprocessor" title="Permanent link">&para;</a></h4>
-<p><em>MIMEProcessor</em> generates a multipart MIME email message with all local resources embedded. It requires no local storage.</p>
+<p><em>MIMEProcessor</em> generates a multipart MIME email message with all local resources embedded. It requires no local
+storage.</p>
 <p>Constructor:</p>
 <div class="highlight"><pre><span></span><code><span class="n">MIMEProcessor</span><span class="p">()</span>
 </code></pre></div>
@@ -1116,18 +1129,22 @@ This class will create a default <em>ReportJob&lt;zipreport.reports.job.ReportJo
 </code></pre></div>
 <h4 id="weasyprintprocessor">WeasyPrintProcessor<a class="headerlink" href="#weasyprintprocessor" title="Permanent link">&para;</a></h4>
 <p><em>WeasyPrintProcessor</em> relies on WeasyPrint for PDF generation.
-By using WeasyPrint, client-side Javascript is not supported, and CSS support is limited. Check WeasyPrint website for more
-details. Details on how to install ZipReport with WeasyPrint support can be found in the <a href="../install/">installation instructions</a>.</p>
-<p>Constructor:
+By using WeasyPrint, client-side Javascript is not supported, and CSS support is limited. Check WeasyPrint website for
+more
+details. Details on how to install ZipReport with WeasyPrint support can be found in
+the <a href="../install/">installation instructions</a>.</p>
+<p>Constructor:</p>
 <div class="highlight"><pre><span></span><code><span class="n">WeasyPrintProcessor</span><span class="p">()</span>
-</code></pre></div></p>
-<p>The WeasyPrintProcessor includes some additional methods to map WeasyPrint basic requirements to ZipReport processor logic:</p>
+</code></pre></div>
+<p>The WeasyPrintProcessor includes some additional methods to map WeasyPrint basic requirements to ZipReport processor
+logic:</p>
 <div class="highlight"><pre><span></span><code><span class="n">WeasyPrintProcessor</span><span class="o">.</span><span class="n">add_css</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">css</span><span class="p">)</span>
 </code></pre></div>
 <p>where <em>css</em> is a WeasyPrint CSS object; see example below</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors.weasyprint</span> <span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
 <span class="kn">from</span> <span class="nn">weasyprint</span> <span class="kn">import</span> <span class="n">CSS</span>
+
 <span class="n">processor</span> <span class="o">=</span> <span class="n">WeasyPrintProcessor</span><span class="p">()</span>
 <span class="n">processor</span><span class="o">.</span><span class="n">add_css</span><span class="p">(</span><span class="n">CSS</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s1">&#39;body { font-family: serif !important }&#39;</span><span class="p">))</span>
 </code></pre></div>

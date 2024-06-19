@@ -1,4 +1,5 @@
 import importlib, importlib.util
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
 from typing import Callable, Union, Optional
@@ -71,12 +72,13 @@ class DebugCommand(CliCommand):
         if not fpath.exists() or not fpath.is_file():
             return False
         try:
-            spec = importlib.util.spec_from_file_location(fname, fpath)
-            module = importlib.util.module_from_spec(spec)
-            # sys.modules["_zipreport_wrapper_"] = module
-            spec.loader.exec_module(module)
-            cls = getattr(module, cls_name, None)
-            return cls
+            with TempSysPath(fpath.parent):
+                spec = importlib.util.spec_from_file_location(fname, fpath)
+                module = importlib.util.module_from_spec(spec)
+                # sys.modules["_zipreport_wrapper_"] = module
+                spec.loader.exec_module(module)
+                cls = getattr(module, cls_name, None)
+                return cls
         except Exception as e:
             # not found, return False
             return False
@@ -134,3 +136,14 @@ class DebugCommand(CliCommand):
 
         DebugServer(host, port).run(source, follow_links=args.symlinks, wrapper=wrapper)
         return True
+
+class TempSysPath:
+    """Temporarily adjust sys.path to include a path."""
+    def __init__(self, path: Path | str):
+        self.path = str(path)
+
+    def __enter__(self):
+        sys.path.insert(0, self.path)
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.path.pop(0)

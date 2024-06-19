@@ -56,13 +56,12 @@ class DebugCommand(CliCommand):
         return True, host, port
 
     def load_module(self, path) -> Optional[Union[bool, Callable]]:
-        try:
-            module_path, cls_name = path.rsplit(".", 1)
+        module_path, cls_name = path.rsplit(".", 1)
+        if importlib.util.find_spec(module_path) is not None:
             module = importlib.import_module(module_path)
             # return class or None
             return getattr(module, cls_name, None)
-
-        except Exception as e:
+        else:
             # not found, return False
             return False
 
@@ -79,7 +78,7 @@ class DebugCommand(CliCommand):
                 spec.loader.exec_module(module)
                 cls = getattr(module, cls_name, None)
                 return cls
-        except Exception as e:
+        except FileNotFoundError:
             # not found, return False
             return False
 

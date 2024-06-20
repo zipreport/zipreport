@@ -3,6 +3,7 @@ import mimetypes
 import posixpath
 import shutil
 import sys
+import traceback
 from functools import partial
 from urllib.parse import urlparse, urlsplit, unquote
 from pathlib import Path
@@ -109,7 +110,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
             return True, io.BytesIO()
 
         except Exception as e:
-            return False, self.error_500(str(e))
+            return False, self.error_500(str(e), info=traceback.format_exc())
 
     def do_GET(self):
         """
@@ -202,16 +203,17 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         contents.seek(0)
         return contents
 
-    def error_500(self, item: str):
+    def error_500(self, item: str, info: str | None = None) -> io.BytesIO:
         """
         Generates a customized 500 response
         :param item: optional error message
+        :pram info: optional traceback
         :return: io.BytesIO
         """
         if item:
             response = (
-                "<html><body><h3>Internal Server Error: {}</h3></body></html>".format(
-                    item
+                "<html><body><h3>Internal Server Error: {}</h3><pre><code>{}</code></pre></body></html>".format(
+                    item, info or ""
                 )
             )
         else:

@@ -129,4 +129,4 @@ class ZipFs(FsInterface):
         :param path:
         :return:
         """
-        return str(path).lstrip(self._sep)
+        return str(path).replace("\\", self._sep).lstrip(self._sep)

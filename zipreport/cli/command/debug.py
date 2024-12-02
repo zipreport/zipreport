@@ -2,6 +2,7 @@ import importlib, importlib.util
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
+import threading
 from typing import Callable, Union, Optional
 
 from .base import CliCommand
@@ -137,12 +138,26 @@ class DebugCommand(CliCommand):
         return True
 
 class TempSysPath:
-    """Temporarily adjust sys.path to include a path."""
+    """
+    A context manager to temporarily add a directory to the system path.
+
+    This class allows you to temporarily add a specified directory to the 
+    beginning of the system path (`sys.path`). When the context is exited, 
+    the directory is removed from the system path.
+
+    Attributes:
+        path (str): The directory path to be added to the system path.
+    """
+    
+    _lock = threading.Lock()
+    
     def __init__(self, path: Path | str):
         self.path = str(path)
 
     def __enter__(self):
+        self._lock.acquire()
         sys.path.insert(0, self.path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         sys.path.pop(0)
+        self._lock.release()

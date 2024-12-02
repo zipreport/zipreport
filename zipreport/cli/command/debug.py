@@ -72,9 +72,10 @@ class DebugCommand(CliCommand):
         if not fpath.exists() or not fpath.is_file():
             return False
         try:
-            with TempSysPath(fpath.parent):
+            with TempSysPath(fpath.parent.parent):
                 spec = importlib.util.spec_from_file_location(fname, fpath)
                 module = importlib.util.module_from_spec(spec)
+                module.__package__ = fpath.parent.stem
                 # sys.modules["_zipreport_wrapper_"] = module
                 spec.loader.exec_module(module)
                 cls = getattr(module, cls_name, None)

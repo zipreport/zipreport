@@ -7,7 +7,7 @@ pytest-cov>=2.8.1
 tox==4.5.1
 tox-docker==4.1.0
 Pillow
-weasyprint==58.1
+weasyprint==63.0
 mkdocs-material==9.2.7
 mdx-include>=1.4.1
 pymdown-extensions

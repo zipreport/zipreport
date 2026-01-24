@@ -20,6 +20,19 @@
 * Code quality improvements (replaced type() checks with isinstance(), removed star imports);
 * Integration tests are now skipped when zipreport-server is not available;
 
+## 2.3.0
+
+### Features
+
+* Added Python 3.12 and 3.13 support;
+* Removed Python 3.8 support;
+* Updated WeasyPrint dependency version;
+* Removed base URL usage in WeasyPrint processor;
+* Fixed Windows path separator handling in ZipFs;
+* Added threading support in TempSysPath for debug CLI;
+* Added relative import support for environment wrapper loading;
+* Updated development dependencies;
+
 ## 2.0.0
 
 ### Features

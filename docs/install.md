@@ -2,9 +2,10 @@
 
 ## Required dependencies
 
-* jinja2_ >= 3.1
-* requests_ >= 2.22.0
-* WeasyPrint_ >= 58.0 (optional, see below)
+* jinja2 >= 3.1
+* requests >= 2.22.0
+* markupsafe >= 2.0
+* WeasyPrint >= 63.0 (optional, see below)
 
 ## **Step 1:** install ZipReport library
 
@@ -30,15 +31,15 @@ $ python3 -m pip install zipreport-lib[weasyprint]
 
 ### Using zipreport-server
 
-ZipReport communicates with zipreport-server via REST API, using multipart/form-data format. Check the 
+ZipReport communicates with zipreport-server via REST API, using multipart/form-data format. Check the
 [zipreport-server repository](https://github.com/zipreport/zipreport-server) for additional details and setup configuration.
 
-On AMD64 systems, an existing prebuilt Docker image can be used. Don't forget to change your API key, used for 
-autentication.
+On AMD64 systems, an existing prebuilt Docker image can be used. Don't forget to change your API key, used for
+authentication.
 
 ```shell
- $ docker run -d -p 6543:6543 ghcr.io/zipreport/zipreport-server:latest \
-    -e ZIPREPORT_API_KEY="my-api-mey" 
+$ docker run -d -p 6543:6543 -e ZIPREPORT_API_KEY="my-api-key" \
+    ghcr.io/zipreport/zipreport-server:latest
 ```
 
 
@@ -51,5 +52,5 @@ $ git clone https://github.com/zipreport/zipreport.git
 
 Install the package:
 ```shell
-$ python3 setup.py install
+$ pip install .
 ```

@@ -2,8 +2,8 @@
 
 ## Why another PDF generation library?
 
-While there are many excellent free and open source libraries for report generation, Python seems to be a 
-second-class citizen - existing libraries are either old/unmaintained or quite slow while supporting only a 
+While there are many excellent free and open source libraries for report generation, Python seems to be a
+second-class citizen - existing libraries are either old/unmaintained or quite slow while supporting only a
 subset of features. ZipReport aims to be a faster alternative, while supporting modern HTML/CSS and JavaScript.
 
 ## What are the typical usage scenarios?
@@ -21,16 +21,16 @@ ZipReport was only tested on Linux systems.
 ## What HTML/CSS/JS features are supported?
 
 When using [zipreport-server](https://github.com/zipreport/zipreport-server), the rendering is executed by Chromium; all
-features supported by a modern Chromium browsers can be used. When using WeasyPrint, basic WeasyPrint features ate supported.
+features supported by a modern Chromium browser can be used. When using WeasyPrint, basic WeasyPrint features are supported.
 
 ## Is it fast?
 
-Depends on the defintion of "fast". The complex report example may take 2-3 seconds to process. Huge documents may take longer.
+Depends on the definition of "fast". The complex report example may take 2-3 seconds to process. Huge documents may take longer.
 
 
 ## Is it thread-safe?
 
-No. While zipreport can be used safely to render reports inside threads, 
+No. While zipreport can be used safely to render reports inside threads,
 the report processing subsystem is not thread safe. We recommend not to share ZipReport objects or state between threads.
 
 

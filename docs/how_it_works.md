@@ -5,8 +5,7 @@ the result of rendering the Jinja template is generated and stored within the me
 with the name *report.html*. Then, the in-memory report file is passed to a Processor, to be rendered onto its final
 form - either PDF or MIME message.
 Content, such as dynamically generated images is also embedded on the in-memory report file. It is also possible to add
-extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not
-allowed.
+or replace files at runtime, before passing it to the desired processor.
 
 ## Report Files
 
@@ -69,12 +68,12 @@ The manifest.json is a regular JSON file. Its structure is as follows:
 
 | Field       | Type   | Description                                                                                                                                    |
 |-------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| author      | string | Report author identification                                                                                                                   |                                                                                                                    
-| title       | string | Report title                                                                                                                                   |                                                                                                                                    
-| description | string | Extended description                                                                                                                           |                                                                                                                            
-| version     | string | ZipReport engine version (currently ignored)                                                                                                   |                                                                                                    
-| useJSEvent  | string | If "true", will automatically use jsEvent with ZipReport =cli/server                                                                           |                                                                             
-| params      | list   | List of mandatory parameter names. When rendering the report, will generate an exception if the passed parameter keys does not match this list |  
+| author      | string | Report author identification                                                                                                                   |
+| title       | string | Report title                                                                                                                                   |
+| description | string | Extended description                                                                                                                           |
+| version     | string | ZipReport engine version (currently ignored)                                                                                                   |
+| useJSEvent  | bool   | If true, will automatically use jsEvent with zipreport-server                                                                                  |
+| params      | list   | List of mandatory parameter names. When rendering the report, will generate an exception if the passed parameter keys does not match this list |
 
 Additionally, the manifest **can** contain other fields relevant to the application, they are just ignored by ZipReport.
 If other fields exist, they can be accessed from the application on certain usage patterns.
@@ -122,7 +121,7 @@ Example of data.json from examples/reports/simple, for the manifest in the previ
   ],
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut ornare metus."
 }
-```    
+```
 
 ### Main template file: index.html
 
@@ -211,7 +210,7 @@ Constructor:
 
 ```python
 ZipReportProcessor(client: ZipReportClient)
-``` 
+```
 
 *client* is an instance of *zipreport.processors.ZipReportClient*, whose function is to encapsulate API communication
 logic.

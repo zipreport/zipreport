@@ -34,7 +34,7 @@ class ZipFs(FsInterface):
             info = zipfile.getinfo(self._clean_path(name))
             with zipfile.open(info) as zf:
                 return io.BytesIO(zf.read())
-        except ValueError:
+        except (KeyError, ValueError):
             raise FsError(
                 "Error reading file '{}'. Maybe it doesn't exist?".format(name)
             )

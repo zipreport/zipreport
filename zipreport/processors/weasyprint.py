@@ -54,11 +54,14 @@ class WeasyPrintProcessor(ProcessorInterface):
         def f(url):
             return self.fetcher(zpt, url)
 
-        rpt = HTML(
-            base_url="",
-            string=io.TextIOWrapper(zpt.get(REPORT_FILE_NAME), encoding="utf-8").read(),
-            url_fetcher=f,
-        ).write_pdf(None, stylesheets=self._css, font_config=self._fconfig)
+        try:
+            rpt = HTML(
+                base_url="",
+                string=io.TextIOWrapper(zpt.get(REPORT_FILE_NAME), encoding="utf-8").read(),
+                url_fetcher=f,
+            ).write_pdf(None, stylesheets=self._css, font_config=self._fconfig)
+        except Exception as e:
+            return JobResult(None, False, str(e))
         return JobResult(io.BytesIO(rpt), True, "")
 
     def fetcher(self, zpt, url):

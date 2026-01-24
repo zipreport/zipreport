@@ -142,6 +142,7 @@ class ReportJob:
         return True
 
     def set_margins_custom_inch(self, left, right, top, bottom):
+        self._options[OPT_MARGIN_STYLE] = PDF_MARGIN_CUSTOM
         self._options[OPT_MARGIN_LEFT] = str(left)
         self._options[OPT_MARGIN_RIGHT] = str(right)
         self._options[OPT_MARGIN_TOP] = str(top)

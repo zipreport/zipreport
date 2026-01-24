@@ -155,7 +155,7 @@ def dynamic_svg(*args, **kwargs) -> markupsafe.Markup:
 
 
 def do_json(*args) -> markupsafe.Markup:
-    if len(*args) != 1:
+    if len(args) != 1:
         raise RuntimeError(
             "Invalid number of arguments. json filter requires a variable"
         )

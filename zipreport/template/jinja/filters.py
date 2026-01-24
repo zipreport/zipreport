@@ -1,4 +1,3 @@
-import base64
 import json
 from pathlib import Path
 from typing import Union
@@ -55,7 +54,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
     img_args = {}
     ai = 2  # user arguments start in 3
     for arg in IMAGE_NAMED_PARAMS:
-        if arg in kwargs.keys():
+        if arg in kwargs:
             img_args[arg] = kwargs[arg]
         else:
             if ai < al:
@@ -63,7 +62,7 @@ def dynamic_image(args: list, kwargs: Union[dict, None], extension: str):
         ai += 1
 
     # callable may not always require data
-    if ARG_DATA not in img_args.keys():
+    if ARG_DATA not in img_args:
         img_args[ARG_DATA] = None
 
     # execute callable & save image

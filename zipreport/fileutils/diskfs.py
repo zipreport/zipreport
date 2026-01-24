@@ -37,19 +37,24 @@ class DiskFs(FsInterface):
         else:
             raise FsError("Path '{}' is not a file".format(path))
 
-    def add(self, name: str, content):
+    def add(self, name: str, content, overwrite: bool = False):
         """
         Add a new file
         :param name: filename with full path
         :param content: file contents
+        :param overwrite: if True, allow overwriting existing files
         :return:
         """
         name = self._build_path(name)
-        if not self._can_create(os.path.dirname(name), name):
+        if not overwrite and not self._can_create(os.path.dirname(name), name):
             raise FsError(
                 "Cannot add file '{}'; Invalid path or already existing file".format(
                     name
                 )
+            )
+        if overwrite and not os.path.exists(os.path.dirname(name)):
+            raise FsError(
+                "Cannot add file '{}'; Invalid path".format(name)
             )
         with open(name, "wb", buffering=0) as f:
             f.write(content)
@@ -88,14 +93,13 @@ class DiskFs(FsInterface):
 
     def list_files(self, path: str) -> list:
         """
-        List existing files on the given path
+        List existing files on the given path (non-recursive)
         :param path: path
         :return: list
         """
         path = self._build_path(path)
         if os.path.exists(path) and os.path.isdir(path):
-            for _, _, filenames in os.walk(path):
-                return filenames
+            return [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
         else:
             raise FsError("Cannot stat '{}'; Invalid path".format(path))
 
@@ -158,4 +162,11 @@ class DiskFs(FsInterface):
         :param path: relative path
         :return: absolute path
         """
-        return os.path.join(self._basepath, path.lstrip(os.sep))
+        result = os.path.normpath(os.path.join(self._basepath, path.lstrip(os.sep)))
+        # prevent path traversal outside basepath
+        base = os.path.normpath(self._basepath)
+        if not result.startswith(base + os.sep) and result != base:
+            raise FsError(
+                "Path traversal detected: '{}' escapes base path".format(path)
+            )
+        return result

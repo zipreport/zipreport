@@ -20,7 +20,7 @@ class BuildResult:
         self.add_error(error)
 
     def add_error(self, error):
-        if type(error) is list:
+        if isinstance(error, list):
             self._err.extend(error)
         elif error is not None:
             self._err.append(error)
@@ -178,15 +178,15 @@ class ReportFileBuilder:
         except Exception as e:
             return status.add_error("Error processing manifest: {}".format(e)), None
 
-        if type(manifest) is not dict:
+        if not isinstance(manifest, dict):
             return status.add_error("Invalid manifest format"), None
         for field, _type in MANIFEST_REQUIRED_FIELDS.items():
-            if field not in manifest.keys():
+            if field not in manifest:
                 status.add_error(
                     "Missing mandatory field '{}' in manifest file".format(field)
                 )
             else:
-                if type(manifest[field]) != _type:
+                if not isinstance(manifest[field], _type):
                     status.add_error(
                         "Invalid type in manifest field '{}'".format(field)
                     )
@@ -197,7 +197,7 @@ class ReportFileBuilder:
         # check index.html
         try:
             fs.get(INDEX_FILE_NAME)
-        except Exception as e:
+        except Exception:
             return (
                 status.add_error("Index file '{}' not found".format(INDEX_FILE_NAME)),
                 None,

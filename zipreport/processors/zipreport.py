@@ -38,16 +38,19 @@ class ZipReportClient:
             "report": ("report.zpt", job.get_report().save()),
         }
         for k, v in job.get_options().items():
-            request_data[k] = (None, v)
+            if isinstance(v, bool):
+                request_data[k] = (None, str(v).lower())
+            else:
+                request_data[k] = (None, str(v))
 
         try:
-            session = requests.sessions.session()
-            session.headers["X-Auth-Key"] = self._api_key
-            r = session.post(url, verify=self._secure_ssl, files=request_data)
+            with requests.Session() as session:
+                session.headers["X-Auth-Key"] = self._api_key
+                r = session.post(url, verify=self._secure_ssl, files=request_data)
 
-            if r.status_code == 200:
-                if r.headers.get("Content-Type") == "application/pdf":
-                    return JobResult(io.BytesIO(r.content), True, "")
+                if r.status_code == 200:
+                    if r.headers.get("Content-Type") == "application/pdf":
+                        return JobResult(io.BytesIO(r.content), True, "")
 
         except Exception as e:
             return JobResult(None, False, str(e))

@@ -36,6 +36,6 @@ class InfoCommand(CliCommand):
                 self.tty.message(
                     "{:30} {}".format(path, zpt.get_param(const.MANIFEST_TITLE, ""))
                 )
-            except Exception as e:
+            except Exception:
                 self.tty.error("Error: {} is not a valid zipreport file".format(path))
         return True

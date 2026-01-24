@@ -68,7 +68,7 @@ class WeasyPrintProcessor(ProcessorInterface):
         """
         Internal fetcher for WeasyPrint to access in-report resources such as images, css and js
         :param zpt: ReportFile
-        :param url: url of te resource to fetch
+        :param url: url of the resource to fetch
         :return:
         """
         if url.startswith("http"):
@@ -80,6 +80,6 @@ class WeasyPrintProcessor(ProcessorInterface):
             url = url[7:]
 
         if zpt.exists(url):
-            return {"string": zpt.get(url).read()}
+            return {"file_obj": zpt.get(url)}
 
         return default_url_fetcher(fallback)

@@ -21,7 +21,7 @@ class PathCache:
         parts = list(item.parts)
         file = parts.pop()
         for p in parts:
-            if not p in root.keys():
+            if p not in root:
                 root[p] = {}
             root = root[p]
         root[file] = None
@@ -35,11 +35,11 @@ class PathCache:
         path = Path(path)
         root = self._cache
         for p in path.parts:
-            if p not in root.keys():
+            if p not in root:
                 return False
             root = root[p]
 
-        return type(root) is dict
+        return isinstance(root, dict)
 
     def file_exists(self, path: str) -> bool:
         """
@@ -50,7 +50,7 @@ class PathCache:
         path = Path(path)
         root = self._cache
         for p in path.parts:
-            if p not in root.keys():
+            if p not in root:
                 return False
             root = root[p]
         return root is None
@@ -65,7 +65,7 @@ class PathCache:
         root = self._cache
         path = Path(path)
         for p in path.parts:
-            if p in root.keys():
+            if p in root:
                 root = root[p]
             else:
                 # invalid path
@@ -73,7 +73,7 @@ class PathCache:
         if root is None:
             # its a file, not a dir
             return result
-        for k in root.keys():
+        for k in root:
             if root[k] is None:
                 result.append(k)
         return result
@@ -88,7 +88,7 @@ class PathCache:
         root = self._cache
         path = Path(path)
         for p in path.parts:
-            if p in root.keys():
+            if p in root:
                 root = root[p]
             else:
                 # invalid path
@@ -96,7 +96,7 @@ class PathCache:
         if root is None:
             # its a file, not a dir
             return result
-        for k in root.keys():
+        for k in root:
             if root[k] is not None:
                 result.append(k + self._sep)
         return result
@@ -111,7 +111,7 @@ class PathCache:
         root = self._cache
         path = Path(path)
         for p in path.parts:
-            if p in root.keys():
+            if p in root:
                 root = root[p]
             else:
                 # invalid path

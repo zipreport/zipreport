@@ -16,29 +16,29 @@ class TestMimeResourceParser(BaseTest):
         <link rel="stylesheet" type="text/css" HREF="style1.css">
         <link rel="stylesheet" type="text/css" href="/css/style2.css">
         <link rel="stylesheet" type="text/css" href="//style3.css">
-        <link rel="stylesheet" type="text/css" href="https://css/style4.css">                
-        <link rel="stylesheet" type="text/css" href="HTTP://css/style5.css">   
-        <!-- JS tests -->        
-        <script src="script1.js"></script>             
+        <link rel="stylesheet" type="text/css" href="https://css/style4.css">
+        <link rel="stylesheet" type="text/css" href="HTTP://css/style5.css">
+        <!-- JS tests -->
+        <script src="script1.js"></script>
         <script src="/script/script2.js"></script>
-        <script src="//script3.js"></script>        
+        <script src="//script3.js"></script>
         <script src="http://script4.js"></script>
         <script src="HTTPS://script5.js"></script>
     </head>
     <body>
      <!-- anchor ignore test -->
-     <a href="file1.html">file1</a> 
+     <a href="file1.html">file1</a>
      <a href="file2.html">file2</a>
      <a href="/file3.html">file3</a>
-     
+
      <!-- IMG tests -->
       <img SRC='/some/image1.jpg' />
       <img src="//other/image2.jpg" />
       <img src="http://other/image3.jpg" />
       <img src="https://other/image4.jpg" />
       <img src="HTTP://other/image5.jpg" />
-      <img src="HTTPS://other/image6.jpg" />       
-      <img src="image7.png" />           
+      <img src="HTTPS://other/image6.jpg" />
+      <img src="image7.png" />
     </body>
     </html>
     """

@@ -81,5 +81,5 @@ Entry point: `cli/console.py:main()`. Commands are classes extending `CliCommand
 ## Style
 
 - Max line length: 120 characters
-- Python 3.9+ (no walrus operator in core library for broader compat)
+- Python 3.10+
 - Flake8 with ignored rules: E203, E501, W503, W504, F401, F403

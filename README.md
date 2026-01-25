@@ -34,7 +34,7 @@ permissive license.
 
 **Requirements**:
 
-- Python >= 3.9
+- Python >= 3.10
 - Jinja2 >= 3.1
 - Compatible backend for PDF generation (zipreport-server or WeasyPrint);
 

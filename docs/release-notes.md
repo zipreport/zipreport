@@ -6,8 +6,9 @@
 
 ### Features
 
+* Increased minimum supported Python version to 3.10;
 * Updated WeasyPrint minimum dependency to >= 68.0;
-* Refactored WeasyPrintProcessor to use new URLFetcher class (replaces deprecated default_url_fetcher);
+* Refactored WeasyPrintProcessor to use URLFetcher class (replaces deprecated default_url_fetcher);
 
 ## 2.3.1
 

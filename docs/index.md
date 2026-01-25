@@ -32,15 +32,24 @@ runtime-generated graphics generated via Python functions.
 
 ## ZipReport Samples
 
-* example code is available in [examples](https://github.com/zipreport/zipreport/tree/master/examples/code)
-* report template files are available in [reports](https://github.com/zipreport/zipreport/tree/master/examples/reports)
-* paged.js examples are available in  [reports](https://github.com/zipreport/zipreport/tree/master/examples/pagedjs)
+* Example code is available in [examples/code](https://github.com/zipreport/zipreport/tree/master/examples/code)
+* Report template files are available in [examples/reports](https://github.com/zipreport/zipreport/tree/master/examples/reports)
+* Pre-generated sample outputs are available in [examples/samples](https://github.com/zipreport/zipreport/tree/master/examples/samples)
 
 **Available samples:**
 
 * [Simple report](samples/simple.pdf) - Simple report demonstrating Jinja templating
-* [Dynamic image heneration](samples/filter_example.pdf) - Report demonstrating server-side dynamic image generation
+* [Dynamic image generation](samples/filter_example.pdf) - Report demonstrating server-side dynamic image generation
 * [MIME newsletter example](samples/newsletter.eml) - MIME report example
-* [paged.js report](samples/example_report.pdf) - Complex report with front page, ToC, page numbers, chapters, server-side images and client-side images;
+* [paged.js report](samples/example_report.pdf) - Complex report with front page, ToC, page numbers, chapters, server-side images and client-side images
 * [paged.js dynamic ToC](samples/toc_example_report.pdf) - Report showcasing automatic ToC generation
+
+**PagedJS Examples:**
+
+| Example | Description | Output |
+|---------|-------------|--------|
+| [pagedjs](https://github.com/zipreport/zipreport/tree/master/examples/code/pagedjs/) | Basic PagedJS with matplotlib graphics and radar charts | [PDF](https://github.com/zipreport/zipreport/tree/master/examples/samples/pagedjs_output.pdf) |
+| [executive_report](https://github.com/zipreport/zipreport/tree/master/examples/code/executive_report/) | Modern executive report with KPIs, charts, and TOC | [PDF](https://github.com/zipreport/zipreport/tree/master/examples/samples/executive_report_output.pdf) |
+| [product_brochure](https://github.com/zipreport/zipreport/tree/master/examples/code/product_brochure/) | Software product brochure with pricing and testimonials | [PDF](https://github.com/zipreport/zipreport/tree/master/examples/samples/product_brochure_output.pdf) |
+| [analytics_dashboard](https://github.com/zipreport/zipreport/tree/master/examples/code/analytics_dashboard/) | Single-page site analytics dashboard (A4 landscape) | [PDF](https://github.com/zipreport/zipreport/tree/master/examples/samples/analytics_dashboard_output.pdf) |
 

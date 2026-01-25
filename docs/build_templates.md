@@ -508,12 +508,12 @@ chapter name in uppercase, and a fixed footer with a sample text looks like:
 
 Visit [paged.js documentation](https://www.pagedjs.org/) for more details on available features.
 An advanced example, with a cover page, sections and a table of contents can be found in the
-available [examples](https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/example_report/).
+available [examples](https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/example_report/).
 
 ## Generating table of contents (ToC)
 
 ZipReport provides a simple example of automatic table of content generation with JavaScript and CSS in
-the [examples section](https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/). It
+the [examples section](https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/). It
 works
 by populating a div element with the desired index entries, and then use the CSS target-counter property to
 generate the page numbers.
@@ -523,8 +523,8 @@ longer available).
 Copy both files to your report folder, and rename them to toc.js and toc.css respectively:
 
 ```shell
-$ wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/js/toc.js -O toc.js
-$ wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/css/toc.css -O toc.css
+$ wget https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/js/toc.js -O toc.js
+$ wget https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/css/toc.css -O toc.css
 ```
 
 We can then revisit and extend our previous example from [page numbers](#adding-page-numbers):

@@ -9,7 +9,8 @@ examples/
 ├── code/           # Python code examples
 ├── reports/        # Report templates (.zpt source directories)
 ├── processors/     # Standalone processor examples
-└── docker-compose/ # Docker Compose deployment example
+├── docker-compose/ # Docker Compose deployment example
+└── samples/        # Pre-generated output samples (PDF, EML)
 ```
 
 ## code/
@@ -57,6 +58,10 @@ Standalone scripts demonstrating direct processor usage without the high-level `
 Complete Docker Compose example showing how to run an application alongside zipreport-server.
 
 See [docker-compose/README.md](docker-compose/README.md) for details.
+
+## samples/
+
+Pre-generated output files from the code examples. Useful for previewing results without running the examples.
 
 ## Quick Start
 

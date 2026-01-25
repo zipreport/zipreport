@@ -1,7 +1,8 @@
 import sys
+from pathlib import Path
 
 from zipreport import MIMEReport
-from zipreport.report import ReportFileLoader
+from zipreport.report import ReportFileBuilder, ReportFileLoader
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -18,12 +19,22 @@ if __name__ == "__main__":
         "description": "a long text field with some filler description so the page isn't that empty",
     }
 
-    # load report from file
-    zpt = ReportFileLoader.load("reports/simple.zpt")
+    # load report from directory
+    report_path = Path(__file__).parent / "../reports/simple"
+    status, zfs = ReportFileBuilder.build_zipfs(report_path)
+    if not status.success():
+        print("Error loading the report")
+        exit(1)
+    zpt = ReportFileLoader.load_zipfs(zfs)
 
     # render the report with default job options
     result = MIMEReport().render_defaults(zpt, report_data)
 
-    if result.success:
-        with open(output_file, "wb") as rpt:
-            rpt.write(result.report.as_bytes())  # report is of type EmailMessage
+    if not result.success:
+        print("An error occurred while generating the report:", result.error)
+        exit(1)
+
+    with open(output_file, "wb") as rpt:
+        rpt.write(result.report.as_bytes())  # report is of type EmailMessage
+
+    print("Report generated to {}".format(output_file))

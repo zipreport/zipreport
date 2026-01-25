@@ -39,10 +39,10 @@ if __name__ == "__main__":
         "name": "John Connor",
     }
 
-    # render using zipreport-cli processor
+    # render using MIME processor
     result = MIMEReport().render_defaults(report, report_data)
     if not result.success:
-        print("An error occured while generating the email:", result.error)
+        print("An error occurred while generating the email:", result.error)
         exit(1)
 
     # save io.BytesIO buffer to file

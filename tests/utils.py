@@ -25,5 +25,5 @@ RPT_NEWSLETTER_PATH = Path(
 
 # PagedJS example
 RPT_PAGEDJS_PATH = Path(
-    Path(__file__).parent / Path("../examples/pagedjs/example_report")
+    Path(__file__).parent / Path("../examples/reports/pagedjs/example_report")
 ).absolute()

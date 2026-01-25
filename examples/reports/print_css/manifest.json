@@ -1,0 +1,12 @@
+{
+  "author": "ZipReport Team",
+  "title": "CSS Paged Media Report",
+  "description": "Report template demonstrating modern CSS Paged Media properties for WeasyPrint",
+  "version": "1.0",
+  "params": [
+    "title",
+    "author",
+    "date",
+    "chapters"
+  ]
+}

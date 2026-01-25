@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product_name }} - Product Brochure</title>
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cover Page -->
+    <section id="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-content">
+            <div class="product-badge">NEW RELEASE v{{ version }}</div>
+            <h1 class="product-name">{{ product_name }}</h1>
+            <p class="tagline">{{ tagline }}</p>
+            <div class="cover-cta">
+                <span class="cta-text">Discover the Future of Software</span>
+            </div>
+        </div>
+        <div class="cover-footer">
+            <span class="company">{{ company_name }}</span>
+            <span class="website">{{ website }}</span>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="page intro-page">
+        <div class="section-header">
+            <span class="section-label">Introduction</span>
+            <h2 class="section-title">Why {{ product_name }}?</h2>
+        </div>
+        <div class="intro-content">
+            <p class="lead">{{ description }}</p>
+        </div>
+
+        <div class="benefits-grid">
+            {% for benefit in benefits %}
+            <div class="benefit-card">
+                <div class="benefit-icon" style="background: {{ benefit.color }};">
+                    <span>{{ benefit.icon }}</span>
+                </div>
+                <h3 class="benefit-title">{{ benefit.title }}</h3>
+                <p class="benefit-desc">{{ benefit.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="page features-page">
+        <div class="section-header">
+            <span class="section-label">Features</span>
+            <h2 class="section-title">Powerful Capabilities</h2>
+        </div>
+
+        <div class="features-list">
+            {% for feature in features %}
+            <div class="feature-item">
+                <div class="feature-number">{{ "%02d"|format(loop.index) }}</div>
+                <div class="feature-content">
+                    <h3 class="feature-title">{{ feature.title }}</h3>
+                    <p class="feature-desc">{{ feature.description }}</p>
+                    {% if feature.highlights %}
+                    <ul class="feature-highlights">
+                        {% for highlight in feature.highlights %}
+                        <li>{{ highlight }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Feature Comparison Chart -->
+    <section class="page chart-page">
+        <div class="section-header">
+            <span class="section-label">Comparison</span>
+            <h2 class="section-title">How We Compare</h2>
+        </div>
+        <p class="section-intro">See how {{ product_name }} stacks up against the competition across key performance metrics.</p>
+
+        <figure class="chart-container">
+            {{ gen_comparison_chart|png(comparison_data, "comparison-chart", "700", "400") }}
+            <figcaption>Feature comparison across leading solutions</figcaption>
+        </figure>
+    </section>
+
+    <!-- Pricing -->
+    <section class="page pricing-page">
+        <div class="section-header">
+            <span class="section-label">Pricing</span>
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+        </div>
+        <p class="section-intro">Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
+
+        <div class="pricing-grid">
+            {% for tier in pricing_tiers %}
+            <div class="pricing-card {% if tier.featured %}featured{% endif %}">
+                {% if tier.featured %}
+                <div class="popular-badge">Most Popular</div>
+                {% endif %}
+                <h3 class="tier-name">{{ tier.name }}</h3>
+                <div class="tier-price">
+                    <span class="currency">$</span>
+                    <span class="amount">{{ tier.price }}</span>
+                    <span class="period">/{{ tier.period }}</span>
+                </div>
+                <p class="tier-desc">{{ tier.description }}</p>
+                <ul class="tier-features">
+                    {% for feature in tier.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="page testimonials-page">
+        <div class="section-header">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">What Our Customers Say</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">{{ testimonial.quote }}</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar" style="background: {{ testimonial.color }};">
+                        {{ testimonial.name[0] }}
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">{{ testimonial.name }}</span>
+                        <span class="author-role">{{ testimonial.role }}, {{ testimonial.company }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="page specs-page">
+        <div class="section-header">
+            <span class="section-label">Technical</span>
+            <h2 class="section-title">Technical Specifications</h2>
+        </div>
+
+        <div class="specs-grid">
+            {% for category in tech_specs %}
+            <div class="specs-category">
+                <h3 class="specs-category-title">{{ category.category }}</h3>
+                <table class="specs-table">
+                    {% for spec in category.specs %}
+                    <tr>
+                        <td class="spec-name">{{ spec.name }}</td>
+                        <td class="spec-value">{{ spec.value }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+
+        <figure class="chart-container small">
+            {{ gen_feature_chart|png(feature_data, "feature-chart", "650", "300") }}
+            <figcaption>Performance benchmarks across key metrics</figcaption>
+        </figure>
+    </section>
+
+    <!-- Back Cover / Contact -->
+    <section class="page back-cover">
+        <div class="back-cover-content">
+            <h2 class="back-title">Ready to Get Started?</h2>
+            <p class="back-subtitle">Join thousands of teams already using {{ product_name }} to transform their workflow.</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Website</span>
+                    <span class="contact-value">{{ website }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">{{ contact_email }}</span>
+                </div>
+            </div>
+
+            <div class="back-footer">
+                <div class="company-logo">{{ product_name }}</div>
+                <p class="copyright">&copy; 2025 {{ company_name }}. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PagedJS Handler -->
+    <script type="text/javascript">
+        class BrochureHandlers extends Paged.Handler {
+            constructor(chunker, polisher, caller) {
+                super(chunker, polisher, caller);
+            }
+
+            afterPreview(pages) {
+                console.log('zpt-view-ready');
+            }
+        }
+        Paged.registerHandlers(BrochureHandlers);
+    </script>
+</body>
+</html>

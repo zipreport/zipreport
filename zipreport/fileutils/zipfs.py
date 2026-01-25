@@ -34,16 +34,17 @@ class ZipFs(FsInterface):
             info = zipfile.getinfo(self._clean_path(name))
             with zipfile.open(info) as zf:
                 return io.BytesIO(zf.read())
-        except ValueError:
+        except (KeyError, ValueError):
             raise FsError(
                 "Error reading file '{}'. Maybe it doesn't exist?".format(name)
             )
 
-    def add(self, name: str, content):
+    def add(self, name: str, content, overwrite: bool = False):
         """
         Add a file
         :param name: filename to create
         :param content: file contents
+        :param overwrite: if True, allow overwriting existing files
         :return:
         """
         zfile = self._zip.zip()
@@ -54,14 +55,15 @@ class ZipFs(FsInterface):
             content = content.read()
         try:
             zfile.getinfo(name)
-            raise FsError("File'{}' already exists".format(name))
+            if not overwrite:
+                raise FsError("File '{}' already exists".format(name))
         except KeyError:
             pass
         try:
             zfile.writestr(name, content, compress_type=ZIP_DEFLATED)
             self._cache.add(name)
         except Exception as e:
-            raise FsError("Error adding '{}' to  Zip: {}".format(name, e))
+            raise FsError("Error adding '{}' to Zip: {}".format(name, e))
 
     def mkdir(self, name: str):
         raise FsError("ZipFs does not support creation of explicit directories")

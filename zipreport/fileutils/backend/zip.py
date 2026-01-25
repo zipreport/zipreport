@@ -49,7 +49,7 @@ class InMemoryZip:
         """
         if not os.path.exists(disk_file) or not os.path.isfile(disk_file):
             raise InMemoryZipError(
-                "Zip file '{}' does not exist or is not a valid file"
+                "Zip file '{}' does not exist or is not a valid file".format(disk_file)
             )
 
         try:

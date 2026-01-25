@@ -58,7 +58,7 @@ class ReportFileLoader:
         """
         file = Path(file)
         if not file.exists() or not file.is_file():
-            raise ReportFileLoaderError("Cannot find file '{}".format(file))
+            raise ReportFileLoaderError("Cannot find file '{}'".format(file))
 
         try:
             zfs = ZipFs(InMemoryZip(file))

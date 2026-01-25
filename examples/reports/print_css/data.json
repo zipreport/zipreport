@@ -1,0 +1,27 @@
+{
+  "title": "CSS Paged Media Report",
+  "author": "ZipReport Team",
+  "date": "January 2025",
+  "chapters": [
+    {
+      "title": "Introduction to Paged Media",
+      "content": "This report demonstrates modern CSS Paged Media features supported by WeasyPrint. These features allow precise control over page layout, headers, footers, and page breaks when generating PDF documents from HTML templates. The CSS Paged Media specification extends CSS to support pagination, page margins, and other print-specific features that are essential for creating professional documents."
+    },
+    {
+      "title": "Page Layout and Margins",
+      "content": "CSS Paged Media provides the @page rule for defining page dimensions, margins, and named pages. This template uses A4 page size with 2.5cm top/bottom margins and 2cm left/right margins. The cover page uses a named page rule (@page cover) with zero margins for a full-bleed design. Named pages allow different sections of a document to have distinct page layouts, which is essential for documents with cover pages, table of contents, and content sections."
+    },
+    {
+      "title": "Running Headers and Footers",
+      "content": "Using margin boxes (@top-left, @top-right, @bottom-center), we can place running content in the page margins. The string-set property captures element content for use in headers. For example, each chapter title is captured with string-set: chapter-title content() and then displayed in the top-left margin box using content: string(chapter-title). This creates dynamic headers that update automatically as the reader moves through different chapters. Page counters using counter(page) and counter(pages) provide automatic page numbering."
+    },
+    {
+      "title": "Page Breaks and Fragmentation",
+      "content": "The break-before, break-after, and break-inside properties control how content flows across pages. Setting break-before: page on chapter sections ensures each chapter starts on a new page. Using break-inside: avoid on figures and tables prevents them from being split across pages, maintaining visual integrity. The break-after: page property forces a page break after an element, useful for ensuring the cover page stands alone. These fragmentation properties give authors fine-grained control over document pagination."
+    },
+    {
+      "title": "Widows and Orphans Control",
+      "content": "The widows and orphans properties prevent awkward text breaks at the top and bottom of pages. This template sets widows: 3 to ensure at least three lines appear at the top of a page after a break, while orphans: 3 ensures at least three lines remain at the bottom before a break. Without these settings, a paragraph might leave a single line stranded at the top or bottom of a page, which looks unprofessional. These typographic controls are essential for creating polished, readable documents that meet professional publishing standards."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cover Page -->
+    <section class="cover">
+        <h1>{{ title }}</h1>
+        <div class="author">{{ author }}</div>
+        <div class="date">{{ date }}</div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            {% for chapter in chapters %}
+            <li><a href="#chapter-{{ loop.index }}">{{ loop.index }}. {{ chapter.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Chapters -->
+    {% for chapter in chapters %}
+    <section class="chapter" id="chapter-{{ loop.index }}">
+        <header class="page-header">
+            <div class="page-header-inner">
+                <span class="header-title">{{ title }}</span>
+                <span class="header-chapter">Chapter {{ loop.index }}</span>
+            </div>
+        </header>
+        <div class="chapter-content">
+            <h2>{{ loop.index }}. {{ chapter.title }}</h2>
+            <p>{{ chapter.content }}</p>
+        </div>
+        <footer class="page-footer">
+            <span class="footer-text">{{ author }} - {{ date }}</span>
+        </footer>
+    </section>
+    {% endfor %}
+</body>
+</html>

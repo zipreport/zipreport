@@ -1,5 +1,6 @@
-# ZipReport Filter Example
+# ZipReport Custom Filter Example
 #
+import os
 import sys
 from pathlib import Path
 
@@ -9,6 +10,9 @@ from jinja2 import Environment, pass_environment
 from zipreport import ZipReport
 from zipreport.report import ReportFileBuilder, ReportFileLoader
 from zipreport.template import EnvironmentWrapper
+
+ZIPREPORT_URL = os.getenv("ZIPREPORT_URL", "https://127.0.0.1:6543")
+ZIPREPORT_KEY = os.getenv("ZIPREPORT_KEY", "somePassword")
 
 
 @pass_environment
@@ -66,12 +70,12 @@ if __name__ == "__main__":
     # create custom wrapper object
     my_wrapper = MyCustomWrapper()
 
-    # render using zipreport processor
-    result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(
+    # render using zipreport-server processor
+    result = ZipReport(ZIPREPORT_URL, ZIPREPORT_KEY).render_defaults(
         report, report_data, wrapper=my_wrapper
     )
     if not result.success:
-        print("An error occured while generating the pdf:", result.error)
+        print("An error occurred while generating the pdf:", result.error)
         exit(1)
 
     # save io.BytesIO buffer to file

@@ -48,7 +48,7 @@ class TestZip(BaseZipTest):
         buf = zfs.get_backend().get_buffer()
         assert isinstance(buf, io.BytesIO) is True
 
-        with pytest.raises(InMemoryZipError) as e:
+        with pytest.raises(InMemoryZipError):
             buf = zfs.get_backend().save_stream()
             assert isinstance(buf, io.BytesIO) is True
             # must fail, file closed
@@ -56,7 +56,7 @@ class TestZip(BaseZipTest):
 
         with pytest.raises(InMemoryZipError):
             # must fail, file closed
-            list = zfs.list("")
+            zfs.list("")
 
     def test_append_zip(self):
         fname = "some_stupid_file.file"

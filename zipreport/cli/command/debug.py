@@ -1,4 +1,5 @@
-import importlib, importlib.util
+import importlib
+import importlib.util
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
@@ -50,7 +51,7 @@ class DebugCommand(CliCommand):
             if not parts[1].isdigit():
                 return False, host, port
             host = parts[0].strip()
-            port = parts[1]
+            port = int(parts[1])
         else:
             host = hostport
 
@@ -138,20 +139,21 @@ class DebugCommand(CliCommand):
         DebugServer(host, port).run(source, follow_links=args.symlinks, wrapper=wrapper)
         return True
 
+
 class TempSysPath:
     """
     A context manager to temporarily add a directory to the system path.
 
-    This class allows you to temporarily add a specified directory to the 
-    beginning of the system path (`sys.path`). When the context is exited, 
+    This class allows you to temporarily add a specified directory to the
+    beginning of the system path (`sys.path`). When the context is exited,
     the directory is removed from the system path.
 
     Attributes:
         path (str): The directory path to be added to the system path.
     """
-    
+
     _lock = threading.Lock()
-    
+
     def __init__(self, path: Path | str):
         self.path = str(path)
 

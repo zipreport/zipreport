@@ -76,7 +76,7 @@ class JinjaRender:
 
         expected = self.zpt.get_param(MANIFEST_PARAMETERS)
         for param in expected:
-            if param not in data.keys():
+            if param not in data:
                 raise RuntimeError(
                     "Parameter '{}' missing on render() call".format(param)
                 )
@@ -105,7 +105,7 @@ class JinjaRender:
 
         template = self.get_env().get_template(template)
         contents = template.render(**data)
-        self.zpt.add(REPORT_FILE_NAME, contents)
+        self.zpt.add(REPORT_FILE_NAME, contents, overwrite=True)
         return contents
 
     def _discover_data(self, data_file: str = DATA_FILE_NAME) -> dict:

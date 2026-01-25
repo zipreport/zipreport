@@ -1,0 +1,238 @@
+/* CSS Paged Media stylesheet for Chromium/zipreport-server */
+/*
+ * This template uses CSS Paged Media features supported by Chrome/Chromium:
+ * - @page rules for page size and margins
+ * - Page breaks (break-before, break-after, break-inside)
+ * - Widows and orphans control
+ * - Named pages
+ * - print-color-adjust for backgrounds
+ *
+ * NOTE: Chrome does NOT support @page margin boxes (@top-center, @bottom-center)
+ * so headers/footers must be implemented as visible HTML elements.
+ * For full CSS Paged Media support, use WeasyPrint instead.
+ */
+
+/* Base page setup */
+@page {
+    size: A4;
+    margin: 2cm 2cm 2.5cm 2cm;
+}
+
+/* Cover page - full bleed */
+@page cover {
+    margin: 0;
+}
+
+/* TOC page */
+@page toc {
+    margin: 2cm;
+}
+
+/* Reset for print */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Body defaults with widow/orphan control */
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #333;
+    widows: 3;
+    orphans: 3;
+    /* Required for Chrome to print backgrounds */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Ensure all elements can print backgrounds */
+* {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Cover page */
+.cover {
+    page: cover;
+    break-after: page;
+    break-inside: avoid;
+    /* Use exact A4 height minus small buffer to prevent overflow */
+    height: 296mm;
+    max-height: 296mm;
+    width: 210mm;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+    color: white;
+    text-align: center;
+    padding: 3cm;
+    overflow: hidden;
+}
+
+.cover h1 {
+    font-size: 32pt;
+    font-weight: bold;
+    margin-bottom: 1cm;
+}
+
+.cover .author {
+    font-size: 16pt;
+    margin-bottom: 5mm;
+}
+
+.cover .date {
+    font-size: 14pt;
+    opacity: 0.9;
+}
+
+/* Table of Contents */
+.toc {
+    page: toc;
+    break-before: page;
+    break-after: page;
+}
+
+.toc h2 {
+    font-size: 20pt;
+    color: #1a237e;
+    margin-bottom: 1cm;
+    padding-bottom: 3mm;
+    border-bottom: 2pt solid #1a237e;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin-bottom: 8mm;
+    font-size: 12pt;
+}
+
+.toc li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc li a:hover {
+    text-decoration: underline;
+}
+
+/* Page header content styling */
+.page-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5mm;
+    margin-bottom: 8mm;
+    border-bottom: 0.5pt solid #ccc;
+    font-size: 9pt;
+    color: #666;
+}
+
+.header-title {
+    font-style: italic;
+}
+
+.header-chapter {
+    font-weight: 500;
+}
+
+/* Page footer styling */
+/* Note: Chrome does NOT support counter(page) for page numbers */
+.page-footer span {
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+    padding-top: 5mm;
+    border-top: 0.5pt solid #ccc;
+}
+
+/* Chapter styling - table layout for footer positioning */
+.chapter {
+    break-before: page;
+    display: table;
+    width: 100%;
+    height: 252mm; /* A4 content area height */
+    table-layout: fixed;
+}
+
+.page-header {
+    display: table-row;
+    height: 1px; /* Minimum height, content will expand */
+}
+
+.chapter-content {
+    display: table-row;
+    height: 100%; /* Fill remaining space */
+}
+
+.page-footer {
+    display: table-row;
+    height: 1px; /* Minimum height, content will expand */
+}
+
+.chapter h2 {
+    font-size: 22pt;
+    color: #1a237e;
+    margin-bottom: 1cm;
+    padding-bottom: 3mm;
+    border-bottom: 1.5pt solid #1a237e;
+}
+
+.chapter p {
+    text-align: justify;
+    margin-bottom: 6mm;
+    text-indent: 0;
+}
+
+.chapter p + p {
+    text-indent: 1.5em;
+}
+
+/* Figures - avoid breaking */
+figure {
+    break-inside: avoid;
+    margin: 1cm 0;
+    padding: 5mm;
+    border: 0.5pt solid #ddd;
+    text-align: center;
+}
+
+figcaption {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 3mm;
+    font-style: italic;
+}
+
+/* Tables - avoid breaking */
+table {
+    break-inside: avoid;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8mm 0;
+}
+
+th, td {
+    border: 0.5pt solid #999;
+    padding: 3mm 4mm;
+    text-align: left;
+    font-size: 10pt;
+}
+
+th {
+    background-color: #e8eaf6;
+    font-weight: bold;
+    color: #1a237e;
+}

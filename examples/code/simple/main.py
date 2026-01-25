@@ -1,10 +1,14 @@
 # Simple ZipReport example
 #
+import os
 import sys
 from pathlib import Path
 
 from zipreport import ZipReport
 from zipreport.report import ReportFileLoader
+
+ZIPREPORT_URL = os.getenv("ZIPREPORT_URL", "https://127.0.0.1:6543")
+ZIPREPORT_KEY = os.getenv("ZIPREPORT_KEY", "somePassword")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -32,12 +36,12 @@ if __name__ == "__main__":
         "description": "a long text field with some filler description so the page isn't that empty",
     }
 
-    # render using zipreport-cli processor
-    result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(
+    # render using zipreport-server processor
+    result = ZipReport(ZIPREPORT_URL, ZIPREPORT_KEY).render_defaults(
         report, report_data
     )
     if not result.success:
-        print("An error occured while generating the report:", result.error)
+        print("An error occurred while generating the report:", result.error)
         exit(1)
 
     # save io.BytesIO buffer to file

@@ -5,7 +5,7 @@ import shutil
 import sys
 import traceback
 from functools import partial
-from urllib.parse import urlparse, urlsplit, unquote
+from urllib.parse import unquote
 from pathlib import Path
 from typing import Union, Tuple
 from http import HTTPStatus
@@ -61,7 +61,6 @@ class ReportFileHandler(BaseHTTPRequestHandler):
             raise RuntimeError("Debug HTTP Server must work with a generated report")
         self.report_path = Path(report_path)
         self.is_report_file = self.report_path.is_file()
-        self.enc = sys.getfilesystemencoding()
         self.follow_links = follow_links
         self.wrapper = wrapper
 
@@ -84,8 +83,10 @@ class ReportFileHandler(BaseHTTPRequestHandler):
     def build_report(self) -> Tuple[bool, Union[io.BytesIO, None]]:
         """
         Assembles, builds and renders the report file
-        In case of errors, response is (False, io.BytesIO(response_message)), with headers already processed
-        In case of success, response is (True, io.BytesIO()); response should be processed from the zpt path for the report file
+        In case of errors, response is (False, io.BytesIO(response_message)),
+        with headers already processed.
+        In case of success, response is (True, io.BytesIO()); response should
+        be processed from the zpt path for the report file.
         :return: (bool, io.BytesIO)
         """
         global _zpt
@@ -138,7 +139,7 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         Common request processing logic
         :return: io.BytesIO()
         """
-        global _zpt
+        global _zpt  # noqa: F824
         path = self.clean_path(self.path)
         response = None
 
@@ -241,13 +242,12 @@ class ReportFileHandler(BaseHTTPRequestHandler):
         :param contents: optional HTML response
         :return: io.BytesIO
         """
-        size = len(contents)
         response = io.BytesIO(bytes(contents, encoding="utf-8"))
         self.send_response(code)
         self.send_header(
-            "Content-type", "text/html; charset=%s" % sys.getfilesystemencoding()
+            "Content-type", "text/html; charset=utf-8"
         )
-        self.send_header("Content-Length", str(size))
+        self.send_header("Content-Length", str(response.getbuffer().nbytes))
         self.end_headers()
         response.seek(0)
         return response
@@ -271,9 +271,9 @@ class DebugServer:
         self,
         report_path: str,
         follow_links: bool = False,
-        wrapper: EnvironmentWrapper = False,
+        wrapper: EnvironmentWrapper = None,
     ) -> None:
-        server_address = (self._addr, int(self._port))
+        server_address = (self._addr, self._port)
         handler_class = partial(
             ReportFileHandler,
             report_path=report_path,
@@ -282,7 +282,7 @@ class DebugServer:
         )
         sys.stdout.write(
             "\nStarted debug server at http://{addr}:{port}\nServing from: {path}\nUse Ctrl+C to stop...\n\n".format(
-                addr=self._addr, port=int(self._port), path=Path(report_path).absolute()
+                addr=self._addr, port=self._port, path=Path(report_path).absolute()
             )
         )
         httpd = HTTPServer(server_address, handler_class)

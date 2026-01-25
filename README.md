@@ -13,7 +13,14 @@
 Transform HTML templates into beautiful PDF or MIME reports, with full CSS and client Javascript support, under a
 permissive license.
 
-Want to see it in action? Check this [example](docs/samples/example_report.pdf)!
+**PagedJS Examples:**
+
+| Example                                                   | Description                                             | Output                                                 |
+|-----------------------------------------------------------|---------------------------------------------------------|--------------------------------------------------------|
+| [pagedjs](examples/code/pagedjs/)                         | Basic PagedJS with matplotlib graphics and radar charts | [PDF](examples/samples/pagedjs_output.pdf)             |
+| [executive_report](examples/code/executive_report/)       | Modern executive report with KPIs, charts, and TOC      | [PDF](examples/samples/executive_report_output.pdf)    |
+| [product_brochure](examples/code/product_brochure/)       | Software product brochure with pricing and testimonials | [PDF](examples/samples/product_brochure_output.pdf)    |
+| [analytics_dashboard](examples/code/analytics_dashboard/) | Single-page site analytics dashboard (A4 landscape)     | [PDF](examples/samples/analytics_dashboard_output.pdf) |
 
 **Highlights**:
 
@@ -27,46 +34,52 @@ Want to see it in action? Check this [example](docs/samples/example_report.pdf)!
 
 **Requirements**:
 
-- Python >= 3.8
-- Jinja2 >= 3.1 
-- Compatible backend for pdf generation (zipreport-server, xhtmltopdf, or WeasyPrint);
+- Python >= 3.10
+- Jinja2 >= 3.1
+- Compatible backend for PDF generation (zipreport-server or WeasyPrint);
 
 ### v2.x.x breaking changes
 
 Starting with zipreport 2.0.0, support for the electron-based zipreport-cli rendering backend is removed; using
-a [zipreport-server](https://github.com/zipreport/zipreport-server) version 2.0.0 or later - preferably using a docker container,
+a [zipreport-server](https://github.com/zipreport/zipreport-server) version 2.0.0 or later - preferably using a docker
+container,
 is now the recommended approach.
 
 The behavior of the JS event approach has also changed; PDF rendering can now be triggered via console message,
 instead of dispatching an event. **If you use JS events to trigger rendering, you need to update your templates**.
 
 Old method:
+
 ```javascript
-    (...)
-    // signal PDF generation after all DOM changes are performed
-    document.dispatchEvent(new Event('zpt-view-ready'))
-    (...)
+    (
+...)
+// signal PDF generation after all DOM changes are performed
+document.dispatchEvent(new Event('zpt-view-ready'))
+(...)
 ```
 
 New method, starting with v2.0.0:
-```javascript
-    (...)
-    // signal PDF generation after all DOM changes are performed
-    console.log('zpt-view-ready')
-    (...)
-```
 
+```javascript
+    (
+...)
+// signal PDF generation after all DOM changes are performed
+console.log('zpt-view-ready')
+(...)
+```
 
 ### Installation
 
 Installing via pip:
+
 ```shell script
 $ pip install zipreport-lib
 ```
 
 ##### TL;DR; example
 
-Using zipreport-cli backend to render a report file:
+Using zipreport-server backend to render a report file:
+
 ```python
 from zipreport import ZipReport
 from zipreport.report import ReportFileLoader
@@ -99,31 +112,63 @@ result = client.render(job, report_data)
 if result.success:
     with open(output_file, 'wb') as rpt:
         rpt.write(result.report.read())
-```  
+```
+
+### Testing
+
+Running the test suite:
+
+```shell script
+$ pip install pytest pillow
+$ pytest tests/
+```
+
+Integration tests that require a running [zipreport-server](https://github.com/zipreport/zipreport-server)
+are skipped by default. To enable them:
+
+```shell script
+$ ZIPREPORT_SERVER=1 pytest tests/
+```
+
+The server host, port and API key can be configured via environment variables:
+
+- `ZIPREPORT_API_PORT` - server port (default: 6543)
+- `ZIPREPORT_API_KEY` - API key (default: somePassword)
 
 ### Paged.js
 
-[PagedJS](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for print,
+[PagedJS](https://www.pagedjs.org/) is an amazing javascript library that performs pagination of HTML documents for
+print,
 under MIT license. It acts as polyfill for W3C specification for print, and allows the creation of headers, footers,
 page numbers, table of contents, etc. in the browser.
 
-To use PagedJS capabilities, [zipreport-server](https://github.com/zipreport/zipreport-server) must be used as a backend.
+To use PagedJS capabilities, [zipreport-server](https://github.com/zipreport/zipreport-server) must be used as a
+backend.
 
 ### Available backends
 
 #### Zipreport-Server
 
-[zipreport-server](https://github.com/zipreport/zipreport-server) is a headless browser daemon orchestrator, designed specifically to work with ZipReport. It can be
+[zipreport-server](https://github.com/zipreport/zipreport-server) is a headless browser daemon orchestrator, designed
+specifically to work with ZipReport. It can be
 either installed locally or run via docker.
 
-zipreport-server is the only supported backend that enables full usage of client-side JavaScript and leveraging the PagedJS
-capabilities. 
+zipreport-server is the only supported backend that enables full usage of client-side JavaScript and leveraging the
+PagedJS
+capabilities.
 
 #### WeasyPrint
 
 This backend is provided for compatibility. For new projects, please use zipreport-server.
 
-[WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support JavaScript,
-and CSS is limited. 
+[WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support
+JavaScript,
+and CSS is limited.
 
+## Sponsors
 
+The [ZipReport Project](https://github.com/zipreport/) is sponsored exclusively by [BlackShield](https://blackshield.pt)
+
+## License
+
+MIT License - see LICENSE file for details

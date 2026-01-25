@@ -13,10 +13,18 @@ from shutil import rmtree
 
 from zipreport.template import JinjaRender
 
+API_HOST = "127.0.0.1"
+API_PORT = int(os.getenv("ZIPREPORT_API_PORT", 6543))
+
+requires_server = pytest.mark.skipif(
+    not os.getenv("ZIPREPORT_SERVER"),
+    reason="zipreport-server tests disabled (set ZIPREPORT_SERVER=1 to enable)"
+)
+
 
 @pytest.fixture
 def api_host():
-    return "127.0.0.1"
+    return API_HOST
 
 
 @pytest.fixture
@@ -26,7 +34,7 @@ def api_key():
 
 @pytest.fixture
 def api_port():
-    return os.getenv("ZIPREPORT_API_PORT", 6543)
+    return API_PORT
 
 
 def png_rectangle(data) -> io.BytesIO:
@@ -51,6 +59,7 @@ class TestReportRenderServer:
             rmtree(self.temp_dir)
             self.temp_dir = "/tmp"
 
+    @requires_server
     def test_render_sample1(self, api_host, api_port, api_key):
         destfile = Path(self.temp_dir) / "sample1"
 
@@ -69,6 +78,7 @@ class TestReportRenderServer:
         buf = result.report.read()
         assert len(buf) > 1000
 
+    @requires_server
     def test_render_pagedjs(self, api_host, api_port, api_key):
         destfile = Path(self.temp_dir) / "pagedjs"
 

@@ -89,8 +89,4 @@ Serving from: reports/sample1
 Use Ctrl+C to stop...
 ```
 
-An example of a custom wrapper file suitable for zipreport debug can be found [here](https://github.com/zipreport/zipreport/blob/master/examples/reports/env_wrapper/debug.py). 
-
-
-
-
+An example of a custom wrapper file suitable for zipreport debug can be found [here](https://github.com/zipreport/zipreport/blob/master/examples/reports/env_wrapper/debug.py).

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ report_title }}</title>
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/toc.js"></script>
+</head>
+<body>
+    <!-- Cover Page -->
+    <section id="cover">
+        <div class="cover-content">
+            <div class="cover-header">
+                <div class="company-name">{{ company_name }}</div>
+            </div>
+            <div class="cover-main">
+                <h1 class="report-title">{{ report_title }}</h1>
+                <p class="report-subtitle">{{ report_subtitle }}</p>
+            </div>
+            <div class="cover-footer">
+                <div class="cover-meta">
+                    <span class="meta-label">Prepared by</span>
+                    <span class="meta-value">{{ author_name }}</span>
+                </div>
+                <div class="cover-meta">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">{{ report_date }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="cover-accent"></div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="chapter toc-section">
+        <h2 class="section-title">Contents</h2>
+        <div id="toc"></div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="chapter">
+        <h2 id="executive-summary" class="section-title title-element">Executive Summary</h2>
+        <div class="summary-content">
+            <p class="lead-text">{{ executive_summary }}</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            {% for kpi in kpis %}
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background-color: {{ kpi.color }};">
+                    <span>{{ kpi.icon }}</span>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-value">{{ kpi.value }}</div>
+                    <div class="kpi-label">{{ kpi.label }}</div>
+                    {% if kpi.change %}
+                    <div class="kpi-change {% if kpi.change > 0 %}positive{% else %}negative{% endif %}">
+                        {% if kpi.change > 0 %}+{% endif %}{{ kpi.change }}%
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Revenue Analysis -->
+    <section class="chapter">
+        <h2 id="revenue-analysis" class="section-title title-element">Revenue Analysis</h2>
+        <p>The following chart illustrates the revenue performance over the reporting period, highlighting key trends and growth patterns.</p>
+
+        <figure class="chart-figure">
+            {{ gen_revenue_chart|png(revenue_data, "revenue-chart", "700", "350") }}
+            <figcaption>Quarterly Revenue Performance</figcaption>
+        </figure>
+
+        {% for section in sections %}
+        {% if section.category == 'revenue' %}
+        <h3 id="{{ section.id }}" class="subsection-title title-element">{{ section.title }}</h3>
+        <p>{{ section.content }}</p>
+        {% if section.highlights %}
+        <ul class="highlight-list">
+            {% for item in section.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="chapter">
+        <h2 id="performance-metrics" class="section-title title-element">Performance Metrics</h2>
+        <p>This section provides a comprehensive overview of key performance indicators and operational metrics.</p>
+
+        <figure class="chart-figure">
+            {{ gen_performance_chart|png(performance_data, "performance-chart", "700", "400") }}
+            <figcaption>Performance Indicators by Category</figcaption>
+        </figure>
+
+        {% for section in sections %}
+        {% if section.category == 'performance' %}
+        <h3 id="{{ section.id }}" class="subsection-title title-element">{{ section.title }}</h3>
+        <p>{{ section.content }}</p>
+        {% if section.table %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    {% for header in section.table.headers %}
+                    <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in section.table.rows %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </section>
+
+    <!-- Strategic Outlook -->
+    <section class="chapter">
+        <h2 id="strategic-outlook" class="section-title title-element">Strategic Outlook</h2>
+
+        {% for section in sections %}
+        {% if section.category == 'outlook' %}
+        <h3 id="{{ section.id }}" class="subsection-title title-element">{{ section.title }}</h3>
+        <p>{{ section.content }}</p>
+        {% if section.recommendations %}
+        <div class="recommendations">
+            <h4>Key Recommendations</h4>
+            <ol class="recommendation-list">
+                {% for rec in section.recommendations %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </section>
+
+    <!-- Appendix -->
+    <section class="chapter appendix">
+        <h2 id="appendix" class="section-title title-element">Appendix</h2>
+        <p class="appendix-note">This report was generated using ZipReport with PagedJS for professional document layout and pagination.</p>
+
+        <div class="document-info">
+            <h4>Document Information</h4>
+            <table class="info-table">
+                <tr>
+                    <td>Report Title</td>
+                    <td>{{ report_title }}</td>
+                </tr>
+                <tr>
+                    <td>Organization</td>
+                    <td>{{ company_name }}</td>
+                </tr>
+                <tr>
+                    <td>Author</td>
+                    <td>{{ author_name }}</td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>{{ report_date }}</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- PagedJS Handlers -->
+    <script type="text/javascript">
+        class ReportHandlers extends Paged.Handler {
+            constructor(chunker, polisher, caller) {
+                super(chunker, polisher, caller);
+            }
+
+            beforeParsed(content) {
+                createToc({
+                    content: content,
+                    tocElement: '#toc',
+                    titleElements: ['h2.title-element', 'h3.title-element']
+                });
+            }
+
+            afterPreview(pages) {
+                console.log('zpt-view-ready');
+            }
+        }
+        Paged.registerHandlers(ReportHandlers);
+    </script>
+</body>
+</html>

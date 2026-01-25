@@ -1,0 +1,21 @@
+{
+  "author": "ZipReport",
+  "title": "Executive Report Template",
+  "description": "Modern executive report with KPIs, charts, and professional styling",
+  "version": "1.0.0",
+  "useJSEvent": true,
+  "params": [
+    "company_name",
+    "report_title",
+    "report_subtitle",
+    "report_date",
+    "author_name",
+    "executive_summary",
+    "kpis",
+    "sections",
+    "gen_revenue_chart",
+    "revenue_data",
+    "gen_performance_chart",
+    "performance_data"
+  ]
+}

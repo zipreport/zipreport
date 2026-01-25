@@ -1,7 +1,31 @@
 import collections
 from copy import deepcopy
 
-from .const import *
+from .const import (
+    DEFAULT_JOB_TIMEOUT_S,
+    DEFAULT_JS_TIMEOUT_S,
+    DEFAULT_SETTLING_TIME_MS,
+    MANIFEST_REPORT_FILE,
+    OPT_IGNORE_SSL_ERRORS,
+    OPT_JOB_TIMEOUT,
+    OPT_JS_EVENT,
+    OPT_JS_TIMEOUT,
+    OPT_LANDSCAPE,
+    OPT_MAIN_SCRIPT,
+    OPT_MARGIN_BOTTOM,
+    OPT_MARGIN_LEFT,
+    OPT_MARGIN_RIGHT,
+    OPT_MARGIN_STYLE,
+    OPT_MARGIN_TOP,
+    OPT_PAGE_SIZE,
+    OPT_SETTLING_TIME,
+    PDF_MARGIN_CUSTOM,
+    PDF_MARGIN_DEFAULT,
+    PDF_PAGE_A4,
+    REPORT_FILE_NAME,
+    VALID_MARGINS,
+    VALID_PAGE_SIZES,
+)
 from .reportfile import ReportFile
 
 # Result type used by Processors
@@ -99,10 +123,10 @@ class ReportJob:
         """
         Set wait time for rendering
         Settling time is the time a render backend will wait, after loading the report, to start generating the pdf
-        :param ms: milisseconds to wait
+        :param ms: milliseconds to wait
         :return: True on success, False on error
         """
-        if ms > 0:
+        if ms >= 0:
             self._options[OPT_SETTLING_TIME] = ms
             return True
         return False
@@ -142,6 +166,7 @@ class ReportJob:
         return True
 
     def set_margins_custom_inch(self, left, right, top, bottom):
+        self._options[OPT_MARGIN_STYLE] = PDF_MARGIN_CUSTOM
         self._options[OPT_MARGIN_LEFT] = str(left)
         self._options[OPT_MARGIN_RIGHT] = str(right)
         self._options[OPT_MARGIN_TOP] = str(top)

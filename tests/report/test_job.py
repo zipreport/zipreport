@@ -1,5 +1,19 @@
 import zipreport.report.job as j
-from zipreport.report.const import *
+from zipreport.report.const import (
+    OPT_IGNORE_SSL_ERRORS,
+    OPT_JOB_TIMEOUT,
+    OPT_JS_EVENT,
+    OPT_JS_TIMEOUT,
+    OPT_LANDSCAPE,
+    OPT_MAIN_SCRIPT,
+    OPT_MARGIN_STYLE,
+    OPT_PAGE_SIZE,
+    OPT_SETTLING_TIME,
+    PDF_MARGIN_NONE,
+    PDF_PAGE_A3,
+    VALID_MARGINS,
+    VALID_PAGE_SIZES,
+)
 
 
 class TestReportJob:

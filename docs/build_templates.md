@@ -288,7 +288,7 @@ data.json contents with a local image:
 ## Extend Jinja2 by using a custom Environment wrapper class
 
 Starting with version 2.2.0, zipreport supports programmatic customization of the Environment() used by Jinja2 for
-template rendering, allowing injection or override of custom definitions such as filters, tests, etc. 
+template rendering, allowing injection or override of custom definitions such as filters, tests, etc.
 
 To create a custom Environment() wrapper, create a class inheriting from **zipreport.template.EnvironmentWrapper**,
 and override the method wrap() to provide the required behaviour:
@@ -315,7 +315,7 @@ class MyCustomWrapper(EnvironmentWrapper):
         # perform Environment customization here
         # in this case, register a custom filter
         e.filters["defoxifier"] = defoxifier
-        
+
         # return Environment
         return e
 ```
@@ -326,11 +326,11 @@ The class can then be used to create the wrapper object, and passed to an existi
 my_wrapper = MyCustomWrapper()
 
 # render using zipreport processor
-processor = ZipReport("https://127.0.0.1:6543", "somePassword") 
+processor = ZipReport("https://127.0.0.1:6543", "somePassword")
 result = processor.render_defaults(
-    report, 
-    report_data, 
-    wrapper=my_wrapper # our custom Environment wrapper 
+    report,
+    report_data,
+    wrapper=my_wrapper # our custom Environment wrapper
 )
 ```
 
@@ -508,12 +508,12 @@ chapter name in uppercase, and a fixed footer with a sample text looks like:
 
 Visit [paged.js documentation](https://www.pagedjs.org/) for more details on available features.
 An advanced example, with a cover page, sections and a table of contents can be found in the
-available [examples](https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/example_report/).
+available [examples](https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/example_report/).
 
 ## Generating table of contents (ToC)
 
 ZipReport provides a simple example of automatic table of content generation with JavaScript and CSS in
-the [examples section](https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/). It
+the [examples section](https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/). It
 works
 by populating a div element with the desired index entries, and then use the CSS target-counter property to
 generate the page numbers.
@@ -523,8 +523,8 @@ longer available).
 Copy both files to your report folder, and rename them to toc.js and toc.css respectively:
 
 ```shell
-$ wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/js/toc.js -O toc.js
-$ wget https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/css/toc.css -O toc.css
+$ wget https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/js/toc.js -O toc.js
+$ wget https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/css/toc.css -O toc.css
 ```
 
 We can then revisit and extend our previous example from [page numbers](#adding-page-numbers):

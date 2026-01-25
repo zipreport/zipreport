@@ -3,7 +3,7 @@
   "title": "Automated ToC creation",
   "description": "PagedJS example with automated table of contents creation",
   "version": "1.0",
-  "useJSEvent": "true",
+  "useJSEvent": true,
   "params": [
     "date",
     "author"

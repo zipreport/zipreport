@@ -72,7 +72,7 @@ class ZipReport(BaseReport):
         Constructor
         :param url: zipreport-server url
         :param api_key: zipreport-server api key
-        :param api_version: api version (default 1)
+        :param api_version: api version (default 2)
         :param secure_ssl: if true, verifies CA validity for SSL certificates (default false)
         """
         super(ZipReport, self).__init__(

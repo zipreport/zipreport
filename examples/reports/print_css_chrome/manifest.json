@@ -1,0 +1,12 @@
+{
+  "author": "ZipReport Team",
+  "title": "CSS Paged Media Report (Chromium)",
+  "description": "Report template demonstrating CSS Paged Media features supported by Chromium",
+  "version": "1.0",
+  "params": [
+    "title",
+    "author",
+    "date",
+    "chapters"
+  ]
+}

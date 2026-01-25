@@ -1,0 +1,27 @@
+{
+  "title": "CSS Paged Media Report",
+  "author": "ZipReport Team",
+  "date": "January 2025",
+  "chapters": [
+    {
+      "title": "Introduction to Paged Media",
+      "content": "This report demonstrates CSS Paged Media features supported by Chromium's headless PDF renderer. These features allow control over page layout, page breaks, and page numbering when generating PDF documents from HTML templates. While Chromium supports core paged media features, some advanced features like running headers require WeasyPrint."
+    },
+    {
+      "title": "Page Layout and Margins",
+      "content": "The @page rule defines page dimensions and margins. This template uses A4 page size with 2.5cm vertical and 2cm horizontal margins. Named pages (@page cover, @page toc) allow different sections to have distinct layouts. The cover page uses zero margins for a full-bleed design, while content pages have standard margins with headers and footers in the margin boxes."
+    },
+    {
+      "title": "Page Counters and Numbering",
+      "content": "Chromium supports page counters using counter(page) for the current page number and counter(pages) for the total page count. These are displayed in margin boxes defined within @page rules. The footer shows 'Page X of Y' format, providing clear navigation for readers. Page counters reset automatically and work correctly across all pages."
+    },
+    {
+      "title": "Page Breaks and Fragmentation",
+      "content": "The break-before, break-after, and break-inside properties control content flow across pages. Each chapter uses break-before: page to start on a new page. The break-inside: avoid property on figures and tables prevents them from splitting across pages. These fragmentation controls ensure professional document layout with logical page boundaries."
+    },
+    {
+      "title": "Widows and Orphans Control",
+      "content": "The widows and orphans properties prevent awkward text breaks. This template sets widows: 3 to ensure at least three lines appear at the top of a page after a break, and orphans: 3 to keep at least three lines at the bottom before a break. These typographic controls create polished, readable documents that meet professional publishing standards."
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "product_name": "CloudFlow",
+  "tagline": "Streamline Your Workflow, Amplify Your Productivity",
+  "version": "3.0",
+  "description": "CloudFlow is the next-generation workflow automation platform designed for modern teams. Our intelligent automation engine learns from your processes, eliminates repetitive tasks, and connects your favorite tools seamlessly. Whether you're managing projects, processing data, or coordinating across teams, CloudFlow adapts to your unique workflow and scales with your business.",
+  "company_name": "Nimbus Technologies",
+  "website": "www.cloudflow.io",
+  "contact_email": "hello@cloudflow.io",
+  "benefits": [
+    {
+      "icon": "⚡",
+      "title": "10x Faster Workflows",
+      "description": "Automate repetitive tasks and reduce manual work by up to 90%. Our AI-powered engine optimizes your processes in real-time.",
+      "color": "#6366f1"
+    },
+    {
+      "icon": "🔗",
+      "title": "500+ Integrations",
+      "description": "Connect with your existing tools including Slack, Jira, Salesforce, and hundreds more. No coding required.",
+      "color": "#06b6d4"
+    },
+    {
+      "icon": "🔒",
+      "title": "Enterprise Security",
+      "description": "SOC 2 Type II certified with end-to-end encryption. Your data stays protected with bank-level security.",
+      "color": "#10b981"
+    },
+    {
+      "icon": "📊",
+      "title": "Real-time Analytics",
+      "description": "Gain insights into your workflow performance with customizable dashboards and automated reporting.",
+      "color": "#f59e0b"
+    }
+  ],
+  "features": [
+    {
+      "title": "Visual Workflow Builder",
+      "description": "Design complex workflows with our intuitive drag-and-drop interface. No coding skills required—just connect the dots and watch your automation come to life.",
+      "highlights": [
+        "Pre-built templates for common workflows",
+        "Conditional logic and branching",
+        "Real-time collaboration"
+      ]
+    },
+    {
+      "title": "AI-Powered Automation",
+      "description": "Our machine learning engine analyzes your workflows and suggests optimizations. Let AI handle the heavy lifting while you focus on what matters.",
+      "highlights": [
+        "Smart task prioritization",
+        "Predictive scheduling",
+        "Anomaly detection"
+      ]
+    },
+    {
+      "title": "Advanced API Platform",
+      "description": "Build custom integrations with our comprehensive REST and GraphQL APIs. Webhooks, OAuth 2.0, and extensive documentation included.",
+      "highlights": [
+        "99.99% API uptime SLA",
+        "Rate limiting controls",
+        "Sandbox environment"
+      ]
+    },
+    {
+      "title": "Team Collaboration Hub",
+      "description": "Keep your team aligned with shared workspaces, real-time notifications, and seamless handoffs between team members.",
+      "highlights": [
+        "Role-based access control",
+        "Activity audit logs",
+        "Comment threads on tasks"
+      ]
+    }
+  ],
+  "pricing_tiers": [
+    {
+      "name": "Starter",
+      "price": "29",
+      "period": "month",
+      "description": "Perfect for small teams getting started",
+      "featured": false,
+      "features": [
+        "Up to 5 team members",
+        "1,000 automations/month",
+        "50+ integrations",
+        "Email support",
+        "Basic analytics"
+      ]
+    },
+    {
+      "name": "Professional",
+      "price": "99",
+      "period": "month",
+      "description": "For growing teams with advanced needs",
+      "featured": true,
+      "features": [
+        "Up to 25 team members",
+        "Unlimited automations",
+        "All 500+ integrations",
+        "Priority support",
+        "Advanced analytics",
+        "Custom workflows"
+      ]
+    },
+    {
+      "name": "Enterprise",
+      "price": "299",
+      "period": "month",
+      "description": "For large organizations requiring scale",
+      "featured": false,
+      "features": [
+        "Unlimited team members",
+        "Unlimited everything",
+        "Custom integrations",
+        "Dedicated support",
+        "SLA guarantee",
+        "On-premise option"
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "CloudFlow transformed how our team works. We've cut our project delivery time in half and our team actually enjoys using it.",
+      "name": "Sarah Chen",
+      "role": "VP of Operations",
+      "company": "TechStart Inc.",
+      "color": "#6366f1"
+    },
+    {
+      "quote": "The AI suggestions alone saved us 20 hours per week. It's like having an extra team member who never sleeps.",
+      "name": "Marcus Johnson",
+      "role": "CTO",
+      "company": "DataFlow Systems",
+      "color": "#06b6d4"
+    },
+    {
+      "quote": "We evaluated 12 different platforms. CloudFlow was the only one that met our security requirements while still being easy to use.",
+      "name": "Emily Rodriguez",
+      "role": "CISO",
+      "company": "SecureBank",
+      "color": "#10b981"
+    },
+    {
+      "quote": "From onboarding to full deployment took us just 2 weeks. The templates and support team made it incredibly smooth.",
+      "name": "David Park",
+      "role": "Director of IT",
+      "company": "GlobalRetail Co.",
+      "color": "#f59e0b"
+    }
+  ],
+  "tech_specs": [
+    {
+      "category": "Platform",
+      "specs": [
+        {"name": "Deployment", "value": "Cloud, Hybrid, On-premise"},
+        {"name": "Availability", "value": "99.99% SLA"},
+        {"name": "Data Centers", "value": "US, EU, APAC"},
+        {"name": "Backup", "value": "Real-time + Daily snapshots"}
+      ]
+    },
+    {
+      "category": "Security",
+      "specs": [
+        {"name": "Encryption", "value": "AES-256 at rest, TLS 1.3 in transit"},
+        {"name": "Compliance", "value": "SOC 2, GDPR, HIPAA"},
+        {"name": "Authentication", "value": "SSO, MFA, SAML 2.0"},
+        {"name": "Audit", "value": "Full activity logging"}
+      ]
+    },
+    {
+      "category": "Performance",
+      "specs": [
+        {"name": "API Response", "value": "< 100ms average"},
+        {"name": "Throughput", "value": "10,000 req/sec"},
+        {"name": "Concurrent Users", "value": "Unlimited"},
+        {"name": "Data Processing", "value": "1M+ records/hour"}
+      ]
+    },
+    {
+      "category": "Support",
+      "specs": [
+        {"name": "Documentation", "value": "Comprehensive + API refs"},
+        {"name": "Community", "value": "Active forum + Slack"},
+        {"name": "Training", "value": "Video courses + Webinars"},
+        {"name": "Response Time", "value": "< 4 hours (Pro+)"}
+      ]
+    }
+  ],
+  "feature_data": {
+    "metrics": ["Speed", "Reliability", "Security", "Usability", "Support"],
+    "scores": [95, 99, 98, 92, 96]
+  },
+  "comparison_data": {
+    "categories": ["Automation", "Integrations", "Security", "Analytics", "Support"],
+    "cloudflow": [95, 92, 98, 90, 94],
+    "competitor_a": [78, 85, 88, 75, 70],
+    "competitor_b": [82, 70, 82, 80, 75]
+  }
+}

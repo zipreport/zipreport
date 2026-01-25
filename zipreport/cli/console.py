@@ -44,7 +44,7 @@ def main(args=None):
         exit(0)
 
     # not list, lookup commands
-    if command in available_commands.keys():
+    if command in available_commands:
         handler = available_commands[command](writer=writer)
 
         if not handler.skipargs:  # skipargs controls usage of argparser

@@ -1,6 +1,7 @@
 # ZipReport Filter Example
 #
 import io
+import os
 import sys
 from pathlib import Path
 
@@ -9,6 +10,9 @@ from PIL import Image
 
 from zipreport import ZipReport
 from zipreport.report import ReportFileBuilder, ReportFileLoader
+
+ZIPREPORT_URL = os.getenv("ZIPREPORT_URL", "https://127.0.0.1:6543")
+ZIPREPORT_KEY = os.getenv("ZIPREPORT_KEY", "somePassword")
 
 
 def render_image(color="red", format="PNG"):
@@ -82,12 +86,12 @@ if __name__ == "__main__":
         "svg_graphic_data": "yellow",
     }
 
-    # render using zipreport processor
-    result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(
+    # render using zipreport-server processor
+    result = ZipReport(ZIPREPORT_URL, ZIPREPORT_KEY).render_defaults(
         report, report_data
     )
     if not result.success:
-        print("An error occured while generating the pdf:", result.error)
+        print("An error occurred while generating the pdf:", result.error)
         exit(1)
 
     # save io.BytesIO buffer to file

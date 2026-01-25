@@ -1,5 +1,6 @@
 # ZipReport PagedJS Example
 import io
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -14,6 +15,9 @@ from zipreport.report import ReportFileBuilder, ReportFileLoader, ReportJob, Rep
 
 # required to support 3d plotting
 from mpl_toolkits.mplot3d import Axes3D
+
+ZIPREPORT_URL = os.getenv("ZIPREPORT_URL", "https://127.0.0.1:6543")
+ZIPREPORT_KEY = os.getenv("ZIPREPORT_KEY", "somePassword")
 
 
 class PagedJSReport:
@@ -47,7 +51,7 @@ class PagedJSReport:
         job.use_jsevent(True)
 
         # generate PDF
-        result = ZipReport("https://127.0.0.1:6543", "somePassword").render(job, data)
+        result = ZipReport(ZIPREPORT_URL, ZIPREPORT_KEY).render(job, data)
 
         # save and return
         if result.success:
@@ -157,7 +161,7 @@ if __name__ == "__main__":
     #
     # report = ReportFileLoader.load(zpt_file_path)
     #
-    report_path = Path("../../pagedjs/example_report").absolute()
+    report_path = Path(__file__).parent.parent.parent / "reports" / "pagedjs" / "example_report"
     status, zfs = ReportFileBuilder.build_zipfs(report_path)
     if not status.success():
         print("Error loading the report")

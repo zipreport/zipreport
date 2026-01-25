@@ -1,9 +1,6 @@
 import io
-from io import StringIO
-from pathlib import Path
 
 from zipreport.fileutils import ZipFs
-from zipreport.report.builder import ReportFileBuilder
 
 
 class ReportFileError(Exception):
@@ -26,7 +23,7 @@ class ReportFile:
         :param default: default value if parameter doesn't exist
         :return: parameter value
         """
-        if name in self._manifest.keys():
+        if name in self._manifest:
             return self._manifest[name]
         return default
 
@@ -53,14 +50,15 @@ class ReportFile:
         """
         return self._fs.get(name)
 
-    def add(self, name: str, content):
+    def add(self, name: str, content, overwrite: bool = False):
         """
         Add a file to the report
         :param name: file path
         :param content: contents of file
+        :param overwrite: if True, allow overwriting existing files
         :return:
         """
-        return self._fs.add(name, content)
+        return self._fs.add(name, content, overwrite=overwrite)
 
     def save(self) -> io.BytesIO:
         """

@@ -1,0 +1,653 @@
+/* Product Brochure Stylesheet - Modern Marketing Design */
+/* Optimized for PagedJS and zipreport-server */
+
+/* ============================================
+   CSS Variables - Vibrant Color Palette
+   ============================================ */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary: #06b6d4;
+    --accent: #f43f5e;
+    --accent-light: #fb7185;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --dark: #0f172a;
+    --dark-light: #1e293b;
+    --text: #334155;
+    --text-light: #64748b;
+    --text-muted: #94a3b8;
+    --white: #ffffff;
+    --bg-light: #f8fafc;
+    --bg-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+    --card-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+}
+
+/* ============================================
+   Page Setup
+   ============================================ */
+@page {
+    size: A4 portrait;
+    margin: 15mm;
+}
+
+@page cover {
+    margin: 0;
+}
+
+@page:left {
+    margin-left: 18mm;
+    margin-right: 12mm;
+}
+
+@page:right {
+    margin-left: 12mm;
+    margin-right: 18mm;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+body {
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================
+   Cover Page
+   ============================================ */
+#cover {
+    page: cover;
+    break-after: page;
+    height: 297mm;
+    width: 210mm;
+    position: relative;
+    background: var(--dark);
+    color: var(--white);
+    overflow: hidden;
+}
+
+.cover-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient);
+    opacity: 0.9;
+}
+
+.cover-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 80%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.cover-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -20%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.cover-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 40mm;
+    text-align: center;
+}
+
+.product-badge {
+    display: inline-block;
+    padding: 2mm 5mm;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    margin-bottom: 8mm;
+    backdrop-filter: blur(10px);
+}
+
+.product-name {
+    font-size: 48pt;
+    font-weight: 800;
+    margin: 0 0 6mm 0;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+
+.tagline {
+    font-size: 16pt;
+    font-weight: 400;
+    opacity: 0.9;
+    margin: 0 0 15mm 0;
+    max-width: 130mm;
+}
+
+.cover-cta {
+    display: inline-block;
+    padding: 4mm 10mm;
+    background: var(--white);
+    color: var(--primary-dark);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 11pt;
+}
+
+.cover-footer {
+    position: absolute;
+    bottom: 15mm;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20mm;
+    font-size: 9pt;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+/* ============================================
+   Page Layout
+   ============================================ */
+.page {
+    break-before: page;
+    min-height: 100%;
+}
+
+.section-header {
+    margin-bottom: 8mm;
+}
+
+.section-label {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 2mm;
+}
+
+.section-title {
+    font-size: 24pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.section-intro {
+    font-size: 11pt;
+    color: var(--text-light);
+    margin-bottom: 8mm;
+    max-width: 150mm;
+}
+
+/* ============================================
+   Introduction Page
+   ============================================ */
+.intro-content .lead {
+    font-size: 12pt;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 10mm;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5mm;
+}
+
+.benefit-card {
+    padding: 6mm;
+    background: var(--bg-light);
+    border-radius: 3mm;
+    border-left: 3px solid var(--primary);
+}
+
+.benefit-icon {
+    width: 10mm;
+    height: 10mm;
+    border-radius: 2mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+    color: white;
+    margin-bottom: 3mm;
+}
+
+.benefit-title {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0 0 2mm 0;
+}
+
+.benefit-desc {
+    font-size: 9pt;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   Features Page
+   ============================================ */
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6mm;
+}
+
+.feature-item {
+    display: flex;
+    gap: 5mm;
+    padding: 5mm;
+    background: var(--white);
+    border-radius: 3mm;
+    box-shadow: var(--card-shadow);
+}
+
+.feature-number {
+    font-size: 20pt;
+    font-weight: 800;
+    color: var(--primary-light);
+    opacity: 0.5;
+    min-width: 12mm;
+}
+
+.feature-content {
+    flex: 1;
+}
+
+.feature-title {
+    font-size: 13pt;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0 0 2mm 0;
+}
+
+.feature-desc {
+    font-size: 9.5pt;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.feature-highlights {
+    margin: 3mm 0 0 0;
+    padding-left: 5mm;
+    font-size: 9pt;
+    color: var(--text);
+}
+
+.feature-highlights li {
+    margin-bottom: 1mm;
+}
+
+.feature-highlights li::marker {
+    color: var(--success);
+}
+
+/* ============================================
+   Chart Pages
+   ============================================ */
+.chart-container {
+    margin: 8mm 0;
+    padding: 5mm;
+    background: var(--bg-light);
+    border-radius: 3mm;
+    text-align: center;
+}
+
+.chart-container.small {
+    margin-top: 6mm;
+}
+
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.chart-container figcaption {
+    font-size: 9pt;
+    color: var(--text-muted);
+    margin-top: 3mm;
+    font-style: italic;
+}
+
+/* ============================================
+   Pricing Page
+   ============================================ */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4mm;
+    margin-top: 6mm;
+}
+
+.pricing-card {
+    padding: 6mm;
+    background: var(--white);
+    border-radius: 3mm;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    position: relative;
+}
+
+.pricing-card.featured {
+    border: 2px solid var(--primary);
+    box-shadow: var(--card-shadow);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -3mm;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1mm 4mm;
+    background: var(--primary);
+    color: white;
+    font-size: 7pt;
+    font-weight: 600;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tier-name {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 3mm 0;
+}
+
+.tier-price {
+    margin: 4mm 0;
+}
+
+.tier-price .currency {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--text-light);
+    vertical-align: top;
+}
+
+.tier-price .amount {
+    font-size: 28pt;
+    font-weight: 800;
+    color: var(--dark);
+}
+
+.tier-price .period {
+    font-size: 10pt;
+    color: var(--text-muted);
+}
+
+.tier-desc {
+    font-size: 9pt;
+    color: var(--text-light);
+    margin: 0 0 4mm 0;
+}
+
+.tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 9pt;
+}
+
+.tier-features li {
+    padding: 2mm 0;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text);
+}
+
+.tier-features li:last-child {
+    border-bottom: none;
+}
+
+.tier-features li::before {
+    content: '✓';
+    color: var(--success);
+    font-weight: bold;
+    margin-right: 2mm;
+}
+
+/* ============================================
+   Testimonials Page
+   ============================================ */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5mm;
+}
+
+.testimonial-card {
+    padding: 6mm;
+    background: var(--bg-light);
+    border-radius: 3mm;
+    position: relative;
+}
+
+.quote-mark {
+    position: absolute;
+    top: 2mm;
+    left: 4mm;
+    font-size: 36pt;
+    font-family: Georgia, serif;
+    color: var(--primary-light);
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.testimonial-text {
+    font-size: 10pt;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0 0 4mm 0;
+    padding-top: 6mm;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+}
+
+.author-avatar {
+    width: 10mm;
+    height: 10mm;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 10pt;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.author-role {
+    font-size: 8pt;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   Technical Specs Page
+   ============================================ */
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5mm;
+    margin-bottom: 6mm;
+}
+
+.specs-category {
+    padding: 5mm;
+    background: var(--bg-light);
+    border-radius: 3mm;
+}
+
+.specs-category-title {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0 0 3mm 0;
+    padding-bottom: 2mm;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.specs-table {
+    width: 100%;
+    font-size: 9pt;
+}
+
+.specs-table tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.specs-table tr:last-child {
+    border-bottom: none;
+}
+
+.specs-table td {
+    padding: 2mm 0;
+}
+
+.spec-name {
+    color: var(--text-light);
+    width: 45%;
+}
+
+.spec-value {
+    color: var(--dark);
+    font-weight: 500;
+}
+
+/* ============================================
+   Back Cover
+   ============================================ */
+.back-cover {
+    background: var(--dark);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 267mm;
+}
+
+.back-cover-content {
+    text-align: center;
+    padding: 20mm;
+}
+
+.back-title {
+    font-size: 28pt;
+    font-weight: 700;
+    margin: 0 0 5mm 0;
+}
+
+.back-subtitle {
+    font-size: 12pt;
+    opacity: 0.8;
+    margin: 0 0 15mm 0;
+    max-width: 130mm;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 15mm;
+    margin-bottom: 20mm;
+}
+
+.contact-item {
+    text-align: center;
+}
+
+.contact-label {
+    display: block;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-bottom: 2mm;
+}
+
+.contact-value {
+    font-size: 12pt;
+    font-weight: 500;
+}
+
+.back-footer {
+    padding-top: 10mm;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.company-logo {
+    font-size: 18pt;
+    font-weight: 800;
+    background: var(--bg-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 3mm;
+}
+
+.copyright {
+    font-size: 8pt;
+    opacity: 0.5;
+    margin: 0;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-center { text-align: center; }
+.text-primary { color: var(--primary); }
+.text-muted { color: var(--text-muted); }
+.mt-4 { margin-top: 4mm; }
+.mb-4 { margin-bottom: 4mm; }

@@ -779,8 +779,8 @@ have these resources referenced locally, as much as possible.</p>
 your report folder path (including subfolders). Adding extensions to Jinja is also supported, when using the JinjaRender
 class directly. It works by instantiating <em>zipreport.template.JinjaRender</em> with
 the required options:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span>
-<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">JinjaRender</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.template</span><span class="w"> </span><span class="kn">import</span> <span class="n">JinjaRender</span>
 
 <span class="c1"># load report from file</span>
 <span class="n">zpt</span> <span class="o">=</span> <span class="n">ReportFileLoader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;simple.zpt&quot;</span><span class="p">)</span>
@@ -958,11 +958,11 @@ Done!
 <p>Then, we start writing our main.py code. First, we create our image generation function. This function will generate
 a png colored rectangle using PIL, based on the specified color passed as argument (in this case, the value will
 come from the rectangle_color template variable), and returns a <em>io.BytesIO</em> buffer.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
 
 
-<span class="k">def</span> <span class="nf">render_image</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">render_image</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">:</span>
     <span class="c1"># generate a rectangle with the specified color</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
     <span class="c1"># save generated image to a memory buffer</span>
@@ -1033,15 +1033,15 @@ structure):</p>
 </code></pre></div>
 <h2 id="extend-jinja2-by-using-a-custom-environment-wrapper-class">Extend Jinja2 by using a custom Environment wrapper class<a class="headerlink" href="#extend-jinja2-by-using-a-custom-environment-wrapper-class" title="Permanent link">&para;</a></h2>
 <p>Starting with version 2.2.0, zipreport supports programmatic customization of the Environment() used by Jinja2 for
-template rendering, allowing injection or override of custom definitions such as filters, tests, etc. </p>
+template rendering, allowing injection or override of custom definitions such as filters, tests, etc.</p>
 <p>To create a custom Environment() wrapper, create a class inheriting from <strong>zipreport.template.EnvironmentWrapper</strong>,
 and override the method wrap() to provide the required behaviour:
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">markupsafe</span>
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">pass_environment</span>
-<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">EnvironmentWrapper</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">markupsafe</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jinja2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">pass_environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.template</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnvironmentWrapper</span>
 
 <span class="nd">@pass_environment</span>
-<span class="k">def</span> <span class="nf">defoxifier</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">markupsafe</span><span class="o">.</span><span class="n">Markup</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">defoxifier</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">markupsafe</span><span class="o">.</span><span class="n">Markup</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Example filter that replaces &quot;fox&quot; with &quot;racoon&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1053,8 +1053,8 @@ and override the method wrap() to provide the required behaviour:
     <span class="k">return</span> <span class="n">markupsafe</span><span class="o">.</span><span class="n">Markup</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">MyCustomWrapper</span><span class="p">(</span><span class="n">EnvironmentWrapper</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">Environment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Environment</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCustomWrapper</span><span class="p">(</span><span class="n">EnvironmentWrapper</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">Environment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Environment</span><span class="p">:</span>
         <span class="c1"># perform Environment customization here</span>
         <span class="c1"># in this case, register a custom filter</span>
         <span class="n">e</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;defoxifier&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">defoxifier</span>
@@ -1067,11 +1067,11 @@ and override the method wrap() to provide the required behaviour:
 <span class="n">my_wrapper</span> <span class="o">=</span> <span class="n">MyCustomWrapper</span><span class="p">()</span>
 
 <span class="c1"># render using zipreport processor</span>
-<span class="n">processor</span> <span class="o">=</span> <span class="n">ZipReport</span><span class="p">(</span><span class="s2">&quot;https://127.0.0.1:6543&quot;</span><span class="p">,</span> <span class="s2">&quot;somePassword&quot;</span><span class="p">)</span> 
+<span class="n">processor</span> <span class="o">=</span> <span class="n">ZipReport</span><span class="p">(</span><span class="s2">&quot;https://127.0.0.1:6543&quot;</span><span class="p">,</span> <span class="s2">&quot;somePassword&quot;</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">render_defaults</span><span class="p">(</span>
-    <span class="n">report</span><span class="p">,</span> 
-    <span class="n">report_data</span><span class="p">,</span> 
-    <span class="n">wrapper</span><span class="o">=</span><span class="n">my_wrapper</span> <span class="c1"># our custom Environment wrapper </span>
+    <span class="n">report</span><span class="p">,</span>
+    <span class="n">report_data</span><span class="p">,</span>
+    <span class="n">wrapper</span><span class="o">=</span><span class="n">my_wrapper</span> <span class="c1"># our custom Environment wrapper</span>
 <span class="p">)</span>
 </code></pre></div></p>
 <h2 id="page-numbers-headers-and-footers">Page numbers, headers and footers<a class="headerlink" href="#page-numbers-headers-and-footers" title="Permanent link">&para;</a></h2>
@@ -1217,18 +1217,18 @@ chapter name in uppercase, and a fixed footer with a sample text looks like:</p>
 <h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <p>Visit <a href="https://www.pagedjs.org/">paged.js documentation</a> for more details on available features.
 An advanced example, with a cover page, sections and a table of contents can be found in the
-available <a href="https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/example_report/">examples</a>.</p>
+available <a href="https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/example_report/">examples</a>.</p>
 <h2 id="generating-table-of-contents-toc">Generating table of contents (ToC)<a class="headerlink" href="#generating-table-of-contents-toc" title="Permanent link">&para;</a></h2>
 <p>ZipReport provides a simple example of automatic table of content generation with JavaScript and CSS in
-the <a href="https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/">examples section</a>. It
+the <a href="https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/">examples section</a>. It
 works
 by populating a div element with the desired index entries, and then use the CSS target-counter property to
 generate the page numbers.</p>
 <p>Lets build an example reusing both the js and css example files (originally they were provided by paged.js, but are no
 longer available).
 Copy both files to your report folder, and rename them to toc.js and toc.css respectively:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/js/toc.js<span class="w"> </span>-O<span class="w"> </span>toc.js
-$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/pagedjs/toc_example_report/css/toc.css<span class="w"> </span>-O<span class="w"> </span>toc.css
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/js/toc.js<span class="w"> </span>-O<span class="w"> </span>toc.js
+$<span class="w"> </span>wget<span class="w"> </span>https://github.com/zipreport/zipreport/tree/master/examples/reports/pagedjs/toc_example_report/css/toc.css<span class="w"> </span>-O<span class="w"> </span>toc.css
 </code></pre></div>
 <p>We can then revisit and extend our previous example from <a href="#adding-page-numbers">page numbers</a>:</p>
 <div class="highlight"><pre><span></span><code>(...)

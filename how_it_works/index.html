@@ -733,8 +733,7 @@ the result of rendering the Jinja template is generated and stored within the me
 with the name <em>report.html</em>. Then, the in-memory report file is passed to a Processor, to be rendered onto its final
 form - either PDF or MIME message.
 Content, such as dynamically generated images is also embedded on the in-memory report file. It is also possible to add
-extra files at runtime, before passing it to the desired processor. However, replacement of existing files is not
-allowed.</p>
+or replace files at runtime, before passing it to the desired processor.</p>
 <h2 id="report-files">Report Files<a class="headerlink" href="#report-files" title="Permanent link">&para;</a></h2>
 <p>A report file is a Jinja template, a manifest file and an optional data file packed into a zip file, usually with .zpt
 extension. These files can be easily generated with the zipreport cli tool. For more information on the cli tool, check
@@ -831,8 +830,8 @@ will follow and process any related symlinks, as long as they are linked within 
 </tr>
 <tr>
 <td>useJSEvent</td>
-<td>string</td>
-<td>If "true", will automatically use jsEvent with ZipReport =cli/server</td>
+<td>bool</td>
+<td>If true, will automatically use jsEvent with zipreport-server</td>
 </tr>
 <tr>
 <td>params</td>
@@ -977,9 +976,9 @@ operations are done in-memory and no local storage is needed.</p>
 <p><em>client</em> is an instance of <em>zipreport.processors.ZipReportClient</em>, whose function is to encapsulate API communication
 logic.</p>
 <p>ZipReportProcessor example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors</span> <span class="kn">import</span> <span class="n">ZipReportProcessor</span><span class="p">,</span> <span class="n">ZipReportClient</span>
-<span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
-<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">JinjaRender</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.processors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZipReportProcessor</span><span class="p">,</span> <span class="n">ZipReportClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.template</span><span class="w"> </span><span class="kn">import</span> <span class="n">JinjaRender</span>
 
 <span class="c1"># output file</span>
 <span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;result.pdf&quot;</span>
@@ -1028,8 +1027,8 @@ chain verification on SSL certificates for HTTPS endpoints. <em>api_version</em>
 currently,
 only v2 is implemented.</p>
 <p>Code example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport</span> <span class="kn">import</span> <span class="n">ZipReport</span>
-<span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZipReport</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span>
 
 <span class="c1"># output file</span>
 <span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;result.pdf&quot;</span>
@@ -1059,9 +1058,9 @@ storage.</p>
 <div class="highlight"><pre><span></span><code><span class="n">MIMEProcessor</span><span class="p">()</span>
 </code></pre></div>
 <p>MIMEProcessor example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors</span> <span class="kn">import</span> <span class="n">MIMEProcessor</span>
-<span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
-<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">JinjaRender</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.processors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MIMEProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.template</span><span class="w"> </span><span class="kn">import</span> <span class="n">JinjaRender</span>
 
 <span class="c1"># output file</span>
 <span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;result.eml&quot;</span>
@@ -1103,8 +1102,8 @@ This class will create a default <em>ReportJob&lt;zipreport.reports.job.ReportJo
 <div class="highlight"><pre><span></span><code><span class="n">MIMEReport</span><span class="p">()</span>
 </code></pre></div>
 <p>Code example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport</span> <span class="kn">import</span> <span class="n">MIMEReport</span>
-<span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport</span><span class="w"> </span><span class="kn">import</span> <span class="n">MIMEReport</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span>
 
 <span class="c1"># output file</span>
 <span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;result.eml&quot;</span>
@@ -1142,8 +1141,8 @@ logic:</p>
 </code></pre></div>
 <p>where <em>css</em> is a WeasyPrint CSS object; see example below</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors.weasyprint</span> <span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
-<span class="kn">from</span> <span class="nn">weasyprint</span> <span class="kn">import</span> <span class="n">CSS</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.processors.weasyprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">weasyprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSS</span>
 
 <span class="n">processor</span> <span class="o">=</span> <span class="n">WeasyPrintProcessor</span><span class="p">()</span>
 <span class="n">processor</span><span class="o">.</span><span class="n">add_css</span><span class="p">(</span><span class="n">CSS</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s1">&#39;body { font-family: serif !important }&#39;</span><span class="p">))</span>
@@ -1152,9 +1151,9 @@ logic:</p>
 </code></pre></div>
 <p><em>font_config</em> is a FontConfiguration() object. See WeasyPrint documentation for more details</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors.weasyprint</span> <span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
-<span class="kn">from</span> <span class="nn">weasyprint</span> <span class="kn">import</span> <span class="n">CSS</span>
-<span class="kn">from</span> <span class="nn">weasyprint.fonts</span> <span class="kn">import</span> <span class="n">FontConfiguration</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.processors.weasyprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">weasyprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">weasyprint.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontConfiguration</span>
 
 <span class="n">processor</span> <span class="o">=</span> <span class="n">WeasyPrintProcessor</span><span class="p">()</span>
 <span class="n">font_config</span> <span class="o">=</span> <span class="n">FontConfiguration</span><span class="p">()</span>
@@ -1169,9 +1168,9 @@ logic:</p>
 <span class="n">processor</span><span class="o">.</span><span class="n">set_font_config</span><span class="p">(</span><span class="n">font_config</span><span class="p">)</span>
 </code></pre></div>
 <p>WeasyPrintProcessor example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipreport.processors.weasyprint</span> <span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
-<span class="kn">from</span> <span class="nn">zipreport.report</span> <span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
-<span class="kn">from</span> <span class="nn">zipreport.template</span> <span class="kn">import</span> <span class="n">JinjaRender</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.processors.weasyprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeasyPrintProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportFileLoader</span><span class="p">,</span> <span class="n">ReportJob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zipreport.template</span><span class="w"> </span><span class="kn">import</span> <span class="n">JinjaRender</span>
 
 <span class="c1"># output file</span>
 <span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;result.pdf&quot;</span>

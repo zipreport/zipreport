@@ -580,9 +580,10 @@
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
 <h2 id="required-dependencies">Required dependencies<a class="headerlink" href="#required-dependencies" title="Permanent link">&para;</a></h2>
 <ul>
-<li>jinja2_ &gt;= 3.1</li>
-<li>requests_ &gt;= 2.22.0</li>
-<li>WeasyPrint_ &gt;= 58.0 (optional, see below)</li>
+<li>jinja2 &gt;= 3.1</li>
+<li>requests &gt;= 2.22.0</li>
+<li>markupsafe &gt;= 2.0</li>
+<li>WeasyPrint &gt;= 68.0 (optional, see below)</li>
 </ul>
 <h2 id="step-1-install-zipreport-library"><strong>Step 1:</strong> install ZipReport library<a class="headerlink" href="#step-1-install-zipreport-library" title="Permanent link">&para;</a></h2>
 <p>To install ZipReport library, use pip:</p>
@@ -599,19 +600,19 @@
 <li>MIME, an internal MIME Processor that has no external dependencies</li>
 </ul>
 <h3 id="using-zipreport-server">Using zipreport-server<a class="headerlink" href="#using-zipreport-server" title="Permanent link">&para;</a></h3>
-<p>ZipReport communicates with zipreport-server via REST API, using multipart/form-data format. Check the 
+<p>ZipReport communicates with zipreport-server via REST API, using multipart/form-data format. Check the
 <a href="https://github.com/zipreport/zipreport-server">zipreport-server repository</a> for additional details and setup configuration.</p>
-<p>On AMD64 systems, an existing prebuilt Docker image can be used. Don't forget to change your API key, used for 
-autentication.</p>
-<div class="highlight"><pre><span></span><code><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6543</span>:6543<span class="w"> </span>ghcr.io/zipreport/zipreport-server:latest<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-e<span class="w"> </span><span class="nv">ZIPREPORT_API_KEY</span><span class="o">=</span><span class="s2">&quot;my-api-mey&quot;</span><span class="w"> </span>
+<p>On AMD64 systems, an existing prebuilt Docker image can be used. Don't forget to change your API key, used for
+authentication.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6543</span>:6543<span class="w"> </span>-e<span class="w"> </span><span class="nv">ZIPREPORT_API_KEY</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ghcr.io/zipreport/zipreport-server:2.3.1
 </code></pre></div>
 <h2 id="installing-from-source">Installing from source<a class="headerlink" href="#installing-from-source" title="Permanent link">&para;</a></h2>
 <p>Clone the ZipReport repository:
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/zipreport/zipreport.git
 </code></pre></div></p>
 <p>Install the package:
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python3<span class="w"> </span>setup.py<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </code></pre></div></p>
 
 

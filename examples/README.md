@@ -24,6 +24,8 @@ Python scripts demonstrating how to use the ZipReport library. Most examples req
 | `custom_filter_example/` | Custom Jinja filter registration                      | zipreport-server |
 | `pagedjs/`            | PagedJS client-side pagination with matplotlib graphics  | zipreport-server |
 | `executive_report/`   | Modern executive report with KPIs, charts, and TOC       | zipreport-server |
+| `product_brochure/`   | Software product brochure with pricing and testimonials  | zipreport-server |
+| `analytics_dashboard/`| Single-page site analytics dashboard with charts         | zipreport-server |
 | `print_css_chrome/`   | CSS Paged Media features (Chrome-compatible)             | zipreport-server |
 | `print_css/`          | Full CSS Paged Media with margin boxes                   | WeasyPrint       |
 | `weasyprint/`         | WeasyPrint processor with running headers/footers        | WeasyPrint       |
@@ -43,6 +45,8 @@ Report template source directories. Each directory can be used directly or packa
 | `newsletter/`         | HTML email template                                      |
 | `pagedjs/`            | PagedJS templates with TOC and radar charts              |
 | `executive_report/`   | Modern executive report template with PagedJS            |
+| `product_brochure/`   | Software product brochure template with PagedJS          |
+| `analytics_dashboard/`| Single-page analytics dashboard template                  |
 | `print_css/`          | CSS Paged Media template for WeasyPrint                  |
 | `print_css_chrome/`   | CSS Paged Media template for Chrome/Chromium             |
 

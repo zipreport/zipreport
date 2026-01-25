@@ -1,0 +1,192 @@
+{
+  "site_name": "acme-store.com",
+  "report_period": "Jan 1 - Jan 31, 2025",
+  "generated_date": "Feb 1, 2025",
+  "metrics": [
+    {
+      "icon": "👁",
+      "label": "Pageviews",
+      "value": "248.5K",
+      "trend": 12.4,
+      "color": "#3b82f6"
+    },
+    {
+      "icon": "👤",
+      "label": "Unique Visitors",
+      "value": "84.2K",
+      "trend": 8.7,
+      "color": "#8b5cf6"
+    },
+    {
+      "icon": "📊",
+      "label": "Sessions",
+      "value": "112.8K",
+      "trend": 15.2,
+      "color": "#10b981"
+    },
+    {
+      "icon": "⏱",
+      "label": "Avg. Duration",
+      "value": "3:42",
+      "trend": -2.1,
+      "color": "#06b6d4"
+    },
+    {
+      "icon": "↩",
+      "label": "Bounce Rate",
+      "value": "42.3%",
+      "trend": -5.8,
+      "color": "#f59e0b"
+    },
+    {
+      "icon": "🎯",
+      "label": "Conversion",
+      "value": "3.8%",
+      "trend": 18.5,
+      "color": "#ef4444"
+    }
+  ],
+  "traffic_sources": [
+    {
+      "name": "Organic Search",
+      "sessions": "45,230",
+      "users": "38,450",
+      "conversion": "4.2",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Direct",
+      "sessions": "28,150",
+      "users": "22,340",
+      "conversion": "5.1",
+      "color": "#10b981"
+    },
+    {
+      "name": "Social Media",
+      "sessions": "18,720",
+      "users": "15,890",
+      "conversion": "2.8",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Referral",
+      "sessions": "12,450",
+      "users": "10,230",
+      "conversion": "3.5",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Email",
+      "sessions": "8,250",
+      "users": "6,890",
+      "conversion": "6.2",
+      "color": "#ef4444"
+    }
+  ],
+  "top_pages": [
+    {
+      "url": "/products/summer-collection",
+      "views": "32,450",
+      "avg_time": "4:12",
+      "bounce_rate": "28"
+    },
+    {
+      "url": "/",
+      "views": "28,920",
+      "avg_time": "2:45",
+      "bounce_rate": "45"
+    },
+    {
+      "url": "/products/new-arrivals",
+      "views": "24,180",
+      "avg_time": "3:58",
+      "bounce_rate": "32"
+    },
+    {
+      "url": "/sale",
+      "views": "19,650",
+      "avg_time": "5:22",
+      "bounce_rate": "22"
+    },
+    {
+      "url": "/checkout",
+      "views": "15,420",
+      "avg_time": "6:15",
+      "bounce_rate": "18"
+    }
+  ],
+  "device_breakdown": [
+    {
+      "name": "Mobile",
+      "percentage": 58,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Desktop",
+      "percentage": 34,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Tablet",
+      "percentage": 8,
+      "color": "#10b981"
+    }
+  ],
+  "geo_data": [
+    {
+      "name": "United States",
+      "flag": "🇺🇸",
+      "percentage": 42,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "percentage": 18,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Germany",
+      "flag": "🇩🇪",
+      "percentage": 12,
+      "color": "#10b981"
+    },
+    {
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "percentage": 9,
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "percentage": 7,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Others",
+      "flag": "🌍",
+      "percentage": 12,
+      "color": "#9ca3af"
+    }
+  ],
+  "traffic_chart_data": {
+    "days": ["Jan 1", "Jan 5", "Jan 10", "Jan 15", "Jan 20", "Jan 25", "Jan 31"],
+    "sessions": [3200, 4100, 3800, 5200, 4800, 6100, 5500],
+    "pageviews": [8500, 10200, 9800, 13500, 12400, 15800, 14200]
+  },
+  "device_chart_data": {
+    "labels": ["Mobile", "Desktop", "Tablet"],
+    "values": [58, 34, 8],
+    "colors": ["#3b82f6", "#8b5cf6", "#10b981"]
+  },
+  "hourly_chart_data": {
+    "hours": ["00", "03", "06", "09", "12", "15", "18", "21"],
+    "traffic": [450, 180, 320, 1200, 1850, 2100, 1950, 1100]
+  },
+  "sources_chart_data": {
+    "sources": ["Organic", "Direct", "Social", "Referral", "Email"],
+    "values": [40, 25, 17, 11, 7],
+    "colors": ["#3b82f6", "#10b981", "#8b5cf6", "#f59e0b", "#ef4444"]
+  }
+}

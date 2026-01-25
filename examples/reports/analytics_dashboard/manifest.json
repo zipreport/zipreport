@@ -1,0 +1,25 @@
+{
+  "author": "ZipReport",
+  "title": "Analytics Dashboard",
+  "description": "Single-page site analytics dashboard with metrics and charts",
+  "version": "1.0.0",
+  "useJSEvent": true,
+  "params": [
+    "site_name",
+    "report_period",
+    "generated_date",
+    "metrics",
+    "traffic_sources",
+    "top_pages",
+    "device_breakdown",
+    "geo_data",
+    "gen_traffic_chart",
+    "traffic_chart_data",
+    "gen_device_chart",
+    "device_chart_data",
+    "gen_hourly_chart",
+    "hourly_chart_data",
+    "gen_sources_chart",
+    "sources_chart_data"
+  ]
+}

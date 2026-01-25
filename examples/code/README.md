@@ -43,6 +43,31 @@ Modern executive report template with PagedJS featuring:
 
 Requires `numpy` and `matplotlib`.
 
+### product_brochure
+
+Software product brochure template with PagedJS featuring:
+- Vibrant cover page with gradient effects
+- Feature highlights with numbered sections
+- Competitive comparison charts
+- Pricing tier cards with feature lists
+- Customer testimonials
+- Technical specifications
+
+Requires `numpy` and `matplotlib`.
+
+### analytics_dashboard
+
+Single-page site analytics dashboard (A4 landscape) featuring:
+- KPI cards with trend indicators
+- Traffic overview line chart (sessions/pageviews)
+- Device breakdown donut chart
+- Hourly traffic distribution bar chart
+- Traffic sources horizontal bar chart
+- Top pages and source details tables
+- Geographic distribution with progress bars
+
+Requires `numpy` and `matplotlib`.
+
 ### newsletter
 
 Generates a MIME email message using the `MIMEProcessor`. Does not require a server.

@@ -1,0 +1,25 @@
+{
+  "author": "ZipReport",
+  "title": "Software Product Brochure",
+  "description": "Modern product brochure template for software products",
+  "version": "1.0.0",
+  "useJSEvent": true,
+  "params": [
+    "product_name",
+    "tagline",
+    "description",
+    "version",
+    "features",
+    "benefits",
+    "pricing_tiers",
+    "testimonials",
+    "tech_specs",
+    "company_name",
+    "website",
+    "contact_email",
+    "gen_feature_chart",
+    "feature_data",
+    "gen_comparison_chart",
+    "comparison_data"
+  ]
+}

@@ -1,0 +1,403 @@
+/* Analytics Dashboard Stylesheet - Single Page Layout */
+/* Optimized for PagedJS and zipreport-server */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary: #8b5cf6;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #06b6d4;
+    --dark: #111827;
+    --dark-light: #1f2937;
+    --text: #374151;
+    --text-light: #6b7280;
+    --text-muted: #9ca3af;
+    --white: #ffffff;
+    --bg: #f3f4f6;
+    --bg-card: #ffffff;
+    --border: #e5e7eb;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Page Setup - Single Page
+   ============================================ */
+@page {
+    size: A4 landscape;
+    margin: 5mm;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+body {
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+}
+
+/* ============================================
+   Dashboard Container
+   ============================================ */
+.dashboard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+    padding: 1mm;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2mm 3mm;
+    background: var(--dark);
+    border-radius: 1.5mm;
+    color: var(--white);
+}
+
+.header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 4mm;
+}
+
+.dashboard-title {
+    font-size: 12pt;
+    font-weight: 700;
+    margin: 0;
+}
+
+.site-name {
+    font-size: 9pt;
+    opacity: 0.7;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+}
+
+.period-badge {
+    padding: 1.5mm 4mm;
+    background: var(--primary);
+    border-radius: 10px;
+    font-size: 8pt;
+    font-weight: 600;
+}
+
+.generated {
+    font-size: 7pt;
+    opacity: 0.6;
+}
+
+/* ============================================
+   KPI Row
+   ============================================ */
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2mm;
+}
+
+.kpi-card {
+    background: var(--bg-card);
+    border-radius: 1.5mm;
+    padding: 2mm;
+    box-shadow: var(--shadow);
+}
+
+.kpi-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1mm;
+}
+
+.kpi-icon {
+    width: 5mm;
+    height: 5mm;
+    border-radius: 1mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    color: white;
+}
+
+.kpi-trend {
+    font-size: 6pt;
+    font-weight: 600;
+    padding: 0.5mm 1.5mm;
+    border-radius: 6px;
+}
+
+.kpi-trend.up {
+    color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.kpi-trend.down {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.kpi-value {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1.1;
+}
+
+.kpi-label {
+    font-size: 7pt;
+    color: var(--text-light);
+    margin-top: 0.5mm;
+}
+
+.kpi-comparison {
+    font-size: 5pt;
+    color: var(--text-muted);
+    margin-top: 0.5mm;
+}
+
+/* ============================================
+   Charts Row
+   ============================================ */
+.charts-row {
+    display: flex;
+    gap: 2mm;
+}
+
+.chart-card {
+    background: var(--bg-card);
+    border-radius: 1.5mm;
+    padding: 2mm;
+    box-shadow: var(--shadow);
+    flex: 1;
+}
+
+.chart-card.wide {
+    flex: 2;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-header h3 {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: 6pt;
+    color: var(--text-muted);
+}
+
+.chart-content {
+    text-align: center;
+}
+
+.chart-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Device Legend */
+.device-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 1mm;
+    margin-top: 1.5mm;
+    padding-top: 1.5mm;
+    border-top: 1px solid var(--border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 2mm;
+    font-size: 7pt;
+}
+
+.legend-dot {
+    width: 3mm;
+    height: 3mm;
+    border-radius: 50%;
+}
+
+.legend-label {
+    flex: 1;
+    color: var(--text);
+}
+
+.legend-value {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+/* ============================================
+   Tables Row
+   ============================================ */
+.tables-row {
+    display: flex;
+    gap: 2mm;
+    flex: 1;
+}
+
+.table-card {
+    background: var(--bg-card);
+    border-radius: 1.5mm;
+    padding: 2mm;
+    box-shadow: var(--shadow);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-card.narrow {
+    flex: 0.8;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.5pt;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 1mm 1mm;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    font-size: 5pt;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+    padding: 1mm 1mm;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 6pt;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.page-url {
+    max-width: 50mm;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'SF Mono', 'Monaco', monospace;
+    font-size: 6.5pt;
+    color: var(--primary);
+}
+
+.source-dot {
+    display: inline-block;
+    width: 2.5mm;
+    height: 2.5mm;
+    border-radius: 50%;
+    margin-right: 1.5mm;
+}
+
+/* Geographic List */
+.geo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1mm;
+}
+
+.geo-item {
+    display: flex;
+    align-items: center;
+    gap: 1mm;
+    font-size: 6pt;
+}
+
+.geo-flag {
+    font-size: 8pt;
+    width: 4mm;
+    text-align: center;
+}
+
+.geo-name {
+    width: 16mm;
+    color: var(--text);
+}
+
+.geo-bar-container {
+    flex: 1;
+    height: 2mm;
+    background: var(--bg);
+    border-radius: 1mm;
+    overflow: hidden;
+}
+
+.geo-bar {
+    height: 100%;
+    border-radius: 1mm;
+}
+
+.geo-value {
+    width: 7mm;
+    text-align: right;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.dashboard-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2mm;
+    padding: 1mm;
+    font-size: 5pt;
+    color: var(--text-muted);
+}
+
+.footer-divider {
+    opacity: 0.3;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-center { text-align: center; }
+.text-right { text-align: right; }

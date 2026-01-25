@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site_name }} - Analytics Dashboard</title>
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="dashboard-title">Analytics Dashboard</h1>
+                <span class="site-name">{{ site_name }}</span>
+            </div>
+            <div class="header-right">
+                <div class="period-badge">{{ report_period }}</div>
+                <span class="generated">Generated: {{ generated_date }}</span>
+            </div>
+        </header>
+
+        <!-- KPI Row -->
+        <section class="kpi-row">
+            {% for metric in metrics %}
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-icon" style="background: {{ metric.color }};">{{ metric.icon }}</span>
+                    <span class="kpi-trend {% if metric.trend > 0 %}up{% else %}down{% endif %}">
+                        {% if metric.trend > 0 %}↑{% else %}↓{% endif %} {{ metric.trend|abs }}%
+                    </span>
+                </div>
+                <div class="kpi-value">{{ metric.value }}</div>
+                <div class="kpi-label">{{ metric.label }}</div>
+                <div class="kpi-comparison">vs. previous period</div>
+            </div>
+            {% endfor %}
+        </section>
+
+        <!-- Main Charts Row -->
+        <section class="charts-row">
+            <!-- Traffic Over Time -->
+            <div class="chart-card wide">
+                <div class="card-header">
+                    <h3>Traffic Overview</h3>
+                    <span class="card-subtitle">Daily sessions & pageviews</span>
+                </div>
+                <div class="chart-content">
+                    {{ gen_traffic_chart|png(traffic_chart_data, "traffic-chart", "520", "160") }}
+                </div>
+            </div>
+
+            <!-- Device Breakdown -->
+            <div class="chart-card">
+                <div class="card-header">
+                    <h3>Devices</h3>
+                    <span class="card-subtitle">By device type</span>
+                </div>
+                <div class="chart-content">
+                    {{ gen_device_chart|png(device_chart_data, "device-chart", "180", "130") }}
+                </div>
+                <div class="device-legend">
+                    {% for device in device_breakdown %}
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: {{ device.color }};"></span>
+                        <span class="legend-label">{{ device.name }}</span>
+                        <span class="legend-value">{{ device.percentage }}%</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Row -->
+        <section class="charts-row">
+            <!-- Hourly Distribution -->
+            <div class="chart-card">
+                <div class="card-header">
+                    <h3>Hourly Traffic</h3>
+                    <span class="card-subtitle">Peak hours analysis</span>
+                </div>
+                <div class="chart-content">
+                    {{ gen_hourly_chart|png(hourly_chart_data, "hourly-chart", "240", "110") }}
+                </div>
+            </div>
+
+            <!-- Traffic Sources -->
+            <div class="chart-card">
+                <div class="card-header">
+                    <h3>Traffic Sources</h3>
+                    <span class="card-subtitle">Acquisition channels</span>
+                </div>
+                <div class="chart-content">
+                    {{ gen_sources_chart|png(sources_chart_data, "sources-chart", "240", "110") }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Tables Row -->
+        <section class="tables-row">
+            <!-- Top Pages -->
+            <div class="table-card">
+                <div class="card-header">
+                    <h3>Top Pages</h3>
+                    <span class="card-subtitle">Most visited</span>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Views</th>
+                            <th>Avg. Time</th>
+                            <th>Bounce</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for page in top_pages %}
+                        <tr>
+                            <td class="page-url">{{ page.url }}</td>
+                            <td>{{ page.views }}</td>
+                            <td>{{ page.avg_time }}</td>
+                            <td>{{ page.bounce_rate }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Traffic Sources Table -->
+            <div class="table-card">
+                <div class="card-header">
+                    <h3>Source Details</h3>
+                    <span class="card-subtitle">By channel</span>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Sessions</th>
+                            <th>Users</th>
+                            <th>Conv.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for source in traffic_sources %}
+                        <tr>
+                            <td>
+                                <span class="source-dot" style="background: {{ source.color }};"></span>
+                                {{ source.name }}
+                            </td>
+                            <td>{{ source.sessions }}</td>
+                            <td>{{ source.users }}</td>
+                            <td>{{ source.conversion }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Geographic Data -->
+            <div class="table-card narrow">
+                <div class="card-header">
+                    <h3>Top Countries</h3>
+                    <span class="card-subtitle">By traffic</span>
+                </div>
+                <div class="geo-list">
+                    {% for country in geo_data %}
+                    <div class="geo-item">
+                        <span class="geo-flag">{{ country.flag }}</span>
+                        <span class="geo-name">{{ country.name }}</span>
+                        <div class="geo-bar-container">
+                            <div class="geo-bar" style="width: {{ country.percentage }}%; background: {{ country.color }};"></div>
+                        </div>
+                        <span class="geo-value">{{ country.percentage }}%</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <span>Generated with ZipReport</span>
+            <span class="footer-divider">|</span>
+            <span>{{ site_name }}</span>
+            <span class="footer-divider">|</span>
+            <span>{{ generated_date }}</span>
+        </footer>
+    </div>
+
+    <!-- PagedJS Handler -->
+    <script type="text/javascript">
+        class DashboardHandlers extends Paged.Handler {
+            constructor(chunker, polisher, caller) {
+                super(chunker, polisher, caller);
+            }
+
+            afterPreview(pages) {
+                console.log('zpt-view-ready');
+            }
+        }
+        Paged.registerHandlers(DashboardHandlers);
+    </script>
+</body>
+</html>

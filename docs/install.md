@@ -5,7 +5,7 @@
 * jinja2 >= 3.1
 * requests >= 2.22.0
 * markupsafe >= 2.0
-* WeasyPrint >= 63.0 (optional, see below)
+* WeasyPrint >= 68.0 (optional, see below)
 
 ## **Step 1:** install ZipReport library
 

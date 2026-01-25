@@ -2,6 +2,13 @@
 
 ## Latest Changes
 
+## 2.4.0
+
+### Features
+
+* Updated WeasyPrint minimum dependency to >= 68.0;
+* Refactored WeasyPrintProcessor to use new URLFetcher class (replaces deprecated default_url_fetcher);
+
 ## 2.3.1
 
 ### Features

@@ -25,8 +25,19 @@
     <!-- Chapters -->
     {% for chapter in chapters %}
     <section class="chapter" id="chapter-{{ loop.index }}">
-        <h2>{{ loop.index }}. {{ chapter.title }}</h2>
-        <p>{{ chapter.content }}</p>
+        <header class="page-header">
+            <div class="page-header-inner">
+                <span class="header-title">{{ title }}</span>
+                <span class="header-chapter">Chapter {{ loop.index }}</span>
+            </div>
+        </header>
+        <div class="chapter-content">
+            <h2>{{ loop.index }}. {{ chapter.title }}</h2>
+            <p>{{ chapter.content }}</p>
+        </div>
+        <footer class="page-footer">
+            <span class="footer-text">{{ author }} - {{ date }}</span>
+        </footer>
     </section>
     {% endfor %}
 </body>

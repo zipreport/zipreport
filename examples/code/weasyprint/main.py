@@ -32,7 +32,7 @@ if __name__ == "__main__":
     report_data = {
         "title": "CSS Paged Media Report",
         "author": "ZipReport Team",
-        "date": "January 2025",
+        "date": "January 2026",
         "chapters": [
             {
                 "title": "Introduction",

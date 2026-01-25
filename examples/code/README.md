@@ -3,7 +3,7 @@
 Most examples require a zipreport-server instance running locally. A Docker-based instance can be started with:
 
 ```shell
-docker run -d -p 6543:6543 -e ZIPREPORT_API_KEY="somePassword" ghcr.io/zipreport/zipreport-server:latest
+docker run -d -p 6543:6543 -e ZIPREPORT_API_KEY="somePassword" ghcr.io/zipreport/zipreport-server:2.3.1
 ```
 
 ## Configuration

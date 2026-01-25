@@ -161,7 +161,7 @@ if __name__ == "__main__":
     #
     # report = ReportFileLoader.load(zpt_file_path)
     #
-    report_path = Path("../../pagedjs/example_report").absolute()
+    report_path = Path(__file__).parent.parent.parent / "reports" / "pagedjs" / "example_report"
     status, zfs = ReportFileBuilder.build_zipfs(report_path)
     if not status.success():
         print("Error loading the report")

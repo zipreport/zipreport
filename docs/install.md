@@ -39,7 +39,7 @@ authentication.
 
 ```shell
 $ docker run -d -p 6543:6543 -e ZIPREPORT_API_KEY="my-api-key" \
-    ghcr.io/zipreport/zipreport-server:latest
+    ghcr.io/zipreport/zipreport-server:2.3.1
 ```
 
 

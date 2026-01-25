@@ -1,47 +1,38 @@
 /* CSS Paged Media stylesheet for Chromium/zipreport-server */
 /*
- * This template uses only CSS Paged Media features supported by Chrome 131+:
- * - @page rules with margin boxes
- * - Page counters (counter(page), counter(pages))
+ * This template uses CSS Paged Media features supported by Chrome/Chromium:
+ * - @page rules for page size and margins
  * - Page breaks (break-before, break-after, break-inside)
  * - Widows and orphans control
  * - Named pages
+ * - print-color-adjust for backgrounds
  *
- * NOT supported in Chrome (use WeasyPrint instead):
- * - string-set / string() for running headers
- * - target-counter() for TOC page numbers
+ * NOTE: Chrome does NOT support @page margin boxes (@top-center, @bottom-center)
+ * so headers/footers must be implemented as visible HTML elements.
+ * For full CSS Paged Media support, use WeasyPrint instead.
  */
 
 /* Base page setup */
 @page {
     size: A4;
-    margin: 2.5cm 2cm;
-
-    /* Static header text */
-    @top-center {
-        content: "CSS Paged Media Report";
-        font-size: 9pt;
-        color: #666;
-    }
-
-    /* Page numbers centered at bottom */
-    @bottom-center {
-        content: "Page " counter(page) " of " counter(pages);
-        font-size: 9pt;
-        color: #666;
-    }
+    margin: 2cm 2cm 2.5cm 2cm;
 }
 
-/* Cover page - full bleed, no headers/footers */
+/* Cover page - full bleed */
 @page cover {
     margin: 0;
-    @top-center { content: none; }
-    @bottom-center { content: none; }
 }
 
-/* TOC page - no header */
+/* TOC page */
 @page toc {
-    @top-center { content: none; }
+    margin: 2cm;
+}
+
+/* Reset for print */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 /* Body defaults with widow/orphan control */
@@ -52,13 +43,27 @@ body {
     color: #333;
     widows: 3;
     orphans: 3;
+    /* Required for Chrome to print backgrounds */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Ensure all elements can print backgrounds */
+* {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
 /* Cover page */
 .cover {
     page: cover;
     break-after: page;
-    height: 297mm;
+    break-inside: avoid;
+    /* Use exact A4 height minus small buffer to prevent overflow */
+    height: 296mm;
+    max-height: 296mm;
+    width: 210mm;
+    margin: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -68,6 +73,7 @@ body {
     color: white;
     text-align: center;
     padding: 3cm;
+    overflow: hidden;
 }
 
 .cover h1 {
@@ -121,9 +127,59 @@ body {
     text-decoration: underline;
 }
 
-/* Chapter styling */
+/* Page header content styling */
+.page-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5mm;
+    margin-bottom: 8mm;
+    border-bottom: 0.5pt solid #ccc;
+    font-size: 9pt;
+    color: #666;
+}
+
+.header-title {
+    font-style: italic;
+}
+
+.header-chapter {
+    font-weight: 500;
+}
+
+/* Page footer styling */
+/* Note: Chrome does NOT support counter(page) for page numbers */
+.page-footer span {
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+    padding-top: 5mm;
+    border-top: 0.5pt solid #ccc;
+}
+
+/* Chapter styling - table layout for footer positioning */
 .chapter {
     break-before: page;
+    display: table;
+    width: 100%;
+    height: 252mm; /* A4 content area height */
+    table-layout: fixed;
+}
+
+.page-header {
+    display: table-row;
+    height: 1px; /* Minimum height, content will expand */
+}
+
+.chapter-content {
+    display: table-row;
+    height: 100%; /* Fill remaining space */
+}
+
+.page-footer {
+    display: table-row;
+    height: 1px; /* Minimum height, content will expand */
 }
 
 .chapter h2 {

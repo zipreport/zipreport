@@ -143,3 +143,12 @@ This backend is provided for compatibility. For new projects, please use ziprepo
 
 [WeasyPrint](https://weasyprint.org/) is a popular Python library to generate PDFs from HTML. It doesn't support JavaScript,
 and CSS is limited.
+
+
+## Sponsors
+
+The [ZipReport Project](https://github.com/zipreport/) is sponsored exclusively by [BlackShield](https://blackshield.pt) 
+
+## License
+
+MIT License - see LICENSE file for details

@@ -1,0 +1,536 @@
+/* Executive Report Stylesheet - Modern Design */
+/* Optimized for PagedJS and zipreport-server */
+
+/* ============================================
+   CSS Variables - Color Palette
+   ============================================ */
+:root {
+    --primary-color: #1e3a5f;
+    --primary-light: #2d5a8b;
+    --accent-color: #0ea5e9;
+    --accent-light: #38bdf8;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-light: #f8fafc;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+/* ============================================
+   Page Setup - CSS Paged Media
+   ============================================ */
+@page {
+    size: A4 portrait;
+    margin: 20mm 18mm 25mm 18mm;
+
+    @top-left {
+        content: string(company);
+        font-size: 8pt;
+        color: var(--text-muted);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    @top-right {
+        content: string(section-title);
+        font-size: 8pt;
+        color: var(--text-muted);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    @bottom-center {
+        content: counter(page);
+        font-size: 9pt;
+        color: var(--text-secondary);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    @bottom-right {
+        content: "Confidential";
+        font-size: 7pt;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+}
+
+@page toc {
+    @top-right { content: "Contents"; }
+}
+
+@page :blank {
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    widows: 3;
+    orphans: 3;
+}
+
+/* ============================================
+   Cover Page
+   ============================================ */
+#cover {
+    page: cover;
+    break-after: page;
+    height: 297mm;
+    width: 210mm;
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    display: flex;
+    overflow: hidden;
+}
+
+.cover-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50mm 40mm;
+    z-index: 1;
+}
+
+.cover-accent {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80mm;
+    background: linear-gradient(180deg, var(--accent-color) 0%, var(--accent-light) 50%, transparent 100%);
+    opacity: 0.15;
+    transform: skewX(-10deg) translateX(20mm);
+}
+
+.cover-header {
+    margin-bottom: 20mm;
+}
+
+.company-name {
+    font-size: 14pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    string-set: company content();
+}
+
+.cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.report-title {
+    font-size: 36pt;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 8mm 0;
+    letter-spacing: -0.5px;
+}
+
+.report-subtitle {
+    font-size: 16pt;
+    font-weight: 400;
+    opacity: 0.85;
+    margin: 0;
+    max-width: 120mm;
+}
+
+.cover-footer {
+    display: flex;
+    gap: 30mm;
+}
+
+.cover-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2mm;
+}
+
+.meta-label {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.meta-value {
+    font-size: 12pt;
+    font-weight: 500;
+}
+
+/* ============================================
+   Table of Contents
+   ============================================ */
+.toc-section {
+    page: toc;
+}
+
+#toc {
+    margin-top: 10mm;
+}
+
+#list-toc-generated {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#list-toc-generated li {
+    margin: 0;
+    padding: 0;
+}
+
+#list-toc-generated .toc-element {
+    display: flex;
+    align-items: baseline;
+    padding: 2mm 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#list-toc-generated .toc-element a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+}
+
+#list-toc-generated .toc-element a::after {
+    content: target-counter(attr(href), page);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-left: auto;
+    padding-left: 5mm;
+}
+
+#list-toc-generated .toc-element-level-1 a {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+#list-toc-generated .toc-element-level-2 {
+    padding-left: 8mm;
+}
+
+#list-toc-generated .toc-element-level-2 a {
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   Chapter & Section Styles
+   ============================================ */
+.chapter {
+    break-before: page;
+}
+
+.section-title {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 8mm 0;
+    padding-bottom: 4mm;
+    border-bottom: 3px solid var(--accent-color);
+    string-set: section-title content();
+}
+
+.subsection-title {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin: 8mm 0 4mm 0;
+}
+
+.lead-text {
+    font-size: 12pt;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 8mm;
+}
+
+/* ============================================
+   KPI Cards
+   ============================================ */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5mm;
+    margin: 8mm 0;
+}
+
+.kpi-card {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+    padding: 5mm;
+    background: var(--bg-light);
+    border-radius: 2mm;
+    border-left: 3px solid var(--accent-color);
+}
+
+.kpi-icon {
+    width: 12mm;
+    height: 12mm;
+    border-radius: 2mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14pt;
+    color: white;
+    flex-shrink: 0;
+}
+
+.kpi-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.kpi-value {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.kpi-label {
+    font-size: 9pt;
+    color: var(--text-secondary);
+    margin-top: 1mm;
+}
+
+.kpi-change {
+    font-size: 9pt;
+    font-weight: 600;
+    margin-top: 1mm;
+}
+
+.kpi-change.positive {
+    color: var(--success-color);
+}
+
+.kpi-change.negative {
+    color: var(--danger-color);
+}
+
+/* ============================================
+   Charts & Figures
+   ============================================ */
+.chart-figure {
+    margin: 8mm 0;
+    padding: 5mm;
+    background: var(--bg-light);
+    border-radius: 2mm;
+    text-align: center;
+    break-inside: avoid;
+}
+
+.chart-figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+.chart-figure figcaption {
+    font-size: 9pt;
+    color: var(--text-secondary);
+    margin-top: 4mm;
+    font-style: italic;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5mm 0;
+    font-size: 9.5pt;
+    break-inside: avoid;
+}
+
+.data-table th,
+.data-table td {
+    padding: 3mm 4mm;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 8pt;
+    letter-spacing: 0.5px;
+}
+
+.data-table tr:nth-child(even) {
+    background: var(--bg-light);
+}
+
+.data-table tr:hover {
+    background: #e8f4fc;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0;
+}
+
+.info-table td {
+    padding: 2.5mm 4mm;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-table td:first-child {
+    font-weight: 600;
+    color: var(--text-secondary);
+    width: 35%;
+}
+
+/* ============================================
+   Lists
+   ============================================ */
+.highlight-list {
+    margin: 4mm 0;
+    padding-left: 6mm;
+}
+
+.highlight-list li {
+    margin-bottom: 2mm;
+    color: var(--text-secondary);
+}
+
+.highlight-list li::marker {
+    color: var(--accent-color);
+}
+
+.recommendation-list {
+    margin: 4mm 0;
+    padding-left: 6mm;
+}
+
+.recommendation-list li {
+    margin-bottom: 3mm;
+    padding-left: 2mm;
+}
+
+.recommendation-list li::marker {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* ============================================
+   Recommendations Box
+   ============================================ */
+.recommendations {
+    background: linear-gradient(135deg, var(--bg-light) 0%, #e8f4fc 100%);
+    border-left: 4px solid var(--accent-color);
+    padding: 5mm;
+    margin: 5mm 0;
+    border-radius: 0 2mm 2mm 0;
+}
+
+.recommendations h4 {
+    font-size: 11pt;
+    color: var(--primary-color);
+    margin: 0 0 3mm 0;
+}
+
+/* ============================================
+   Appendix
+   ============================================ */
+.appendix {
+    background: var(--bg-light);
+    padding: 8mm;
+    margin-top: 5mm;
+}
+
+.appendix-note {
+    font-size: 9pt;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 5mm;
+}
+
+.document-info {
+    background: white;
+    padding: 5mm;
+    border-radius: 2mm;
+    border: 1px solid var(--border-color);
+}
+
+.document-info h4 {
+    font-size: 10pt;
+    color: var(--primary-color);
+    margin: 0 0 3mm 0;
+    padding-bottom: 2mm;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-4 {
+    margin-top: 4mm;
+}
+
+.mb-4 {
+    margin-bottom: 4mm;
+}
+
+.break-before {
+    break-before: page;
+}
+
+.break-after {
+    break-after: page;
+}
+
+.avoid-break {
+    break-inside: avoid;
+}

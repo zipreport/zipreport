@@ -31,6 +31,18 @@ Shows how to register custom Jinja filters using an `EnvironmentWrapper`.
 
 Uses PagedJS for client-side pagination with matplotlib-generated graphics. Requires `numpy` and `matplotlib`.
 
+### executive_report
+
+Modern executive report template with PagedJS featuring:
+- Professional cover page with gradient styling
+- Automatic table of contents with page numbers
+- KPI cards with change indicators
+- Revenue and performance charts (matplotlib)
+- Data tables with professional styling
+- Running headers and footers
+
+Requires `numpy` and `matplotlib`.
+
 ### newsletter
 
 Generates a MIME email message using the `MIMEProcessor`. Does not require a server.

@@ -64,6 +64,38 @@ class WeasyPrintProcessor(ProcessorInterface):
             return JobResult(None, False, str(e))
         return JobResult(io.BytesIO(rpt), True, "")
 
+    @staticmethod
+    def _make_fetcher_result(path, file_obj):
+        """
+        Create a fetcher result dict with appropriate mime type
+        :param path: file path for mime type detection
+        :param file_obj: file-like object
+        :return: dict for WeasyPrint url_fetcher
+        """
+        result = {"file_obj": file_obj}
+        # Set mime type based on extension
+        if path.endswith(".css"):
+            result["mime_type"] = "text/css"
+        elif path.endswith(".js"):
+            result["mime_type"] = "application/javascript"
+        elif path.endswith(".png"):
+            result["mime_type"] = "image/png"
+        elif path.endswith(".jpg") or path.endswith(".jpeg"):
+            result["mime_type"] = "image/jpeg"
+        elif path.endswith(".gif"):
+            result["mime_type"] = "image/gif"
+        elif path.endswith(".svg"):
+            result["mime_type"] = "image/svg+xml"
+        elif path.endswith(".woff"):
+            result["mime_type"] = "font/woff"
+        elif path.endswith(".woff2"):
+            result["mime_type"] = "font/woff2"
+        elif path.endswith(".ttf"):
+            result["mime_type"] = "font/ttf"
+        elif path.endswith(".otf"):
+            result["mime_type"] = "font/otf"
+        return result
+
     def fetcher(self, zpt, url):
         """
         Internal fetcher for WeasyPrint to access in-report resources such as images, css and js
@@ -79,7 +111,17 @@ class WeasyPrintProcessor(ProcessorInterface):
         if url.startswith("file://"):
             url = url[7:]
 
+        # Try the URL as-is first
         if zpt.exists(url):
-            return {"file_obj": zpt.get(url)}
+            return self._make_fetcher_result(url, zpt.get(url))
+
+        # For absolute paths, try to find a matching relative path in the report
+        # by checking if any suffix of the path exists
+        if url.startswith("/"):
+            parts = url.split("/")
+            for i in range(1, len(parts)):
+                relative_path = "/".join(parts[i:])
+                if zpt.exists(relative_path):
+                    return self._make_fetcher_result(relative_path, zpt.get(relative_path))
 
         return default_url_fetcher(fallback)

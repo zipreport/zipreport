@@ -1,10 +1,19 @@
 # ZipReport PagedJS examples
 
-Miscellaneous report examples featuring [PagedJS](https://pagedjs.org) 
+Report templates featuring [PagedJS](https://pagedjs.org) for client-side pagination, headers, footers, and table of contents generation.
+
+## example_report
+
+PagedJS example with server-generated and JS-generated graphics, automatic index, figure labeling, and page numbers. You can preview it in your browser:
+
+```shell
+zipreport debug example_report
+```
 
 ## toc_example_report
 
-Example report featuring automatic ToC generation. You can test it in your browser by executing the following command:
+Example report featuring automatic table of contents generation with PagedJS. Preview with:
+
 ```shell
-$ zipreport debug toc_example_report
+zipreport debug toc_example_report
 ```

@@ -1,7 +1,12 @@
+import os
 import sys
+from pathlib import Path
 
 from zipreport import ZipReport
-from zipreport.report import ReportFileLoader
+from zipreport.report import ReportFileBuilder, ReportFileLoader
+
+ZIPREPORT_URL = os.getenv("ZIPREPORT_URL", "https://127.0.0.1:6543")
+ZIPREPORT_KEY = os.getenv("ZIPREPORT_KEY", "somePassword")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -18,14 +23,24 @@ if __name__ == "__main__":
         "description": "a long text field with some filler description so the page isn't that empty",
     }
 
-    # load report from file
-    zpt = ReportFileLoader.load("reports/simple.zpt")
+    # load report from directory
+    report_path = Path(__file__).parent / "../reports/simple"
+    status, zfs = ReportFileBuilder.build_zipfs(report_path)
+    if not status.success():
+        print("Error loading the report")
+        exit(1)
+    zpt = ReportFileLoader.load_zipfs(zfs)
 
     # render the report with default job options
-    result = ZipReport("https://127.0.0.1:6543", "somePassword").render_defaults(
+    result = ZipReport(ZIPREPORT_URL, ZIPREPORT_KEY).render_defaults(
         zpt, report_data
     )
 
-    if result.success:
-        with open(output_file, "wb") as rpt:
-            rpt.write(result.report.read())
+    if not result.success:
+        print("An error occurred while generating the report:", result.error)
+        exit(1)
+
+    with open(output_file, "wb") as rpt:
+        rpt.write(result.report.read())
+
+    print("Report generated to {}".format(output_file))

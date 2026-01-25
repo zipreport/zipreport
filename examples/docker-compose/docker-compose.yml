@@ -1,0 +1,18 @@
+services:
+  zipreport-server:
+    image: ghcr.io/zipreport/zipreport-server:2.3.0
+    ports:
+      - "6543:6543"
+    volumes:
+      - ./config/config.json:/app/config/config.json:ro
+
+  app:
+    build: ./app
+    depends_on:
+      - zipreport-server
+    environment:
+      - ZIPREPORT_URL=http://zipreport-server:6543
+      - ZIPREPORT_KEY=somePassword
+    volumes:
+      - ../reports:/reports:ro
+      - ./output:/output
